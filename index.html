@@ -14,9 +14,6 @@
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- html2pdf (將整個 HTML 匯出為 PDF) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-
     <style>
       /* 全域樣式 */
       :root {
@@ -780,6 +777,10 @@
           },
         });
       }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        createCharts();
+      });
     </script>
   </body>
 </html>
