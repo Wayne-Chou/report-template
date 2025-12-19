@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 輔助跌倒風險報告 - 民眾版</title>
+    <style>
+      :root {
+        --brand-primary: #1a73e8;
+        --brand-light: #f0f8ff;
+        --muted: #555;
+        --level-active: #fbbc05;
+        --level-low: #e0e0e0;
+      }
+      html,
+      body {
+        font-family: "Noto Sans TC", system-ui, -apple-system, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial;
+        background: #e9eef2;
+        padding: 20px;
+        color: #222;
+      }
+      .report-container {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        align-items: center;
+      }
+      .report-page {
+        width: 794px;
+        min-height: 1123px;
+        background: #fff;
+        padding: 36px 44px;
+        box-shadow: 0 6px 22px rgba(10, 20, 30, 0.12);
+        box-sizing: border-box;
+      }
+      .report-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 3px solid var(--brand-primary);
+        padding-bottom: 12px;
+        margin-bottom: 18px;
+      }
+      .logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 6px;
+        background: var(--brand-primary);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 20px;
+      }
+      .report-title {
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .report-sub {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .section {
+        margin-top: 16px;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .key-card {
+        background: var(--brand-light);
+        padding: 18px;
+        border-radius: 10px;
+        flex: 1;
+      }
+      .block-title {
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: var(--brand-primary);
+      }
+      .basic-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+      }
+      .basic-grid p {
+        flex: 0 0 48%;
+        margin: 0;
+        font-size: 14px;
+      }
+      .list-small {
+        font-size: 14px;
+        color: #333;
+        line-height: 1.6;
+      }
+      .report-footer {
+        margin-top: 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: var(--muted);
+        border-top: 1px dashed #ccc;
+        padding-top: 8px;
+      }
+      .level-section {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .level-column {
+        flex: 1;
+      }
+      .level-column .level-title {
+        font-weight: 700;
+        color: var(--brand-primary);
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+      .level-tags {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .level-tags span {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        background: var(--level-low);
+        color: #555;
+      }
+      .level-tags span.active {
+        background: var(--level-active);
+        color: #fff;
+        font-weight: 700;
+      }
+      .ability-list p {
+        margin: 6px 0;
+        font-size: 14px;
+      }
+      .ability-label {
+        font-weight: 700;
+
+        display: inline-block;
+      }
+      .ability-value {
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="max-width: 1200px; margin: 0 auto">
+      <div class="report-container">
+        <div class="report-page">
+          <!-- Header -->
+          <div class="report-header">
+            <div style="display: flex; gap: 12px; align-items: center">
+              <div class="logo">F</div>
+              <div>
+                <div class="report-title">AI 輔助跌倒風險報告</div>
+                <div class="report-sub">個人化跌倒風險與步態分析報告</div>
+              </div>
+            </div>
+            <div style="text-align: right">
+              <div style="font-weight: 700">受測者：王小明</div>
+              <div class="report-sub">鑑測日期：2025-11-30</div>
+            </div>
+          </div>
+
+          <!-- 基本資料 -->
+          <div class="section">
+            <div class="key-card">
+              <div class="block-title">基本資料</div>
+              <div class="basic-grid">
+                <p><strong>年齡：</strong>72 歲</p>
+                <p><strong>性別：</strong>男</p>
+                <p><strong>身高：</strong>168 cm</p>
+                <p><strong>體重：</strong>68 kg</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 風險等級 -->
+          <div class="level-section">
+            <div class="level-column">
+              <div class="level-title">VIVIFRAIL 等級</div>
+              <div class="level-tags">
+                <span>A級</span>
+                <span>B級</span>
+                <span class="active">C級</span>
+                <span>D級</span>
+              </div>
+            </div>
+            <div class="level-column">
+              <div class="level-title">跌倒風險等級</div>
+              <div class="level-tags">
+                <span>危險</span>
+                <span>高</span>
+                <span class="active">中</span>
+                <span>稍低</span>
+                <span>低</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 防跌能力概況 -->
+          <div class="section">
+            <div class="key-card">
+              <div class="block-title">健康能力概況</div>
+              <div class="ability-list">
+                <p>
+                  <span class="ability-label">步態速度：</span
+                  ><span class="ability-value">略低</span>
+                </p>
+                <p>
+                  <span class="ability-label">坐站時間：</span
+                  ><span class="ability-value">偏慢</span>
+                </p>
+                <p>
+                  <span class="ability-label">平衡分數：</span
+                  ><span class="ability-value">需改善</span>
+                </p>
+                <p>
+                  <span class="ability-label">下肢肌力：</span
+                  ><span class="ability-value">中等</span>
+                </p>
+                <p>
+                  <span class="ability-label">核心穩定：</span
+                  ><span class="ability-value">良好</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 建議行動 -->
+          <div class="section">
+            <div class="key-card">
+              <div class="block-title">建議行動</div>
+              <ul class="list-small">
+                <li>每週進行 2–3 次下肢肌力訓練</li>
+                <li>每週進行平衡與核心穩定訓練</li>
+                <li>家中環境檢查，避免滑倒危險</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 總結 -->
+          <div class="section">
+            <div class="key-card">
+              <div class="block-title">總結</div>
+              <p class="list-small">
+                綜合測驗結果，受測者步態速度偏低 (0.92 m/s)、坐站測試時間較長
+                (16.5 秒)、側向平衡能力不足，整體跌倒風險指標為
+                2.46%，高於同年齡族群平均。近期跌倒風險呈上升趨勢，建議於 8
+                週內執行階段性肌力與平衡訓練，並於第 4 週進行回測追蹤。
+              </p>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="report-footer">
+            <div>報告由 AI 防跌系統產生</div>
+            <div>第 1 頁 / 共 1 頁</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

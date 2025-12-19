@@ -1,786 +1,97 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>防跌個人報告（範例）</title>
-
-    <!-- Google 字體 -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>網站地圖</title>
     <style>
-      /* 全域樣式 */
-      :root {
-        --page-width: 794px; /* A4 @96dpi 寬度近似 (mm -> px 調整) */
-        --page-height: 1123px; /* A4 高度 */
-        --brand-500: #0b7a7a; /* 主色系（藍綠） */
-        --brand-300: #4db6b6;
-        --accent: #0d6efd;
-        --muted: #666;
-        --paper-bg: #ffffff;
-      }
-      html,
       body {
-        font-family: "Noto Sans TC", system-ui, -apple-system, "Segoe UI",
-          Roboto, "Helvetica Neue", Arial;
-        background: #e9eef2;
-        padding: 20px;
-        color: #222;
-      }
-
-      .app-actions {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 18px;
-      }
-      .btn {
-        padding: 8px 12px;
-        border-radius: 6px;
-        border: 0;
-        cursor: pointer;
-        font-weight: 600;
-      }
-      .btn-primary {
-        background: var(--accent);
-        color: #fff;
-      }
-      .btn-outline {
-        background: #fff;
-        border: 1px solid #ccc;
+        font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+        background: #f8f9fa;
+        margin: 0;
+        padding: 40px;
         color: #333;
       }
 
-      /* 報告容器（多頁）    */
-      .report-container {
-        display: flex;
-        flex-direction: column;
-        gap: 28px;
-        align-items: center;
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
       }
 
-      /* 單頁樣式（模擬 A4）    */
-      .report-page {
-        width: var(--page-width);
-        min-height: var(--page-height);
-        background: var(--paper-bg);
-        padding: 36px 44px;
-        box-shadow: 0 6px 22px rgba(10, 20, 30, 0.12);
-        position: relative;
-        box-sizing: border-box;
-        page-break-after: always; /* 列印 / 匯出時換頁 */
-      }
-
-      /* Header */
-      .report-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 3px solid var(--brand-300);
-        padding-bottom: 12px;
-        margin-bottom: 18px;
-      }
-      .report-header .left {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-      }
-      .logo {
-        width: 56px;
-        height: 56px;
-        border-radius: 6px;
-        background: linear-gradient(180deg, var(--brand-300), var(--brand-500));
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 20px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-      }
-      .report-title {
-        font-size: 20px;
-        font-weight: 700;
-        letter-spacing: 0.2px;
-      }
-      .report-sub {
-        font-size: 12px;
-        color: var(--muted);
-      }
-
-      /* 主要區塊樣式 */
-      .section {
-        margin-top: 8px;
-        display: flex;
+      .sitemap-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
-      }
-      .col-60 {
-        width: 60%;
-      }
-      .col-40 {
-        width: 40%;
+        max-width: 1000px;
+        margin: 0 auto;
       }
 
-      /* 關鍵數字卡 */
-      .key-card {
-        background: #f7fbfb;
-        padding: 18px;
-        border-radius: 8px;
-        border-left: 6px solid var(--brand-500);
-      }
-      .key-number {
-        font-size: 44px;
-        font-weight: 800;
-        color: var(--brand-500);
-      }
-      .key-desc {
-        color: var(--muted);
-        font-size: 13px;
-        margin-top: 6px;
-      }
-
-      /* 小區塊標題 */
-      .block-title {
-        font-weight: 700;
-        margin-bottom: 8px;
-        font-size: 14px;
-        color: #0b5960;
-      }
-
-      /* 圖表容器 */
-      .chart-wrap {
+      .sitemap-item {
         background: #fff;
-        padding: 12px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(10, 20, 30, 0.03);
-        border: 1px solid #f0f0f0;
-      }
-      canvas {
-        display: block;
-        width: 100% !important;
-        height: 260px !important;
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: all 0.3s ease;
+        border-left: 6px solid #007bff;
       }
 
-      /* 表格樣式 */
-      table.report-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 13px;
-      }
-      table.report-table th,
-      table.report-table td {
-        padding: 8px 10px;
-        border: 1px solid #e9eef2;
-        text-align: left;
-      }
-      table.report-table th {
-        background: #f3f8f8;
-        font-weight: 700;
+      .sitemap-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
       }
 
-      /* 小 icon 列表/說明 */
-      .list-small {
-        font-size: 13px;
-        color: #333;
-        line-height: 1.6;
-      }
-      .small-note {
-        font-size: 12px;
-        color: var(--muted);
+      .sitemap-item h3 {
+        margin-top: 0;
+        color: #007bff;
+        font-size: 1.1rem;
       }
 
-      /* 頁腳 */
-      .report-footer {
-        position: absolute;
-        left: 44px;
-        right: 44px;
-        bottom: 18px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 12px;
-        color: var(--muted);
-        border-top: 1px dashed #eee;
-        padding-top: 8px;
+      .sitemap-item p {
+        font-size: 0.9rem;
+        color: #555;
       }
 
-      /* print-friendly: 確保列印時背景顏色與陰影不失真（html2pdf 用） */
-      @media print {
-        body {
-          background: white;
-        }
-        .report-page {
-          box-shadow: none;
-          border: none;
-          margin: 0;
-        }
+      .sitemap-item a {
+        display: inline-block;
+        margin-top: 10px;
+        text-decoration: none;
+        color: #fff;
+        background: #007bff;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: background 0.3s;
+      }
+
+      .sitemap-item a:hover {
+        background: #0056b3;
       }
     </style>
   </head>
   <body>
-    <div style="max-width: 1200px; margin: 0 auto">
-      <div id="reportRoot" class="report-container">
-        <!-- PAGE 1 -->
-        <div class="report-page" id="page-1">
-          <div class="report-header">
-            <div class="left">
-              <div class="logo">F</div>
-              <div>
-                <div class="report-title">AI 輔助跌倒風險報告</div>
-                <div class="report-sub">個人化跌倒風險與步態分析報告</div>
-              </div>
-            </div>
-            <div style="text-align: right">
-              <div style="font-weight: 700">受測者：王小明</div>
-              <div class="report-sub">鑑測日期：2025-11-30</div>
-            </div>
-          </div>
+    <h1>🌐 網站地圖</h1>
 
-          <div class="section">
-            <div class="col-60">
-              <div class="key-card">
-                <div class="block-title">整體跌倒風險指標</div>
-                <div class="key-number">
-                  2.46%
-                  <span style="font-size: 16px; font-weight: 600; color: #444"
-                    >↑ 增高</span
-                  >
-                </div>
-                <div class="key-desc">
-                  本次評估結果顯示受測者之跌倒風險較參考族群略高。建議進一步進行居家環境改善與肌力/平衡訓練。
-                </div>
-              </div>
+    <div class="sitemap-container">
+      <div class="sitemap-item">
+        <h3>專業版多次報告</h3>
 
-              <div style="margin-top: 14px">
-                <div class="block-title">評估摘要</div>
-                <ul class="list-small">
-                  <li>步態速度略低於同年齡群平均。</li>
-                  <li>坐站測試時間偏長，建議安排肌力訓練 (下肢)。</li>
-                  <li>平衡測驗顯示側向穩定性不足。</li>
-                </ul>
-              </div>
-            </div>
+        <a href="page/index.html" target="_blank">前往頁面</a>
+      </div>
+      <div class="sitemap-item">
+        <h3>專業版單次報告</h3>
 
-            <div class="col-40">
-              <div class="chart-wrap">
-                <div class="block-title">步態能力分佈</div>
-                <canvas id="pieChart1"></canvas>
-              </div>
-            </div>
-          </div>
+        <a href="page/index-2.html" target="_blank">前往頁面</a>
+      </div>
+      <div class="sitemap-item">
+        <h3>一般版單次報告</h3>
 
-          <div style="margin-top: 18px">
-            <div class="block-title">關鍵測項變化</div>
-            <div class="chart-wrap">
-              <canvas id="lineOverview"></canvas>
-            </div>
-          </div>
+        <a href="page/index-3.html" target="_blank">前往頁面</a>
+      </div>
+      <div class="sitemap-item">
+        <h3>一般版多次報告</h3>
 
-          <div class="report-footer">
-            <div>報告由 AI 防跌系統產生</div>
-            <div>第 1 頁 / 共 6 頁</div>
-          </div>
-        </div>
-
-        <!-- PAGE 2 -->
-        <div class="report-page" id="page-2">
-          <div class="report-header">
-            <div class="left">
-              <div class="logo">F</div>
-              <div>
-                <div class="report-title">步態與功能檢測詳表</div>
-                <div class="report-sub">分項數據 & 趨勢</div>
-              </div>
-            </div>
-            <div style="text-align: right">
-              <div style="font-weight: 700">受測者：王小明</div>
-              <div class="report-sub">鑑測日期：2025-11-30</div>
-            </div>
-          </div>
-
-          <div class="section" style="flex-direction: column; gap: 14px">
-            <div class="chart-wrap">
-              <div class="block-title">步態速度與坐站測試趨勢</div>
-              <canvas id="barChart1" style="height: 260px"></canvas>
-            </div>
-
-            <div style="display: flex; gap: 20px">
-              <div style="flex: 1" class="chart-wrap">
-                <div class="block-title">平衡測驗（短期）</div>
-                <canvas id="lineSmall1"></canvas>
-              </div>
-
-              <div style="flex: 1" class="chart-wrap">
-                <div class="block-title">下肢肌力（相對分數）</div>
-                <canvas id="lineSmall2"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="report-footer">
-            <div class="small-note">
-              資料來源：AI 健康平台（測量儀器 + 臨床問卷）
-            </div>
-            <div>第 2 頁 / 共 6 頁</div>
-          </div>
-        </div>
-
-        <!-- PAGE 3 -->
-        <div class="report-page" id="page-3">
-          <div class="report-header">
-            <div class="left">
-              <div class="logo">F</div>
-              <div>
-                <div class="report-title">多面向趨勢分析</div>
-                <div class="report-sub">交互曲線與分段比較</div>
-              </div>
-            </div>
-            <div style="text-align: right">
-              <div style="font-weight: 700">受測者：王小明</div>
-              <div class="report-sub">鑑測日期：2025-11-30</div>
-            </div>
-          </div>
-
-          <div class="section">
-            <div class="col-60">
-              <div class="block-title">步態速度／雙腳支撐時間</div>
-              <div class="chart-wrap">
-                <canvas id="multiLine1"></canvas>
-              </div>
-            </div>
-
-            <div class="col-40">
-              <div class="block-title">分段平均</div>
-              <div class="chart-wrap">
-                <canvas id="doughnut1"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="report-footer">
-            <div class="small-note">
-              解讀：曲線顯示近期穩定改善，但某些時間段仍有跌倒風險升高跡象。
-            </div>
-            <div>第 3 頁 / 共 6 頁</div>
-          </div>
-        </div>
-
-        <!-- PAGE 4 -->
-        <div class="report-page" id="page-4">
-          <div class="report-header">
-            <div class="left">
-              <div class="logo">F</div>
-              <div>
-                <div class="report-title">功能分類與建議方案</div>
-                <div class="report-sub">根據測驗結果之優先建議</div>
-              </div>
-            </div>
-            <div style="text-align: right">
-              <div style="font-weight: 700">受測者：王小明</div>
-              <div class="report-sub">鑑測日期：2025-11-30</div>
-            </div>
-          </div>
-
-          <div class="section" style="flex-direction: column; gap: 12px">
-            <div class="block-title">功能分類</div>
-            <div style="display: flex; gap: 16px">
-              <div style="flex: 1" class="chart-wrap">
-                <div style="font-weight: 700; margin-bottom: 8px">平衡弱點</div>
-                <ul class="list-small">
-                  <li>側向穩定差 — 建議側向踏步訓練</li>
-                  <li>站立時上下肢協調不足 — 建議核心穩定訓練</li>
-                </ul>
-              </div>
-
-              <div style="flex: 1" class="chart-wrap">
-                <div style="font-weight: 700; margin-bottom: 8px">環境改善</div>
-                <ul class="list-small">
-                  <li>浴室防滑墊、夜間照明</li>
-                  <li>居家移動路徑清除雜物</li>
-                </ul>
-              </div>
-            </div>
-
-            <div style="margin-top: 10px">
-              <div class="block-title">建議訓練計畫（示例）</div>
-              <table class="report-table">
-                <thead>
-                  <tr>
-                    <th>週次</th>
-                    <th>內容</th>
-                    <th>次數 / 每週</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1-2</td>
-                    <td>基礎下肢肌力訓練</td>
-                    <td>3 次</td>
-                  </tr>
-                  <tr>
-                    <td>3-4</td>
-                    <td>平衡訓練 + 站立步態練習</td>
-                    <td>3 次</td>
-                  </tr>
-                  <tr>
-                    <td>5-8</td>
-                    <td>功能性走路與環境適應</td>
-                    <td>2-3 次</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="report-footer">
-            <div class="small-note">
-              備註：訓練需由合格教練或物理治療師指導。
-            </div>
-            <div>第 4 頁 / 共 6 頁</div>
-          </div>
-        </div>
-
-        <!-- PAGE 5 -->
-        <div class="report-page" id="page-5">
-          <div class="report-header">
-            <div class="left">
-              <div class="logo">F</div>
-              <div>
-                <div class="report-title">量化數據表</div>
-                <div class="report-sub">每項測驗之數值 & 參考範圍</div>
-              </div>
-            </div>
-            <div style="text-align: right">
-              <div style="font-weight: 700">受測者：王小明</div>
-              <div class="report-sub">鑑測日期：2025-11-30</div>
-            </div>
-          </div>
-
-          <div style="margin-bottom: 12px">
-            <table class="report-table">
-              <thead>
-                <tr>
-                  <th>項目</th>
-                  <th>本次結果</th>
-                  <th>參考值</th>
-                  <th>評語</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>步態速度 (m/s)</td>
-                  <td>0.92</td>
-                  <td>≥1.0</td>
-                  <td>偏低</td>
-                </tr>
-                <tr>
-                  <td>坐站時間 (s)</td>
-                  <td>16.5</td>
-                  <td>≤12</td>
-                  <td>偏慢</td>
-                </tr>
-                <tr>
-                  <td>平衡分數</td>
-                  <td>68</td>
-                  <td>≥75</td>
-                  <td>需改善</td>
-                </tr>
-                <tr>
-                  <td>下肢肌力（等級）</td>
-                  <td>中等</td>
-                  <td>中等以上</td>
-                  <td>可透過訓練提升</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="section">
-            <div style="flex: 1" class="chart-wrap">
-              <div class="block-title">體能分佈圓餅圖</div>
-              <canvas id="pieChart2"></canvas>
-            </div>
-
-            <div style="flex: 1; padding-left: 12px">
-              <div class="block-title">其他觀察</div>
-              <p class="small-note">
-                觀察到受測者在快速行走時出現短暫步幅縮短現象，建議加入快速反應訓練與步頻訓練以改善。
-              </p>
-            </div>
-          </div>
-
-          <div class="report-footer">
-            <div class="small-note">資料時間戳：2025-11-30 09:32</div>
-            <div>第 5 頁 / 共 6 頁</div>
-          </div>
-        </div>
-
-        <!-- PAGE 6 -->
-        <div class="report-page" id="page-6">
-          <div class="report-header">
-            <div class="left">
-              <div class="logo">F</div>
-              <div>
-                <div class="report-title">總結與後續追蹤建議</div>
-                <div class="report-sub">個人化建議與聯絡資訊</div>
-              </div>
-            </div>
-            <div style="text-align: right">
-              <div style="font-weight: 700">受測者：王小明</div>
-              <div class="report-sub">鑑測日期：2025-11-30</div>
-            </div>
-          </div>
-
-          <div class="section" style="flex-direction: column; gap: 12px">
-            <div>
-              <div class="block-title">總結</div>
-              <p class="list-small">
-                本次評估顯示受測者有中等程度的跌倒風險，建議在 8
-                週內執行階段性訓練，並於第 4 週進行回測追蹤。
-              </p>
-            </div>
-
-            <div style="display: flex; gap: 16px">
-              <div style="flex: 1" class="chart-wrap">
-                <div class="block-title">追蹤計畫 (示例)</div>
-                <ul class="list-small">
-                  <li>4 週後回測：步態速度、坐站、平衡</li>
-                  <li>8 週後整體評估與訓練強度調整</li>
-                </ul>
-              </div>
-
-              <div style="flex: 1" class="chart-wrap">
-                <div class="block-title">聯絡資訊</div>
-                <p class="small-note">防跌中心 / 科技有限公司</p>
-                <p class="small-note">電話：02-1234-5678</p>
-                <p class="small-note">Email：service@example.com</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="report-footer">
-            <div class="small-note">版權所有 © 防跌中心 2025</div>
-            <div>第 6 頁 / 共 6 頁</div>
-          </div>
-        </div>
+        <a href="page/index-4.html" target="_blank">前往頁面</a>
       </div>
     </div>
-
-    <script>
-      // ---------- 範例圖表資料（你可以改成你的實際資料） ----------
-      // Pie 1
-      const pieData1 = {
-        labels: ["低風險", "中風險", "高風險"],
-        datasets: [
-          {
-            data: [60, 30, 10],
-            backgroundColor: ["#4db6b6", "#0b7a7a", "#0d6efd"],
-            borderWidth: 0,
-          },
-        ],
-      };
-
-      // Line overview
-      const lineOverviewData = {
-        labels: [
-          "2025-03",
-          "2025-04",
-          "2025-05",
-          "2025-06",
-          "2025-07",
-          "2025-08",
-          "2025-09",
-        ],
-        datasets: [
-          {
-            label: "步態速度 (m/s)",
-            data: [1.02, 1.0, 0.98, 0.95, 0.94, 0.93, 0.92],
-            fill: false,
-            borderColor: "#0d6efd",
-            tension: 0.2,
-          },
-          {
-            label: "坐站時間 (s)",
-            data: [12.0, 12.5, 13.0, 14.0, 15.0, 15.8, 16.5],
-            fill: false,
-            borderColor: "#0b7a7a",
-            tension: 0.2,
-          },
-        ],
-      };
-
-      // Bar chart sample
-      const barData1 = {
-        labels: ["2025-05", "2025-06", "2025-07", "2025-08", "2025-09"],
-        datasets: [
-          {
-            label: "步態速度 (m/s)",
-            data: [1.0, 0.98, 0.96, 0.94, 0.92],
-            backgroundColor: "#0d6efd",
-          },
-          {
-            label: "坐站時間 (s)",
-            data: [13, 13.5, 14, 15, 16],
-            backgroundColor: "#4db6b6",
-          },
-        ],
-      };
-
-      // small lines
-      const smallLineData1 = {
-        labels: ["W1", "W2", "W3", "W4"],
-        datasets: [
-          {
-            label: "平衡分數",
-            data: [70, 72, 69, 68],
-            borderColor: "#0d6efd",
-            fill: false,
-          },
-        ],
-      };
-      const smallLineData2 = {
-        labels: ["W1", "W2", "W3", "W4"],
-        datasets: [
-          {
-            label: "下肢肌力",
-            data: [55, 60, 62, 64],
-            borderColor: "#0b7a7a",
-            fill: false,
-          },
-        ],
-      };
-
-      // multi line
-      const multiLineData1 = {
-        labels: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"],
-        datasets: [
-          {
-            label: "步態速度",
-            data: [1.02, 1.01, 1.0, 0.98, 0.97, 0.96, 0.95, 0.94, 0.94, 0.92],
-            borderColor: "#0d6efd",
-            fill: false,
-          },
-          {
-            label: "雙腳支撐(ms)",
-            data: [220, 215, 230, 240, 250, 260, 255, 250, 245, 260],
-            borderColor: "#0b7a7a",
-            fill: false,
-          },
-        ],
-      };
-
-      // doughnut
-      const doughnutData1 = {
-        labels: ["步態穩定", "步態偏差", "步態危險"],
-        datasets: [
-          {
-            data: [72, 18, 10],
-            backgroundColor: ["#4db6b6", "#0b7a7a", "#0d6efd"],
-          },
-        ],
-      };
-
-      // pie2
-      const pieData2 = {
-        labels: ["肌力", "平衡", "步態"],
-        datasets: [
-          {
-            data: [35, 45, 20],
-            backgroundColor: ["#0d6efd", "#4db6b6", "#0b7a7a"],
-          },
-        ],
-      };
-
-      // ---------- 建立圖表 ----------
-      function createCharts() {
-        // Pie 1
-        new Chart(document.getElementById("pieChart1"), {
-          type: "doughnut",
-          data: pieData1,
-          options: {
-            plugins: {
-              legend: { position: "bottom", labels: { boxWidth: 10 } },
-            },
-            cutout: "60%",
-          },
-        });
-
-        // Overview line
-        new Chart(document.getElementById("lineOverview"), {
-          type: "line",
-          data: lineOverviewData,
-          options: {
-            plugins: { legend: { position: "top" } },
-            responsive: true,
-            maintainAspectRatio: false,
-          },
-        });
-
-        // Bar chart
-        new Chart(document.getElementById("barChart1"), {
-          type: "bar",
-          data: barData1,
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { position: "top" } },
-            scales: { y: { beginAtZero: false } },
-          },
-        });
-
-        new Chart(document.getElementById("lineSmall1"), {
-          type: "line",
-          data: smallLineData1,
-          options: {
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-          },
-        });
-        new Chart(document.getElementById("lineSmall2"), {
-          type: "line",
-          data: smallLineData2,
-          options: {
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-          },
-        });
-
-        new Chart(document.getElementById("multiLine1"), {
-          type: "line",
-          data: multiLineData1,
-          options: {
-            maintainAspectRatio: false,
-            plugins: { legend: { position: "top" } },
-          },
-        });
-
-        new Chart(document.getElementById("doughnut1"), {
-          type: "doughnut",
-          data: doughnutData1,
-          options: {
-            cutout: "60%",
-            plugins: { legend: { position: "bottom" } },
-          },
-        });
-
-        new Chart(document.getElementById("pieChart2"), {
-          type: "doughnut",
-          data: pieData2,
-          options: {
-            cutout: "50%",
-            plugins: { legend: { position: "bottom" } },
-          },
-        });
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        createCharts();
-      });
-    </script>
   </body>
 </html>
