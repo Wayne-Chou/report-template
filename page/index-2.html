@@ -13,6 +13,21 @@
         --brand-500: #0b7a7a;
         --brand-300: #4db6b6;
         --muted: #666;
+        /* Grade 顏色 */
+        --grade-A: #dc3545;
+        --grade-B: #ffc107;
+        --grade-C: #0d6efd;
+        --grade-D: #198754;
+
+        /* Risk 顏色 */
+        --risk-danger: #ff5757;
+        --risk-high: #ffa203;
+        --risk-medium: #ffd039;
+        --risk-low-medium: #8cff00;
+        --risk-low: #4ffa00;
+        /* 未選取灰色 */
+        --level-inactive-bg: #e0e0e0;
+        --level-inactive-color: #555;
       }
 
       html,
@@ -179,31 +194,66 @@
         margin-bottom: 4px;
         color: #333;
       }
-      .level-row {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
-      }
-      .level-tag {
-        padding: 4px 10px;
-        font-size: 12px;
-        border-radius: 999px;
-        background: #e5e7eb;
-        color: #666;
-      }
-      .level-tag.active {
-        color: #fff;
-        font-weight: 700;
-      }
-      .level-warning {
-        background: #f59e0b;
-      }
 
       .trend-up {
         font-size: 14px;
         font-weight: 700;
         color: #d97706;
         margin-left: 6px;
+      }
+
+      .level-tags {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .level-tags span {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        background: var(--level-inactive-bg);
+        color: var(--level-inactive-color);
+        font-weight: 500;
+        cursor: pointer;
+      }
+      /* Grade active 狀態 */
+      .level-tags.grade span.A.active {
+        background: var(--grade-A);
+        color: #fff;
+      }
+      .level-tags.grade span.B.active {
+        background: var(--grade-B);
+        color: #fff;
+      }
+      .level-tags.grade span.C.active {
+        background: var(--grade-C);
+        color: #fff;
+      }
+      .level-tags.grade span.D.active {
+        background: var(--grade-D);
+        color: #fff;
+      }
+
+      /* Risk active 狀態 */
+      .level-tags.risk span.danger.active {
+        background: var(--risk-danger);
+        color: #fff;
+      }
+      .level-tags.risk span.high.active {
+        background: var(--risk-high);
+        color: #fff;
+      }
+      .level-tags.risk span.medium.active {
+        background: var(--risk-medium);
+        color: #fff;
+      }
+      .level-tags.risk span.low-medium.active {
+        background: var(--risk-low-medium);
+        color: #fff;
+      }
+      .level-tags.risk span.low.active {
+        background: var(--risk-low);
+        color: #fff;
       }
 
       .basic-grid {
@@ -255,22 +305,22 @@
 
                 <div class="level-group">
                   <div class="level-label">VIVIFRAIL 等級</div>
-                  <div class="level-row">
-                    <span class="level-tag">A 級</span>
-                    <span class="level-tag">B 級</span>
-                    <span class="level-tag active level-warning">C 級</span>
-                    <span class="level-tag">D 級</span>
+                  <div class="level-tags grade">
+                    <span class="A">A級</span>
+                    <span class="B">B級</span>
+                    <span class="C active">C級</span>
+                    <span class="D">D級</span>
                   </div>
                 </div>
 
                 <div class="level-group">
                   <div class="level-label">跌倒風險等級</div>
-                  <div class="level-row">
-                    <span class="level-tag">低</span>
-                    <span class="level-tag">稍低</span>
-                    <span class="level-tag active level-warning">中</span>
-                    <span class="level-tag">高</span>
-                    <span class="level-tag">危險</span>
+                  <div class="level-tags risk">
+                    <span class="danger">危險</span>
+                    <span class="high">高</span>
+                    <span class="medium active">中</span>
+                    <span class="low-medium">稍低</span>
+                    <span class="low">低</span>
                   </div>
                 </div>
               </div>
