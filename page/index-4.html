@@ -11,8 +11,21 @@
         --brand-primary: #1a73e8;
         --brand-light: #f0f8ff;
         --muted: #555;
-        --level-active: #fbbc05;
-        --level-low: #e0e0e0;
+        /* Grade 顏色 */
+        --grade-A: #dc3545;
+        --grade-B: #ffc107;
+        --grade-C: #0d6efd;
+        --grade-D: #198754;
+
+        /* Risk 顏色 */
+        --risk-danger: #ff5757;
+        --risk-high: #ffa203;
+        --risk-medium: #ffd039;
+        --risk-low-medium: #8cff00;
+        --risk-low: #4ffa00;
+        /* 未選取灰色 */
+        --level-inactive-bg: #e0e0e0;
+        --level-inactive-color: #555;
       }
       html,
       body {
@@ -131,13 +144,49 @@
         padding: 6px 14px;
         border-radius: 20px;
         font-size: 13px;
-        background: var(--level-low);
-        color: #555;
+        background: var(--level-inactive-bg);
+        color: var(--level-inactive-color);
+        font-weight: 500;
+        cursor: pointer;
       }
-      .level-tags span.active {
-        background: var(--level-active);
+      /* Grade active 狀態 */
+      .level-tags.grade span.A.active {
+        background: var(--grade-A);
         color: #fff;
-        font-weight: 700;
+      }
+      .level-tags.grade span.B.active {
+        background: var(--grade-B);
+        color: #fff;
+      }
+      .level-tags.grade span.C.active {
+        background: var(--grade-C);
+        color: #fff;
+      }
+      .level-tags.grade span.D.active {
+        background: var(--grade-D);
+        color: #fff;
+      }
+
+      /* Risk active 狀態 */
+      .level-tags.risk span.danger.active {
+        background: var(--risk-danger);
+        color: #fff;
+      }
+      .level-tags.risk span.high.active {
+        background: var(--risk-high);
+        color: #fff;
+      }
+      .level-tags.risk span.medium.active {
+        background: var(--risk-medium);
+        color: #fff;
+      }
+      .level-tags.risk span.low-medium.active {
+        background: var(--risk-low-medium);
+        color: #fff;
+      }
+      .level-tags.risk span.low.active {
+        background: var(--risk-low);
+        color: #fff;
       }
       .ability-list p {
         margin: 6px 0;
@@ -184,21 +233,21 @@
           <div class="level-section">
             <div class="level-column">
               <div class="level-title">VIVIFRAIL 等級</div>
-              <div class="level-tags">
-                <span>A級</span>
-                <span>B級</span>
-                <span class="active">C級</span>
-                <span>D級</span>
+              <div class="level-tags grade">
+                <span class="A">A級</span>
+                <span class="B">B級</span>
+                <span class="C active">C級</span>
+                <span class="D">D級</span>
               </div>
             </div>
             <div class="level-column">
               <div class="level-title">跌倒風險等級</div>
-              <div class="level-tags">
-                <span>危險</span>
-                <span>高</span>
-                <span class="active">中</span>
-                <span>稍低</span>
-                <span>低</span>
+              <div class="level-tags risk">
+                <span class="danger">危險</span>
+                <span class="high">高</span>
+                <span class="medium active">中</span>
+                <span class="low-medium">稍低</span>
+                <span class="low">低</span>
               </div>
             </div>
           </div>
@@ -481,6 +530,118 @@
           </div>
         </div>
         <!-- 第6頁 -->
+        <div class="report-page" id="page-6">
+          <!-- Header -->
+          <div class="report-header">
+            <div style="display: flex; gap: 12px; align-items: center">
+              <div class="logo">F</div>
+              <div>
+                <div class="report-title">人體骨架分析</div>
+              </div>
+            </div>
+            <div style="text-align: right">
+              <div style="font-weight: 700">受測者：王小明</div>
+              <div class="report-sub">鑑測日期：2025-11-30</div>
+            </div>
+          </div>
+          <div class="key-card">
+            <!-- 骨架圖與分析 -->
+            <div
+              class="section"
+              style="
+                display: flex;
+                gap: 24px;
+                flex-wrap: wrap;
+                align-items: flex-start;
+              "
+            >
+              <!-- 左側骨架示意圖 -->
+              <div style="flex: 0 0 300px; min-width: 200px">
+                <div
+                  style="
+                    min-height: 300px;
+                    background-color: #f0f0f0;
+                    border: 1px solid #ccc;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 14px;
+                    color: #888;
+                    padding: 16px;
+                    text-align: center;
+                  "
+                >
+                  （此處放置實際骨架圖）
+                </div>
+              </div>
+
+              <!-- 右側文字說明 -->
+              <div style="flex: 1; min-width: 320px">
+                <p class="list-small">
+                  本圖為人體骨架圖，將本次防跌檢測中與行走、起身與平衡相關的結果，
+                </p>
+
+                <div class="block-title" style="margin-top: 12px">建議措施</div>
+                <ul class="list-small">
+                  <li>持續肌力與核心穩定訓練</li>
+                  <li>步態矯正訓練（步幅、步頻、膝伸展）</li>
+                  <li>居家環境安全改善，降低跌倒風險</li>
+                  <li>
+                    短期改善目標：
+                    <ul>
+                      <li>步態速度 ≥1.0 m/s（目前 0.92 m/s）</li>
+                      <li>平衡分數 ≥75（目前 68）</li>
+                      <li>坐站時間 ≤12 秒（目前 16.5 秒）</li>
+                    </ul>
+                  </li>
+                  <li>
+                    中長期維持目標：穩定步態、提升下肢肌力與平衡能力，降低跌倒風險
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="block-title" style="margin-top: 16px">
+            近期進步/變化趨勢
+          </div>
+          <ul
+            class="list-small"
+            style="
+              background-color: #f0f8ff;
+              padding: 12px;
+              border: 1px solid #ccc;
+              border-radius: 6px;
+              list-style: none;
+            "
+          >
+            <li style="margin-bottom: 6px">
+              <strong>步態速度：</strong>上次測量 0.88 m/s → 本次 0.92 m/s，改善
+              4.5%
+            </li>
+            <li style="margin-bottom: 6px">
+              <strong>平衡分數：</strong>上次 65 → 本次 68，提升 3 分
+            </li>
+            <li style="margin-bottom: 6px">
+              <strong>坐站時間：</strong>上次 17 秒 → 本次 16.5 秒，略有改善
+            </li>
+            <li style="margin-bottom: 6px">
+              <strong>下肢肌力：</strong>透過訓練，膝關節伸展角度改善約 2%
+            </li>
+            <li>
+              <strong>整體跌倒風險：</strong
+              >仍為中等風險，但數據顯示有穩定改善趨勢
+            </li>
+          </ul>
+
+          <!-- Footer -->
+          <div class="report-footer">
+            <div>報告由 AI 防跌系統產生</div>
+            <div>第 6 頁 / 共 7 頁</div>
+          </div>
+        </div>
+
+        <!-- 第7頁 -->
         <div class="report-page">
           <div class="report-header">
             <div style="display: flex; gap: 12px; align-items: center">
@@ -527,7 +688,7 @@
 
           <div class="report-footer">
             <div>報告由 AI 防跌系統產生</div>
-            <div>第 6 頁 / 共 6 頁</div>
+            <div>第 7 頁 / 共 7 頁</div>
           </div>
         </div>
       </div>
@@ -542,6 +703,14 @@
       datasets: [
         {
           data: [0, 0, 1, 0, 0],
+          // 對應 CSS :root 的 risk 顏色
+          backgroundColor: [
+            "#4FFA00", // 低
+            "#8CFF00", // 稍低
+            "#FFD039", // 中
+            "#FFA203", // 高
+            "#FF5757", // 危險
+          ],
         },
       ],
     },
@@ -553,6 +722,7 @@
       },
     },
   });
+
   new Chart(document.getElementById("gaitChart"), {
     type: "bar",
     data: {
@@ -636,8 +806,15 @@
       labels: ["低", "稍低", "中", "高", "危險"],
       datasets: [
         {
-          label: "風險位置",
           data: [0, 0, 1, 0, 0],
+          // 對應 CSS :root 的 risk 顏色
+          backgroundColor: [
+            "#4FFA00", // 低
+            "#8CFF00", // 稍低
+            "#FFD039", // 中
+            "#FFA203", // 高
+            "#FF5757", // 危險
+          ],
         },
       ],
     },

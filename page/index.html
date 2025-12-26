@@ -24,6 +24,21 @@
         --accent: #0d6efd;
         --muted: #666;
         --paper-bg: #ffffff;
+        /* Grade 顏色 */
+        --grade-A: #dc3545;
+        --grade-B: #ffc107;
+        --grade-C: #0d6efd;
+        --grade-D: #198754;
+
+        /* Risk 顏色 */
+        --risk-danger: #ff5757;
+        --risk-high: #ffa203;
+        --risk-medium: #ffd039;
+        --risk-low-medium: #8cff00;
+        --risk-low: #4ffa00;
+        /* 未選取灰色 */
+        --level-inactive-bg: #e0e0e0;
+        --level-inactive-color: #555;
       }
       html,
       body {
@@ -211,13 +226,13 @@
       }
       .card-row {
         display: flex;
-        gap: 16px; /* 卡片間距 */
+        gap: 16px;
         margin-bottom: 20px;
       }
 
       .card-left,
       .card-right {
-        flex: 1; /* 平分寬度 */
+        flex: 1;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         padding: 16px 18px;
         border-radius: 8px;
@@ -245,27 +260,58 @@
         color: #333;
       }
 
-      .level-row {
+      .level-tags {
         display: flex;
-        gap: 6px;
+        gap: 10px;
         flex-wrap: wrap;
       }
-
-      .level-tag {
-        padding: 4px 10px;
-        font-size: 12px;
-        border-radius: 999px;
-        background: #e5e7eb;
-        color: #666;
+      .level-tags span {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        background: var(--level-inactive-bg);
+        color: var(--level-inactive-color);
+        font-weight: 500;
+        cursor: pointer;
       }
-
-      .level-tag.active {
+      /* Grade active 狀態 */
+      .level-tags.grade span.A.active {
+        background: var(--grade-A);
         color: #fff;
-        font-weight: 700;
+      }
+      .level-tags.grade span.B.active {
+        background: var(--grade-B);
+        color: #fff;
+      }
+      .level-tags.grade span.C.active {
+        background: var(--grade-C);
+        color: #fff;
+      }
+      .level-tags.grade span.D.active {
+        background: var(--grade-D);
+        color: #fff;
       }
 
-      .level-warning {
-        background: #f59e0b;
+      /* Risk active 狀態 */
+      .level-tags.risk span.danger.active {
+        background: var(--risk-danger);
+        color: #fff;
+      }
+      .level-tags.risk span.high.active {
+        background: var(--risk-high);
+        color: #fff;
+      }
+      .level-tags.risk span.medium.active {
+        background: var(--risk-medium);
+        color: #fff;
+      }
+      .level-tags.risk span.low-medium.active {
+        background: var(--risk-low-medium);
+        color: #fff;
+      }
+      .level-tags.risk span.low.active {
+        background: var(--risk-low);
+        color: #fff;
       }
 
       .trend-up {
@@ -277,11 +323,11 @@
       .basic-grid {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px 20px; /* 上下間距10px，左右間距20px */
+        gap: 10px 20px;
       }
 
       .basic-grid p {
-        flex: 0 0 48%; /* 每個 p 約占一半寬度 */
+        flex: 0 0 48%;
         margin: 0;
       }
     </style>
@@ -324,22 +370,22 @@
 
                 <div class="level-group">
                   <div class="level-label">VIVIFRAIL 等級</div>
-                  <div class="level-row">
-                    <span class="level-tag">A 級</span>
-                    <span class="level-tag">B 級</span>
-                    <span class="level-tag active level-warning">C 級</span>
-                    <span class="level-tag">D 級</span>
+                  <div class="level-tags grade">
+                    <span class="A">A級</span>
+                    <span class="B">B級</span>
+                    <span class="C active">C級</span>
+                    <span class="D">D級</span>
                   </div>
                 </div>
 
                 <div class="level-group">
                   <div class="level-label">跌倒風險等級</div>
-                  <div class="level-row">
-                    <span class="level-tag">低</span>
-                    <span class="level-tag">稍低</span>
-                    <span class="level-tag active level-warning">中</span>
-                    <span class="level-tag">高</span>
-                    <span class="level-tag">危險</span>
+                  <div class="level-tags risk">
+                    <span class="danger">危險</span>
+                    <span class="high">高</span>
+                    <span class="medium active">中</span>
+                    <span class="low-medium">稍低</span>
+                    <span class="low">低</span>
                   </div>
                 </div>
               </div>
@@ -392,7 +438,7 @@
 
           <div class="report-footer">
             <div>報告由 AI 防跌系統產生</div>
-            <div>第 1 頁 / 共 6 頁</div>
+            <div>第 1 頁 / 共 7 頁</div>
           </div>
         </div>
 
@@ -412,12 +458,62 @@
             </div>
           </div>
 
+          <!-- 數值摘要 + 標準範圍提示 -->
+          <div
+            class="section key-summary"
+            style="display: flex; gap: 16px; margin-bottom: 14px"
+          >
+            <div
+              style="
+                flex: 1;
+                padding: 12px;
+                border: 1px solid #0b7a7a;
+                border-radius: 8px;
+                background-color: #f0fcfc;
+              "
+            >
+              <div class="block-title">近期平均數值</div>
+              <ul class="list-small">
+                <li>
+                  步態速度：0.92 m/s
+                  <span style="color: #f37a7a">● 偏低</span>
+                  <span class="small-note">
+                    （標準 ≥1.0 m/s，低 8%，跌倒風險增加）
+                  </span>
+                </li>
+                <li>
+                  坐站測試：16.5 秒
+                  <span style="color: #f7b500">● 偏慢</span>
+                  <span class="small-note">
+                    （標準 ≤12 秒，慢 37%，下肢肌力需加強）
+                  </span>
+                </li>
+                <li>
+                  平衡分數：68
+                  <span style="color: #f37a7a">● 需改善</span>
+                  <span class="small-note"> （標準 ≥75，核心穩定需提升） </span>
+                </li>
+                <li>
+                  下肢肌力：中等
+                  <span style="color: #ffcc00">● 中風險</span>
+                  <span class="small-note">
+                    （中等以上為安全範圍，目標提升至 ≥中等）
+                  </span>
+                </li>
+              </ul>
+              <div class="small-note" style="margin-top: 6px">
+                每項指標皆與跌倒風險相關，偏離標準的數值提示需特別注意。
+              </div>
+            </div>
+          </div>
+
+          <!-- 趨勢圖 -->
           <div class="section" style="flex-direction: column; gap: 14px">
             <div class="chart-wrap">
               <div class="block-title">步態速度與坐站測試趨勢</div>
               <canvas id="barChart1" style="height: 260px"></canvas>
               <p class="small-note">
-                步態速度逐月略有下降，坐站測試時間逐步增加，反映下肢肌力略弱，需加強肌力訓練。
+                步態速度逐月略有下降，坐站測試時間逐步增加，反映下肢肌力略弱，需加強肌力訓練。標示紅色為需注意週，綠色為改善週。
               </p>
             </div>
 
@@ -444,7 +540,7 @@
             <div class="small-note">
               資料來源：AI 健康平台（測量儀器 + 臨床問卷）
             </div>
-            <div>第 2 頁 / 共 6 頁</div>
+            <div>第 2 頁 / 共 7 頁</div>
           </div>
         </div>
 
@@ -473,7 +569,9 @@
               </div>
               <p class="small-note">
                 曲線圖顯示步態速度在第 3-5
-                週略下降，雙腳支撐時間增長，表示下肢穩定性稍弱。建議在此期間加強單腳站立與側向步伐訓練。
+                週略下降（紅色標示為需注意週），雙腳支撐時間增長，表示下肢穩定性稍弱。第
+                6-8
+                週呈改善趨勢（綠色標示為改善週）。建議在需注意週加強單腳站立與側向步伐訓練。
               </p>
             </div>
 
@@ -483,8 +581,9 @@
                 <canvas id="doughnut1"></canvas>
               </div>
               <p class="small-note">
-                分段平均圖顯示「步態穩定」占 72%，「步態偏差」占
-                18%，「步態危險」占 10%，需特別注意步態偏差與危險時段。
+                分段平均圖顯示「步態穩定」占 72%（良好區間
+                ≥75%）、「步態偏差」占 18%（標準 ≤15%）、「步態危險」占
+                10%（需注意高風險時段）。建議特別關注步態偏差與危險時段。
               </p>
             </div>
           </div>
@@ -499,21 +598,27 @@
               style="border-left-color: #0d6efd; flex: 1 1 30%"
             >
               <div class="block-title">步態穩定性</div>
-              <div class="key-number">↑ 72%</div>
+              <div class="key-number">
+                ↑ 72% <span class="small-note">(標準 ≥75%)</span>
+              </div>
             </div>
             <div
               class="key-card"
               style="border-left-color: #f37a7a; flex: 1 1 30%"
             >
               <div class="block-title">步態偏差</div>
-              <div class="key-number">→ 18%</div>
+              <div class="key-number">
+                → 18% <span class="small-note">(標準 ≤15%)</span>
+              </div>
             </div>
             <div
               class="key-card"
               style="border-left-color: #f39c12; flex: 1 1 30%"
             >
               <div class="block-title">步態危險</div>
-              <div class="key-number">↓ 10%</div>
+              <div class="key-number">
+                ↓ 10% <span class="small-note">(需注意高風險時段)</span>
+              </div>
             </div>
           </div>
 
@@ -529,9 +634,9 @@
 
           <div class="report-footer">
             <div class="small-note">
-              解讀：曲線顯示近期穩定改善，但某些時間段仍有跌倒風險升高跡象。
+              解讀：曲線顯示近期穩定改善，但某些時間段仍有跌倒風險升高跡象（紅色標示需注意週）。
             </div>
-            <div>第 3 頁 / 共 6 頁</div>
+            <div>第 3 頁 / 共 7 頁</div>
           </div>
         </div>
 
@@ -552,7 +657,6 @@
           </div>
 
           <div class="section" style="flex-direction: column; gap: 12px">
-            <!-- 功能弱點摘要卡片 -->
             <div class="key-card" style="border-left-color: #f37a7a">
               <div class="block-title">功能弱點摘要</div>
               <div class="key-number">3 項主要弱點</div>
@@ -615,7 +719,6 @@
                 </tbody>
               </table>
 
-              <!-- 訓練提示 -->
               <div class="small-note" style="margin-top: 8px">
                 訓練提示：
                 <ul style="margin: 4px 0 0 16px; padding: 0; list-style: disc">
@@ -631,7 +734,7 @@
             <div class="small-note">
               備註：訓練需由合格教練或物理治療師指導。
             </div>
-            <div>第 4 頁 / 共 6 頁</div>
+            <div>第 4 頁 / 共 7 頁</div>
           </div>
         </div>
 
@@ -650,7 +753,29 @@
               <div class="report-sub">鑑測日期：2025-11-30</div>
             </div>
           </div>
-
+          <!-- 功能測驗量表區塊 -->
+          <div
+            class="key-card"
+            style="border-left-color: #0b7a7a; margin-bottom: 16px"
+          >
+            <div class="block-title">功能測驗量表</div>
+            <div class="basic-grid">
+              <p class="list-small">
+                <strong>SPPB 總分：</strong>8 /
+                12（平衡：3、步態速度：2、坐站測試：3）
+              </p>
+              <p class="list-small">
+                <strong>TUG：</strong>13.2 秒（標準 ≤12 秒，偏慢）
+              </p>
+              <p class="list-small">
+                <strong>BBS：</strong>45 / 56（低分提示需加強平衡訓練）
+              </p>
+              <p class="list-small">
+                <strong>Functional Reach：</strong>22 cm（標準 ≥25
+                cm，提示平衡不足）
+              </p>
+            </div>
+          </div>
           <!-- 雷達圖與能力分級 -->
           <div
             class="section"
@@ -739,11 +864,128 @@
 
           <div class="report-footer">
             <div class="small-note">資料時間戳：2025-11-30 09:32</div>
-            <div>第 5 頁 / 共 6 頁</div>
+            <div>第 5 頁 / 共 7 頁</div>
+          </div>
+        </div>
+        <!-- PAGE 6 -->
+        <div class="report-page" id="page-6">
+          <!-- Header -->
+          <div class="report-header">
+            <div class="left">
+              <div class="logo">F</div>
+              <div>
+                <div class="report-title">行走骨架分析</div>
+                <div class="report-sub">步態姿勢與動作重點提示</div>
+              </div>
+            </div>
+            <div style="text-align: right">
+              <div style="font-weight: 700">受測者：王小明</div>
+              <div class="report-sub">鑑測日期：2025-11-30</div>
+            </div>
+          </div>
+
+          <!-- 骨架圖與分析 -->
+          <div
+            class="section"
+            style="
+              display: flex;
+              gap: 16px;
+              flex-wrap: wrap;
+              margin-top: 12px;
+              align-items: flex-start;
+            "
+          >
+            <!-- 骨架圖 -->
+            <div style="flex: 1; min-width: 320px" class="chart-wrap">
+              <div class="block-title">行走骨架圖</div>
+              <div
+                style="
+                  width: 100%;
+                  height: 300px;
+                  background-color: #f0f0f0;
+                  border: 1px solid #ccc;
+                  border-radius: 8px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 14px;
+                  color: #888;
+                "
+              >
+                個人骨架圖示意（此處放置實際骨架圖）
+              </div>
+            </div>
+
+            <!-- 動作分析說明 -->
+            <div style="flex: 1; min-width: 320px; padding-left: 12px">
+              <div class="block-title">動作分析</div>
+              <ul class="list-small">
+                <li>
+                  步態速度略低，步幅偏短，可能導致跌倒風險增加（偏差約 8%）
+                  <span style="color: #f7b500">● 中風險</span>
+                </li>
+                <li>
+                  雙腳支撐時間較長，顯示下肢穩定性不足（偏差約 15%）
+                  <span style="color: #f37a7a">● 高風險</span>
+                </li>
+                <li>
+                  膝關節伸展角度偏小（偏差 12%），建議增加腿部伸展與下肢肌力訓練
+                  <span style="color: #f37a7a">● 高風險</span>
+                </li>
+                <li>
+                  側向平衡不佳（偏差 18%），建議加入單腳站立與側向步伐訓練
+                  <span style="color: #f37a7a">● 高風險</span>
+                </li>
+                <li>
+                  髖關節屈伸偏差 10%，身體重心左右擺動偏大
+                  6%，整體步態安全範圍：
+                  <span style="color: #ffcc00">中等風險</span
+                  >，需持續追蹤與訓練。
+                </li>
+              </ul>
+
+              <!-- 量化指標表 -->
+              <div class="block-title" style="margin-top: 12px">
+                步態量化指標
+              </div>
+              <ul class="list-small">
+                <li>步幅：偏短 8%（標準 0–5% 偏差內）</li>
+                <li>步頻：偏慢 5%（標準 0–3% 偏差內）</li>
+                <li>膝關節伸展：偏小 12%（標準 0–5% 偏差內）</li>
+                <li>髖關節屈伸：偏小 10%（標準 0–5% 偏差內）</li>
+                <li>身體重心擺動：偏大 6%（標準 ≤3%）</li>
+              </ul>
+
+              <div class="block-title" style="margin-top: 12px">建議措施</div>
+              <ul class="list-small">
+                <li>持續肌力與核心穩定訓練</li>
+                <li>步態矯正訓練（步幅、步頻、膝伸展）</li>
+                <li>居家環境安全改善，降低跌倒風險</li>
+                <li>
+                  短期改善目標：
+                  <ul>
+                    <li>步態速度 ≥1.0 m/s（目前 0.92 m/s）</li>
+                    <li>平衡分數 ≥75（目前 68）</li>
+                    <li>坐站時間 ≤12 秒（目前 16.5 秒）</li>
+                  </ul>
+                </li>
+                <li>
+                  中長期維持目標：穩定步態、提升下肢肌力與平衡能力，降低跌倒風險
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="report-footer">
+            <div class="small-note">
+              資料來源：AI 健康平台（動作捕捉 + 臨床問卷）
+            </div>
+            <div>第 6 頁 / 共 7 頁</div>
           </div>
         </div>
 
-        <!-- PAGE 6 -->
+        <!-- PAGE 7 -->
         <div class="report-page" id="page-6">
           <!-- Header -->
           <div class="report-header">
@@ -813,7 +1055,7 @@
           <!-- Footer -->
           <div class="report-footer">
             <div class="small-note">版權所有 © 防跌中心 2025</div>
-            <div>第 6 頁 / 共 6 頁</div>
+            <div>第 7 頁 / 共 7 頁</div>
           </div>
         </div>
       </div>

@@ -9,8 +9,21 @@
         --brand-primary: #1a73e8;
         --brand-light: #f0f8ff;
         --muted: #555;
-        --level-active: #fbbc05;
-        --level-low: #e0e0e0;
+        /* Grade 顏色 */
+        --grade-A: #dc3545;
+        --grade-B: #ffc107;
+        --grade-C: #0d6efd;
+        --grade-D: #198754;
+
+        /* Risk 顏色 */
+        --risk-danger: #ff5757;
+        --risk-high: #ffa203;
+        --risk-medium: #ffd039;
+        --risk-low-medium: #8cff00;
+        --risk-low: #4ffa00;
+        /* 未選取灰色 */
+        --level-inactive-bg: #e0e0e0;
+        --level-inactive-color: #555;
       }
       html,
       body {
@@ -128,13 +141,49 @@
         padding: 6px 14px;
         border-radius: 20px;
         font-size: 13px;
-        background: var(--level-low);
-        color: #555;
+        background: var(--level-inactive-bg);
+        color: var(--level-inactive-color);
+        font-weight: 500;
+        cursor: pointer;
       }
-      .level-tags span.active {
-        background: var(--level-active);
+      /* Grade active 狀態 */
+      .level-tags.grade span.A.active {
+        background: var(--grade-A);
         color: #fff;
-        font-weight: 700;
+      }
+      .level-tags.grade span.B.active {
+        background: var(--grade-B);
+        color: #fff;
+      }
+      .level-tags.grade span.C.active {
+        background: var(--grade-C);
+        color: #fff;
+      }
+      .level-tags.grade span.D.active {
+        background: var(--grade-D);
+        color: #fff;
+      }
+
+      /* Risk active 狀態 */
+      .level-tags.risk span.danger.active {
+        background: var(--risk-danger);
+        color: #fff;
+      }
+      .level-tags.risk span.high.active {
+        background: var(--risk-high);
+        color: #fff;
+      }
+      .level-tags.risk span.medium.active {
+        background: var(--risk-medium);
+        color: #fff;
+      }
+      .level-tags.risk span.low-medium.active {
+        background: var(--risk-low-medium);
+        color: #fff;
+      }
+      .level-tags.risk span.low.active {
+        background: var(--risk-low);
+        color: #fff;
       }
       .ability-list p {
         margin: 6px 0;
@@ -186,21 +235,21 @@
           <div class="level-section">
             <div class="level-column">
               <div class="level-title">VIVIFRAIL 等級</div>
-              <div class="level-tags">
-                <span>A級</span>
-                <span>B級</span>
-                <span class="active">C級</span>
-                <span>D級</span>
+              <div class="level-tags grade">
+                <span class="A">A級</span>
+                <span class="B">B級</span>
+                <span class="C active">C級</span>
+                <span class="D">D級</span>
               </div>
             </div>
             <div class="level-column">
               <div class="level-title">跌倒風險等級</div>
-              <div class="level-tags">
-                <span>危險</span>
-                <span>高</span>
-                <span class="active">中</span>
-                <span>稍低</span>
-                <span>低</span>
+              <div class="level-tags risk">
+                <span class="danger">危險</span>
+                <span class="high">高</span>
+                <span class="medium active">中</span>
+                <span class="low-medium">稍低</span>
+                <span class="low">低</span>
               </div>
             </div>
           </div>
@@ -211,24 +260,30 @@
               <div class="block-title">健康能力概況</div>
               <div class="ability-list">
                 <p>
-                  <span class="ability-label">步態速度：</span
-                  ><span class="ability-value">略低</span>
+                  <span class="ability-label">步態速度：</span>
+                  <span
+                    class="ability-value"
+                    style="color: red; font-weight: 700"
+                    >略低 ⚠️ (0.92 m/s)</span
+                  >
                 </p>
                 <p>
-                  <span class="ability-label">坐站時間：</span
-                  ><span class="ability-value">偏慢</span>
+                  <span class="ability-label">坐站時間：</span>
+                  <span class="ability-value" style="color: orange"
+                    >偏慢 (16.5 秒)</span
+                  >
                 </p>
                 <p>
-                  <span class="ability-label">平衡分數：</span
-                  ><span class="ability-value">需改善</span>
+                  <span class="ability-label">平衡分數：</span>
+                  <span class="ability-value">需改善</span>
                 </p>
                 <p>
-                  <span class="ability-label">下肢肌力：</span
-                  ><span class="ability-value">中等</span>
+                  <span class="ability-label">下肢肌力：</span>
+                  <span class="ability-value">中等</span>
                 </p>
                 <p>
-                  <span class="ability-label">核心穩定：</span
-                  ><span class="ability-value">良好</span>
+                  <span class="ability-label">核心穩定：</span>
+                  <span class="ability-value">良好</span>
                 </p>
               </div>
             </div>
@@ -253,6 +308,95 @@
               <p class="list-small">
                 綜合測驗結果，受測者步態速度偏低 (0.92 m/s)、坐站測試時間較長
                 (16.5 秒)、側向平衡能力不足，整體跌倒風險指標為
+                2.46%，高於同年齡族群平均。近期跌倒風險呈上升趨勢，建議於 8
+                週內執行階段性肌力與平衡訓練，並於第 4 週進行回測追蹤。
+              </p>
+            </div>
+          </div>
+          <!-- 總結 -->
+          <div class="section">
+            <div class="key-card">
+              <div class="block-title">總結</div>
+              <p class="list-small">綜合測驗結果顯示：</p>
+              <ul
+                class="list-small"
+                style="padding-left: 20px; margin-top: 8px"
+              >
+                <li>
+                  步態速度：您的行走速度比同年齡平均慢一點
+                  <span
+                    style="
+                      display: inline-block;
+                      width: 120px;
+                      height: 10px;
+                      background: #e0e0e0;
+                      border-radius: 5px;
+                      margin-left: 8px;
+                      vertical-align: middle;
+                    "
+                  >
+                    <span
+                      style="
+                        display: block;
+                        width: 65%;
+                        height: 100%;
+                        background: #1a73e8;
+                        border-radius: 5px;
+                      "
+                    ></span>
+                  </span>
+                </li>
+                <li>
+                  坐站測試時間：稍慢
+                  <span
+                    style="
+                      display: inline-block;
+                      width: 120px;
+                      height: 10px;
+                      background: #e0e0e0;
+                      border-radius: 5px;
+                      margin-left: 8px;
+                      vertical-align: middle;
+                    "
+                  >
+                    <span
+                      style="
+                        display: block;
+                        width: 70%;
+                        height: 100%;
+                        background: #fbbc05;
+                        border-radius: 5px;
+                      "
+                    ></span>
+                  </span>
+                </li>
+                <li>
+                  側向平衡能力：不足
+                  <span
+                    style="
+                      display: inline-block;
+                      width: 120px;
+                      height: 10px;
+                      background: #e0e0e0;
+                      border-radius: 5px;
+                      margin-left: 8px;
+                      vertical-align: middle;
+                    "
+                  >
+                    <span
+                      style="
+                        display: block;
+                        width: 55%;
+                        height: 100%;
+                        background: #ea4335;
+                        border-radius: 5px;
+                      "
+                    ></span>
+                  </span>
+                </li>
+              </ul>
+              <p class="list-small" style="margin-top: 12px">
+                整體跌倒風險指標為
                 2.46%，高於同年齡族群平均。近期跌倒風險呈上升趨勢，建議於 8
                 週內執行階段性肌力與平衡訓練，並於第 4 週進行回測追蹤。
               </p>
