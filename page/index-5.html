@@ -1067,6 +1067,13 @@
     <!-- /page -->
 
     <script>
+      // 自動偵測是否在 GitHub Pages，補上 repo 路徑
+      if (location.hostname.includes("github.io")) {
+        const repoName = location.pathname.split("/")[1]; // 抓 repo 名稱
+        document.querySelectorAll('img[src^="/assets"]').forEach((img) => {
+          img.src = "/" + repoName + img.getAttribute("src");
+        });
+      }
       const HIST = [
         {
           date: "03/14",
