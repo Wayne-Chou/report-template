@@ -13,6 +13,14 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+      if (location.hostname.includes("github.io")) {
+        const repoName = location.pathname.split("/")[1]; // 抓 repo 名稱
+        document.querySelectorAll('img[src^="/assets"]').forEach((img) => {
+          img.src = "/" + repoName + img.getAttribute("src");
+        });
+      }
+    </script>
     <style>
       *,
       *::before,
@@ -969,14 +977,13 @@
                   </a>
                 </div>
                 <div class="sg-qr-side">
-                  <!-- QR Code：請將 src 換成您的圖片路徑 -->
                   <img
                     class="sg-qr-img"
                     id="qr-exercise"
                     src="/assets/qrcode-demo.png"
                     alt="規律運動 QR Code"
                   />
-                  <div class="sg-qr-txt">掃描查看</div>
+                  <div class="sg-qr-txt">掃描 QR Code，查看運動建議</div>
                 </div>
               </div>
             </div>
@@ -1025,13 +1032,12 @@
                   </a>
                 </div>
                 <div class="sg-qr-side">
-                  <!-- QR Code：請將 src 換成您的圖片路徑 -->
                   <img
                     class="sg-qr-img"
                     src="/assets/qrcode-demo.png"
                     alt="鞋具輔具 QR Code"
                   />
-                  <div class="sg-qr-txt">掃描查看</div>
+                  <div class="sg-qr-txt">掃描 QR Code，查看輔具產品</div>
                 </div>
               </div>
             </div>
@@ -1067,13 +1073,6 @@
     <!-- /page -->
 
     <script>
-      // 自動偵測是否在 GitHub Pages，補上 repo 路徑
-      if (location.hostname.includes("github.io")) {
-        const repoName = location.pathname.split("/")[1]; // 抓 repo 名稱
-        document.querySelectorAll('img[src^="/assets"]').forEach((img) => {
-          img.src = "/" + repoName + img.getAttribute("src");
-        });
-      }
       const HIST = [
         {
           date: "03/14",
