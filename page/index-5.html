@@ -13,14 +13,6 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script>
-      if (location.hostname.includes("github.io")) {
-        const repoName = location.pathname.split("/")[1]; // 抓 repo 名稱
-        document.querySelectorAll('img[src^="/assets"]').forEach((img) => {
-          img.src = "/" + repoName + img.getAttribute("src");
-        });
-      }
-    </script>
     <style>
       *,
       *::before,
@@ -743,7 +735,7 @@
           <div>
             <img
               style="width: 45px; display: block"
-              src="/assets/logo.png"
+              data-src="/assets/logo.png"
               alt="建豐健康科技"
             />
           </div>
@@ -980,7 +972,7 @@
                   <img
                     class="sg-qr-img"
                     id="qr-exercise"
-                    src="/assets/qrcode-demo.png"
+                    data-src="/assets/qrcode-demo.png"
                     alt="規律運動 QR Code"
                   />
                   <div class="sg-qr-txt">掃描 QR Code，查看運動建議</div>
@@ -1034,7 +1026,7 @@
                 <div class="sg-qr-side">
                   <img
                     class="sg-qr-img"
-                    src="/assets/qrcode-demo.png"
+                    data-src="/assets/qrcode-demo.png"
                     alt="鞋具輔具 QR Code"
                   />
                   <div class="sg-qr-txt">掃描 QR Code，查看輔具產品</div>
@@ -1073,6 +1065,15 @@
     <!-- /page -->
 
     <script>
+      document.querySelectorAll("img[data-src]").forEach((img) => {
+        const path = img.getAttribute("data-src");
+        if (location.hostname.includes("github.io")) {
+          const repoName = location.pathname.split("/")[1];
+          img.src = "/" + repoName + path;
+        } else {
+          img.src = path;
+        }
+      });
       const HIST = [
         {
           date: "03/14",
