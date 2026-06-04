@@ -149,15 +149,6 @@
         font-size: 11px;
         opacity: 0.7;
       }
-      .card-hdr-sm {
-        background: var(--blue);
-        color: #fff;
-        padding: 7px 14px;
-        font-size: 11.5px;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        border-radius: var(--radius) var(--radius) 0 0;
-      }
 
       /* ── TOP ROW ── */
       .top-row {
@@ -171,7 +162,8 @@
       }
 
       .stick-panel {
-        width: 148px;
+        flex: 4;
+        min-width: 0;
         flex-shrink: 0;
         background: #fff;
         border-radius: var(--radius);
@@ -191,7 +183,7 @@
       }
       .stick-labels {
         width: 100%;
-        font-size: 10.5px;
+        font-size: 10px;
         line-height: 1.8;
       }
       .stick-labels .green {
@@ -220,13 +212,13 @@
         font-family: "DM Mono", monospace;
       }
 
+      /* 個人資訊：flex:1 自然填滿剩餘空間 */
       .info-card {
-        flex: 1;
+        flex: 6;
         background: #fff;
         border-radius: var(--radius);
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
         overflow: hidden;
-        max-width: 320px;
       }
       .info-card-hdr {
         background: var(--blue);
@@ -283,14 +275,12 @@
         font-size: 11px;
       }
 
-      /* ── 鑑定單位 ── */
+      /* ── 鑑定單位（移至底部，橫向排列）── */
       .cert-card {
         background: #fff;
         border-radius: var(--radius);
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
         overflow: hidden;
-        flex: 1;
-        max-width: 220px;
       }
       .cert-card-hdr {
         background: var(--blue);
@@ -299,29 +289,27 @@
         font-weight: 700;
         padding: 8px 14px;
         letter-spacing: 0.05em;
+        border-radius: var(--radius) var(--radius) 0 0;
       }
       .cert-card-body {
-        padding: 12px 14px;
+        padding: 14px 20px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        gap: 10px;
-        height: calc(100% - 36px);
-        justify-content: center;
+        gap: 20px;
       }
       .cert-seal-img {
-        width: 72px;
-        height: 72px;
+        width: 64px;
+        height: 64px;
         object-fit: contain;
         border: 1.5px solid var(--gray-200);
-
         background: var(--gray-50);
+        flex-shrink: 0;
       }
       .cert-copyright {
-        font-size: 10px;
+        font-size: 11px;
         color: var(--gray-600);
-        text-align: center;
-        line-height: 1.5;
+        line-height: 1.6;
       }
 
       /* ── TIMELINE ── */
@@ -576,7 +564,6 @@
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
         overflow: hidden;
       }
-
       .suggest-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -707,8 +694,6 @@
       .sg-link i {
         font-size: 9px;
       }
-
-      /* QR 放右邊：主內容靠左、QR 靠右，flex row */
       .sg-with-qr {
         flex: 1;
         display: flex;
@@ -805,14 +790,14 @@
         </div>
         <div class="hdr-title">
           <div class="hdr-title-sub">
-            Fall Risk Retrospective & Recovery Report
+            Fall Risk Retrospective &amp; Recovery Report
           </div>
           <div class="hdr-title-main">長者防跌回溯與復能建議報告</div>
         </div>
       </div>
 
       <div class="pg-body">
-        <!-- 個人資訊 -->
+        <!-- 個人資訊（stick + info，拿掉 cert-card） -->
         <div class="top-row">
           <div class="top-left">
             <!-- 人物示意圖 -->
@@ -908,7 +893,7 @@
               </div>
             </div>
 
-            <!-- 個人資訊 -->
+            <!-- 個人資訊：自然填滿剩餘空間 -->
             <div class="info-card">
               <div class="info-card-hdr">個人資訊</div>
               <div class="info-card-body">
@@ -937,21 +922,6 @@
                     >
                     <span class="kv-val">建豐健康中心</span>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 鑑定單位 -->
-            <div class="cert-card">
-              <div class="cert-card-hdr">鑑定單位</div>
-              <div class="cert-card-body">
-                <img
-                  class="cert-seal-img"
-                  data-src="/assets/seal.jpg"
-                  alt="單位印章"
-                />
-                <div class="cert-copyright">
-                  ©2025 建豐健康科技<br />FongAI Co., Ltd
                 </div>
               </div>
             </div>
@@ -1014,7 +984,7 @@
             <i class="fa-solid fa-shield-heart"></i>防跌建議
           </div>
           <div class="suggest-grid">
-            <!-- 01 規律運動（有 QR） -->
+            <!-- 01 規律運動 -->
             <div class="sg s1">
               <div class="sg-with-qr">
                 <div class="sg-content">
@@ -1053,7 +1023,7 @@
               </div>
             </div>
 
-            <!-- 02 居家安全（無 QR） -->
+            <!-- 02 居家安全 -->
             <div class="sg s2">
               <div class="sg-top">
                 <div class="sg-ico"><i class="fa-solid fa-house"></i></div>
@@ -1069,7 +1039,7 @@
               </ul>
             </div>
 
-            <!-- 03 鞋具輔具（有 QR） -->
+            <!-- 03 鞋具輔具 -->
             <div class="sg s3">
               <div class="sg-with-qr">
                 <div class="sg-content">
@@ -1107,7 +1077,7 @@
               </div>
             </div>
 
-            <!-- 04 用藥與追蹤（無 QR） -->
+            <!-- 04 用藥與追蹤 -->
             <div class="sg s4">
               <div class="sg-top">
                 <div class="sg-ico"><i class="fa-solid fa-pills"></i></div>
@@ -1124,6 +1094,21 @@
             </div>
           </div>
         </div>
+
+        <!-- 鑑定單位（移至底部） -->
+        <div class="cert-card">
+          <div class="cert-card-hdr">鑑定單位</div>
+          <div class="cert-card-body">
+            <img
+              class="cert-seal-img"
+              data-src="/assets/seal.jpg"
+              alt="單位印章"
+            />
+            <div class="cert-copyright">
+              ©2025 建豐健康科技<br />FongAI Co., Ltd
+            </div>
+          </div>
+        </div>
       </div>
       <!-- /pg-body -->
 
@@ -1137,12 +1122,10 @@
         </div>
         <div class="pg-footer-contact">
           <div class="pg-footer-contact-item">
-            <i class="fa-solid fa-phone"></i>
-            聯絡電話：0938-936-302 | 李小姐
+            <i class="fa-solid fa-phone"></i>聯絡電話：0938-936-302 | 李小姐
           </div>
           <div class="pg-footer-contact-item">
-            <i class="fa-solid fa-clock"></i>
-            聯絡時間：週一至週五 09:00 – 16:00
+            <i class="fa-solid fa-clock"></i>聯絡時間：週一至週五 09:00 – 16:00
           </div>
         </div>
       </div>
@@ -1195,7 +1178,6 @@
         },
       ];
 
-      // 設定最近鑑測日期
       const lastHist = HIST[HIST.length - 1];
       document.getElementById("lastDateLabel").textContent =
         lastHist.date.replace(/\//g, ".");
@@ -1230,28 +1212,24 @@
         return { k: "vlow", t: CHIP.vlow, c: RC.vlow };
       }
 
-      /* HISTORY TIMELINE */
       const histBody = document.getElementById("histBody");
       HIST.forEach((d, i) => {
         const lv = levelByPct(d.risk);
-        const parts = d.date.split("/"); // ["2025","03","14"]
-        const year = parts[0];
-        const mm = parts[1];
-        const dd = parts[2];
+        const parts = d.date.split("/");
         const row = document.createElement("div");
         row.className = "tl-row";
         row.innerHTML = `
           <div class="tl-line-col">
             <div class="tl-dot">
-              <span class="tl-dot-year">${year}</span>
-              <span class="tl-dot-month">${mm}月</span>
-              <span class="tl-dot-day">${dd}</span>
+              <span class="tl-dot-year">${parts[0]}</span>
+              <span class="tl-dot-month">${parts[1]}月</span>
+              <span class="tl-dot-day">${parts[2]}</span>
             </div>
             ${i < HIST.length - 1 ? '<div class="tl-connector"></div>' : ""}
           </div>
           <div class="tl-card">
             <div class="tl-pct-block">
-              <div class="tl-block-title">跌倒風險趴數</div>
+              <div class="tl-block-title">跌到風險機率</div>
               <div class="tl-pct">${d.risk}%</div>
             </div>
             <div class="tl-lv-block">
@@ -1268,7 +1246,6 @@
         histBody.appendChild(row);
       });
 
-      /* LINE CHART — x 軸含年份 */
       new Chart(document.getElementById("lineChart"), {
         type: "line",
         data: {
@@ -1341,7 +1318,6 @@
         ],
       });
 
-      /* MOBILITY CHARTS — 含年份，移除 3/4 */
       const MOB_VERT = [
         { date: "2025/03/14", val: 14.2 },
         { date: "2025/04/16", val: 13.8 },
