@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>跌倒風險建議報告</title>
+    <title>長者防跌回溯與復能建議報告</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -110,7 +110,7 @@
         text-align: right;
       }
       .hdr-title-main {
-        font-size: 26px;
+        font-size: 22px;
         font-weight: 900;
         color: #fff;
         letter-spacing: 0.05em;
@@ -202,6 +202,23 @@
         color: #dc2626;
         font-weight: 600;
       }
+      .stick-last-date {
+        width: 100%;
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid var(--gray-200);
+        font-size: 10px;
+        color: var(--gray-600);
+        text-align: center;
+        line-height: 1.5;
+      }
+      .stick-last-date strong {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--blue);
+        font-family: "DM Mono", monospace;
+      }
 
       .info-card {
         flex: 1;
@@ -209,6 +226,7 @@
         border-radius: var(--radius);
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
         overflow: hidden;
+        max-width: 320px;
       }
       .info-card-hdr {
         background: var(--blue);
@@ -232,6 +250,7 @@
         justify-content: space-between;
         padding: 8px 2px;
         border-bottom: 1px solid var(--gray-100);
+        gap: 8px;
       }
       .kv-row:last-child {
         border-bottom: none;
@@ -244,6 +263,7 @@
         color: var(--gray-600);
         font-weight: 500;
         white-space: nowrap;
+        flex-shrink: 0;
       }
       .kv-lbl i {
         font-size: 11px;
@@ -261,6 +281,47 @@
       .kv-val.mono {
         font-family: "DM Mono", monospace;
         font-size: 11px;
+      }
+
+      /* ── 鑑定單位 ── */
+      .cert-card {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+        flex: 1;
+        max-width: 220px;
+      }
+      .cert-card-hdr {
+        background: var(--blue);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 8px 14px;
+        letter-spacing: 0.05em;
+      }
+      .cert-card-body {
+        padding: 12px 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        height: calc(100% - 36px);
+        justify-content: center;
+      }
+      .cert-seal-img {
+        width: 72px;
+        height: 72px;
+        object-fit: contain;
+        border: 1.5px solid var(--gray-200);
+
+        background: var(--gray-50);
+      }
+      .cert-copyright {
+        font-size: 10px;
+        color: var(--gray-600);
+        text-align: center;
+        line-height: 1.5;
       }
 
       /* ── TIMELINE ── */
@@ -295,7 +356,6 @@
       }
       .tl-dot {
         width: 60px;
-        height: 60px;
         border-radius: 12px;
         background: var(--blue);
         display: flex;
@@ -304,19 +364,28 @@
         justify-content: center;
         box-shadow: 0 2px 8px rgba(33, 102, 174, 0.35);
         flex-shrink: 0;
-        gap: 2px;
+        gap: 0;
+        padding: 6px 4px;
+      }
+      .tl-dot-year {
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1;
+        letter-spacing: 0.03em;
       }
       .tl-dot-month {
         font-family: "DM Mono", monospace;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
         color: rgba(255, 255, 255, 0.8);
-        line-height: 1;
+        line-height: 1.2;
         letter-spacing: 0.03em;
       }
       .tl-dot-day {
         font-family: "DM Mono", monospace;
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 900;
         color: #fff;
         line-height: 1;
@@ -461,28 +530,6 @@
         height: 100% !important;
       }
 
-      /* ── 雷達圖（全寬獨立 card）── */
-      .radar-card {
-        background: #fff;
-        border-radius: var(--radius);
-        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
-        overflow: hidden;
-      }
-      .radar-card-body {
-        padding: 14px 16px;
-        display: flex;
-        justify-content: center;
-      }
-      .radar-wrap {
-        height: 220px;
-        width: 100%;
-        position: relative;
-      }
-      .radar-wrap canvas {
-        width: 100% !important;
-        height: 100% !important;
-      }
-
       /* ── 移動力 ── */
       .mob-row {
         display: flex;
@@ -512,17 +559,6 @@
         gap: 6px;
         flex: 1;
       }
-      .mob-val {
-        font-size: 30px;
-        font-weight: 900;
-        line-height: 1;
-        letter-spacing: -0.02em;
-      }
-      .mob-val span {
-        font-size: 15px;
-        font-weight: 400;
-        color: var(--gray-400);
-      }
       .mob-chart-wrap {
         height: 80px;
         position: relative;
@@ -543,6 +579,7 @@
 
       .suggest-grid {
         display: grid;
+        grid-template-columns: 1fr 1fr;
       }
       .sg {
         padding: 14px 15px;
@@ -709,11 +746,13 @@
 
       /* FOOTER */
       .pg-footer {
-        padding: 9px 22px 14px;
+        padding: 9px 22px 10px;
+        border-top: 1px solid var(--gray-200);
+      }
+      .pg-footer-top {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-top: 1px solid var(--gray-200);
       }
       .pg-footer-note {
         font-size: 11px;
@@ -724,6 +763,26 @@
         font-size: 10.5px;
         color: var(--gray-600);
         font-weight: 500;
+      }
+      .pg-footer-contact {
+        margin-top: 6px;
+        padding-top: 6px;
+        border-top: 1px dashed var(--gray-200);
+        display: flex;
+        gap: 24px;
+        align-items: center;
+      }
+      .pg-footer-contact-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 10.5px;
+        color: var(--gray-600);
+      }
+      .pg-footer-contact-item i {
+        font-size: 10px;
+        color: var(--blue);
+        opacity: 0.8;
       }
     </style>
   </head>
@@ -745,8 +804,10 @@
           </div>
         </div>
         <div class="hdr-title">
-          <div class="hdr-title-sub">Fall Risk Assessment Report</div>
-          <div class="hdr-title-main">跌倒風險建議報告</div>
+          <div class="hdr-title-sub">
+            Fall Risk Retrospective & Recovery Report
+          </div>
+          <div class="hdr-title-main">長者防跌回溯與復能建議報告</div>
         </div>
       </div>
 
@@ -754,6 +815,7 @@
         <!-- 個人資訊 -->
         <div class="top-row">
           <div class="top-left">
+            <!-- 人物示意圖 -->
             <div class="stick-panel">
               <div class="stick-figure">
                 <svg
@@ -840,16 +902,22 @@
                 <div class="green">綠線：行走時身體水平重心</div>
                 <div class="red">紅線：後續重心偏移趨勢</div>
               </div>
+              <div class="stick-last-date">
+                最近鑑測日期
+                <strong id="lastDateLabel">—</strong>
+              </div>
             </div>
+
+            <!-- 個人資訊 -->
             <div class="info-card">
               <div class="info-card-hdr">個人資訊</div>
               <div class="info-card-body">
                 <div class="kv-list">
                   <div class="kv-row">
                     <span class="kv-lbl"
-                      ><i class="fa-solid fa-id-badge"></i>長者代碼</span
+                      ><i class="fa-solid fa-id-badge"></i>長者姓名</span
                     >
-                    <span class="kv-val">A001</span>
+                    <span class="kv-val">王小明</span>
                   </div>
                   <div class="kv-row">
                     <span class="kv-lbl"
@@ -869,6 +937,21 @@
                     >
                     <span class="kv-val">建豐健康中心</span>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 鑑定單位 -->
+            <div class="cert-card">
+              <div class="cert-card-hdr">鑑定單位</div>
+              <div class="cert-card-body">
+                <img
+                  class="cert-seal-img"
+                  data-src="/assets/seal.jpg"
+                  alt="單位印章"
+                />
+                <div class="cert-copyright">
+                  ©2025 建豐健康科技<br />FongAI Co., Ltd
                 </div>
               </div>
             </div>
@@ -893,14 +976,6 @@
           </div>
         </div>
 
-        <!-- 身體活動力風險評估（雷達圖，全寬） -->
-        <div class="radar-card">
-          <div class="card-hdr-sm">身體活動力風險評估</div>
-          <div class="chart-card-body">
-            <div class="radar-wrap"><canvas id="radarBig"></canvas></div>
-          </div>
-        </div>
-
         <!-- 移動力 -->
         <div class="mob-row">
           <div class="mob-card">
@@ -912,7 +987,6 @@
               >垂直移動力
             </div>
             <div class="mob-card-body">
-              <div class="mob-val">3<span>/4</span></div>
               <div class="mob-chart-wrap">
                 <canvas id="mobVertChart"></canvas>
               </div>
@@ -927,7 +1001,6 @@
               >水平移動力
             </div>
             <div class="mob-card-body">
-              <div class="mob-val">3<span>/4</span></div>
               <div class="mob-chart-wrap">
                 <canvas id="mobHorizChart"></canvas>
               </div>
@@ -1055,11 +1128,23 @@
       <!-- /pg-body -->
 
       <div class="pg-footer">
-        <div class="pg-footer-note">
-          資料來源：AI
-          動態骨架歷次鑑測紀錄、既有回報資料及《長者防跌妙招手冊》內容整理。
+        <div class="pg-footer-top">
+          <div class="pg-footer-note">
+            資料來源：AI
+            動態骨架歷次鑑測紀錄、衛生福利部國民健康署《長者防跌妙招手冊》內容整理。
+          </div>
+          <div class="pg-footer-date">報告日期：2025.08.20</div>
         </div>
-        <div class="pg-footer-date">報告日期：2025.08.20</div>
+        <div class="pg-footer-contact">
+          <div class="pg-footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            聯絡電話：(02) 1234-5678
+          </div>
+          <div class="pg-footer-contact-item">
+            <i class="fa-solid fa-clock"></i>
+            聯絡時間：週一至週五 09:00 – 18:00
+          </div>
+        </div>
       </div>
     </div>
     <!-- /page -->
@@ -1074,9 +1159,10 @@
           img.src = path;
         }
       });
+
       const HIST = [
         {
-          date: "03/14",
+          date: "2025/03/14",
           risk: 58,
           sppb: "10/12",
           bal: "3/4",
@@ -1084,7 +1170,7 @@
           walk: "3/4",
         },
         {
-          date: "04/16",
+          date: "2025/04/16",
           risk: 63,
           sppb: "10/12",
           bal: "3/4",
@@ -1092,7 +1178,7 @@
           walk: "3/4",
         },
         {
-          date: "06/13",
+          date: "2025/06/13",
           risk: 72,
           sppb: "9/12",
           bal: "2/4",
@@ -1100,7 +1186,7 @@
           walk: "3/4",
         },
         {
-          date: "08/20",
+          date: "2025/08/20",
           risk: 68,
           sppb: "10/12",
           bal: "3/4",
@@ -1108,6 +1194,12 @@
           walk: "3/4",
         },
       ];
+
+      // 設定最近鑑測日期
+      const lastHist = HIST[HIST.length - 1];
+      document.getElementById("lastDateLabel").textContent =
+        lastHist.date.replace(/\//g, ".");
+
       const RC = {
         danger: "#ff5757",
         high: "#ffa203",
@@ -1121,20 +1213,6 @@
         mid: "中",
         low: "稍低",
         vlow: "低",
-      };
-      const BG = {
-        danger: "#fef2f2",
-        high: "#fff7ed",
-        mid: "#fefce8",
-        low: "#f7fee7",
-        vlow: "#f0fdf4",
-      };
-      const BORD = {
-        danger: "#fca5a5",
-        high: "#fdba74",
-        mid: "#fde047",
-        low: "#bef264",
-        vlow: "#86efac",
       };
       const pillBg = {
         danger: "#ff5757",
@@ -1156,12 +1234,16 @@
       const histBody = document.getElementById("histBody");
       HIST.forEach((d, i) => {
         const lv = levelByPct(d.risk);
-        const [mm, dd] = d.date.split("/");
+        const parts = d.date.split("/"); // ["2025","03","14"]
+        const year = parts[0];
+        const mm = parts[1];
+        const dd = parts[2];
         const row = document.createElement("div");
         row.className = "tl-row";
         row.innerHTML = `
           <div class="tl-line-col">
             <div class="tl-dot">
+              <span class="tl-dot-year">${year}</span>
               <span class="tl-dot-month">${mm}月</span>
               <span class="tl-dot-day">${dd}</span>
             </div>
@@ -1186,11 +1268,14 @@
         histBody.appendChild(row);
       });
 
-      /* LINE CHART */
+      /* LINE CHART — x 軸含年份 */
       new Chart(document.getElementById("lineChart"), {
         type: "line",
         data: {
-          labels: HIST.map((d) => d.date),
+          labels: HIST.map((d) => {
+            const p = d.date.split("/");
+            return p[0] + "/" + p[1] + "/" + p[2];
+          }),
           datasets: [
             {
               label: "跌倒風險 %",
@@ -1227,7 +1312,7 @@
                 color: "#9ca3af",
               },
             },
-            x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+            x: { grid: { display: false }, ticks: { font: { size: 9 } } },
           },
           plugins: {
             legend: { display: false },
@@ -1256,85 +1341,28 @@
         ],
       });
 
-      /* RADAR BIG */
-      new Chart(document.getElementById("radarBig"), {
-        type: "radar",
-        data: {
-          labels: [
-            "Vivifrail",
-            "平衡測試",
-            "椅子起坐",
-            "步行速度",
-            "核心穩定度",
-          ],
-          datasets: [
-            {
-              label: "2025.06.13",
-              data: [2.5, 2, 4, 3, 3],
-              backgroundColor: "rgba(33,102,174,0.09)",
-              borderColor: "#2166ae",
-              borderWidth: 2,
-              pointRadius: 3,
-              pointBackgroundColor: "#2166ae",
-            },
-            {
-              label: "2025.08.20",
-              data: [3, 3, 4, 3, 3],
-              backgroundColor: "rgba(249,115,22,0.09)",
-              borderColor: "#f97316",
-              borderWidth: 2,
-              pointRadius: 3,
-              pointBackgroundColor: "#f97316",
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            r: {
-              min: 0,
-              max: 4,
-              ticks: {
-                stepSize: 1,
-                font: { size: 8 },
-                color: "#bbb",
-                backdropColor: "transparent",
-              },
-              pointLabels: { font: { size: 9, weight: "700" }, color: "#444" },
-              grid: { color: "rgba(0,0,0,0.07)" },
-              angleLines: { color: "rgba(0,0,0,0.07)" },
-            },
-          },
-          plugins: {
-            legend: {
-              display: true,
-              position: "bottom",
-              labels: { font: { size: 9 }, boxWidth: 12, padding: 8 },
-            },
-          },
-        },
-      });
-
-      /* MOBILITY CHARTS */
+      /* MOBILITY CHARTS — 含年份，移除 3/4 */
       const MOB_VERT = [
-        { date: "03/14", val: 14.2 },
-        { date: "04/16", val: 13.8 },
-        { date: "06/13", val: 14.5 },
-        { date: "08/20", val: 12.5 },
+        { date: "2025/03/14", val: 14.2 },
+        { date: "2025/04/16", val: 13.8 },
+        { date: "2025/06/13", val: 14.5 },
+        { date: "2025/08/20", val: 12.5 },
       ];
       const MOB_HORIZ = [
-        { date: "03/14", val: 5.2 },
-        { date: "04/16", val: 5.05 },
-        { date: "06/13", val: 5.31 },
-        { date: "08/20", val: 4.82 },
+        { date: "2025/03/14", val: 5.2 },
+        { date: "2025/04/16", val: 5.05 },
+        { date: "2025/06/13", val: 5.31 },
+        { date: "2025/08/20", val: 4.82 },
       ];
 
       function makeMobChart(id, data, color, unit) {
         new Chart(document.getElementById(id), {
           type: "line",
           data: {
-            labels: data.map((d) => d.date),
+            labels: data.map((d) => {
+              const p = d.date.split("/");
+              return p[0] + "/" + p[1] + "/" + p[2];
+            }),
             datasets: [
               {
                 data: data.map((d) => d.val),
@@ -1363,7 +1391,7 @@
                 grid: { color: "rgba(0,0,0,0.05)" },
                 border: { display: false },
               },
-              x: { grid: { display: false }, ticks: { font: { size: 8 } } },
+              x: { grid: { display: false }, ticks: { font: { size: 7.5 } } },
             },
             plugins: {
               legend: { display: false },
