@@ -275,12 +275,75 @@
         font-size: 11px;
       }
 
-      /* ── 鑑定單位（移至底部，橫向排列）── */
-      .cert-card {
+      /* ── 底部列（改善 8 + 鑑定 2）── */
+      .bottom-row {
+        display: flex;
+        gap: var(--gap);
+        align-items: stretch;
+      }
+
+      /* 改善區塊 */
+      .improve-card {
+        flex: 8;
         background: #fff;
         border-radius: var(--radius);
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .improve-card-hdr {
+        background: var(--blue-dark);
+        color: #fff;
+        padding: 9px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12.5px;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+      }
+      .improve-card-hdr i {
+        font-size: 11px;
+        opacity: 0.7;
+      }
+      .improve-card-body {
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+      }
+      .improve-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 14px;
+      }
+      .improve-item-body {
+        flex: 1;
+      }
+      .improve-item-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 2px;
+      }
+      .improve-item-desc {
+        font-size: 18px;
+        color: var(--gray-600);
+        line-height: 1.55;
+      }
+
+      /* 鑑定單位 */
+      .cert-card {
+        flex: 2;
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
       }
       .cert-card-hdr {
         background: var(--blue);
@@ -289,14 +352,15 @@
         font-weight: 700;
         padding: 8px 14px;
         letter-spacing: 0.05em;
-        border-radius: var(--radius) var(--radius) 0 0;
       }
       .cert-card-body {
-        padding: 14px 20px;
+        padding: 14px 16px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
-        gap: 20px;
+        justify-content: center;
+        gap: 10px;
+        flex: 1;
       }
       .cert-seal-img {
         width: 64px;
@@ -310,6 +374,7 @@
         font-size: 11px;
         color: var(--gray-600);
         line-height: 1.6;
+        text-align: center;
       }
 
       /* ── TIMELINE ── */
@@ -1095,17 +1160,38 @@
           </div>
         </div>
 
-        <!-- 鑑定單位（移至底部） -->
-        <div class="cert-card">
-          <div class="cert-card-hdr">鑑定單位</div>
-          <div class="cert-card-body">
-            <img
-              class="cert-seal-img"
-              data-src="/assets/seal.jpg"
-              alt="單位印章"
-            />
-            <div class="cert-copyright">
-              ©2025 建豐健康科技<br />FongAI Co., Ltd
+        <!-- 底部列：改善區塊(8) + 鑑定單位(2) -->
+        <div class="bottom-row">
+          <!-- 改善區塊 -->
+          <div class="improve-card">
+            <div class="improve-card-hdr">
+              <i class="fa-solid fa-arrow-trend-up"></i>改善建議
+            </div>
+            <div class="improve-card-body">
+              <div class="improve-item">
+                <div class="improve-item-body">
+                  <div class="improve-item-title">加強下肢肌力訓練</div>
+                  <div class="improve-item-desc">
+                    建議每週 3
+                    次以上坐姿抬腿、扶椅深蹲等動作，維持股四頭肌與臀肌力量，有效降低起身及步行跌倒風險。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 鑑定單位 -->
+          <div class="cert-card">
+            <div class="cert-card-hdr">鑑定單位</div>
+            <div class="cert-card-body">
+              <img
+                class="cert-seal-img"
+                data-src="/assets/seal.jpg"
+                alt="單位印章"
+              />
+              <div class="cert-copyright">
+                ©2025 建豐健康科技<br />FongAI Co., Ltd
+              </div>
             </div>
           </div>
         </div>
@@ -1229,7 +1315,7 @@
           </div>
           <div class="tl-card">
             <div class="tl-pct-block">
-              <div class="tl-block-title">跌到風險機率</div>
+              <div class="tl-block-title">跌倒風險趴數</div>
               <div class="tl-pct">${d.risk}%</div>
             </div>
             <div class="tl-lv-block">
