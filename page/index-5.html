@@ -319,18 +319,21 @@
         align-items: flex-start;
         gap: 10px;
         padding: 10px 14px;
+        background: var(--gray-50);
+        border-radius: 8px;
+        border-left: 3px solid var(--blue);
       }
       .improve-item-body {
         flex: 1;
       }
       .improve-item-title {
-        font-size: 20px;
+        font-size: 12px;
         font-weight: 700;
         color: var(--gray-900);
         margin-bottom: 2px;
       }
       .improve-item-desc {
-        font-size: 18px;
+        font-size: 11px;
         color: var(--gray-600);
         line-height: 1.55;
       }
@@ -796,17 +799,25 @@
 
       /* FOOTER */
       .pg-footer {
-        padding: 9px 22px 10px;
+        padding: 12px 22px 14px;
         border-top: 1px solid var(--gray-200);
       }
-      .pg-footer-top {
+      .pg-footer-inner {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .pg-footer-left {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
       }
       .pg-footer-note {
         font-size: 11px;
         color: var(--gray-600);
+        line-height: 1.55;
       }
       .pg-footer-date {
         font-family: "DM Mono", monospace;
@@ -815,12 +826,9 @@
         font-weight: 500;
       }
       .pg-footer-contact {
-        margin-top: 6px;
-        padding-top: 6px;
-        border-top: 1px dashed var(--gray-200);
         display: flex;
-        gap: 24px;
-        align-items: center;
+        gap: 20px;
+        margin-top: 2px;
       }
       .pg-footer-contact-item {
         display: flex;
@@ -833,6 +841,36 @@
         font-size: 10px;
         color: var(--blue);
         opacity: 0.8;
+      }
+
+      /* 鑑定單位（純文字，無卡片） */
+      .pg-footer-cert {
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding-left: 20px;
+        border-left: 1px solid var(--gray-200);
+      }
+      .pg-footer-cert-title {
+        font-size: 10.5px;
+        font-weight: 700;
+        color: var(--gray-600);
+        letter-spacing: 0.06em;
+      }
+      .pg-footer-cert-img {
+        width: 52px;
+        height: 52px;
+        object-fit: contain;
+        border: 1px solid var(--gray-200);
+        background: var(--gray-50);
+      }
+      .pg-footer-cert-copy {
+        font-size: 9.5px;
+        color: var(--gray-400);
+        text-align: center;
+        line-height: 1.5;
       }
     </style>
   </head>
@@ -1159,59 +1197,39 @@
             </div>
           </div>
         </div>
-
-        <!-- 底部列：改善區塊(8) + 鑑定單位(2) -->
-        <div class="bottom-row">
-          <!-- 改善區塊 -->
-          <div class="improve-card">
-            <div class="improve-card-hdr">
-              <i class="fa-solid fa-arrow-trend-up"></i>改善建議
-            </div>
-            <div class="improve-card-body">
-              <div class="improve-item">
-                <div class="improve-item-body">
-                  <div class="improve-item-title">加強下肢肌力訓練</div>
-                  <div class="improve-item-desc">
-                    建議每週 3
-                    次以上坐姿抬腿、扶椅深蹲等動作，維持股四頭肌與臀肌力量，有效降低起身及步行跌倒風險。
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 鑑定單位 -->
-          <div class="cert-card">
-            <div class="cert-card-hdr">鑑定單位</div>
-            <div class="cert-card-body">
-              <img
-                class="cert-seal-img"
-                data-src="/assets/seal.jpg"
-                alt="單位印章"
-              />
-              <div class="cert-copyright">
-                ©2025 建豐健康科技<br />FongAI Co., Ltd
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       <!-- /pg-body -->
 
       <div class="pg-footer">
-        <div class="pg-footer-top">
-          <div class="pg-footer-note">
-            資料來源：AI
-            動態骨架歷次鑑測紀錄、衛生福利部國民健康署《長者防跌妙招手冊》內容整理。
+        <div class="pg-footer-inner">
+          <!-- 左側：資料來源、報告日期、聯絡資訊 -->
+          <div class="pg-footer-left">
+            <div class="pg-footer-note">
+              資料來源：AI
+              動態骨架歷次鑑測紀錄、衛生福利部國民健康署《長者防跌妙招手冊》內容整理。
+            </div>
+            <div class="pg-footer-date">報告日期：2025.08.20</div>
+            <div class="pg-footer-contact">
+              <div class="pg-footer-contact-item">
+                <i class="fa-solid fa-phone"></i>聯絡電話：0938-936-302 | 李小姐
+              </div>
+              <div class="pg-footer-contact-item">
+                <i class="fa-solid fa-clock"></i>聯絡時間：週一至週五 09:00 –
+                16:00
+              </div>
+            </div>
           </div>
-          <div class="pg-footer-date">報告日期：2025.08.20</div>
-        </div>
-        <div class="pg-footer-contact">
-          <div class="pg-footer-contact-item">
-            <i class="fa-solid fa-phone"></i>聯絡電話：0938-936-302 | 李小姐
-          </div>
-          <div class="pg-footer-contact-item">
-            <i class="fa-solid fa-clock"></i>聯絡時間：週一至週五 09:00 – 16:00
+          <!-- 右側：鑑定單位（純文字，無卡片） -->
+          <div class="pg-footer-cert">
+            <div class="pg-footer-cert-title">鑑定單位</div>
+            <img
+              class="pg-footer-cert-img"
+              data-src="/assets/seal.jpg"
+              alt="單位印章"
+            />
+            <div class="pg-footer-cert-copy">
+              ©2025 建豐健康科技<br />FongAI Co., Ltd
+            </div>
           </div>
         </div>
       </div>
