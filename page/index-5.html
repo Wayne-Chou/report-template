@@ -25,11 +25,6 @@
         --blue: #2166ae;
         --blue-dark: #174f8c;
         --blue-light: #e8f2fb;
-        --c-danger: #ff5757;
-        --c-high: #ffa203;
-        --c-mid: #e6b800;
-        --c-low: #5cb800;
-        --c-vlow: #22a300;
         --gray-50: #f8f9fa;
         --gray-100: #f0f2f5;
         --gray-200: #e2e8f0;
@@ -48,10 +43,8 @@
         font-size: 13px;
         line-height: 1.5;
       }
-
-      /* PAGE */
       .page {
-        width: 794px;
+        width: 960px;
         min-height: 1123px;
         margin: 24px auto;
         background: #f5f7fb;
@@ -75,8 +68,6 @@
           margin: 0;
         }
       }
-
-      /* HEADER */
       .pg-header {
         background: linear-gradient(
           135deg,
@@ -122,8 +113,6 @@
         text-transform: uppercase;
         margin-bottom: 4px;
       }
-
-      /* BODY */
       .pg-body {
         flex: 1;
         padding: 18px 22px;
@@ -131,8 +120,6 @@
         flex-direction: column;
         gap: var(--gap);
       }
-
-      /* CARD HEADERS */
       .card-hdr {
         background: var(--blue-dark);
         color: #fff;
@@ -149,8 +136,6 @@
         font-size: 11px;
         opacity: 0.7;
       }
-
-      /* ── TOP ROW ── */
       .top-row {
         display: flex;
         gap: var(--gap);
@@ -160,9 +145,8 @@
         display: flex;
         gap: 12px;
       }
-
       .stick-panel {
-        flex: 4;
+        flex: 3;
         min-width: 0;
         flex-shrink: 0;
         background: #fff;
@@ -181,19 +165,6 @@
         align-items: center;
         justify-content: center;
       }
-      .stick-labels {
-        width: 100%;
-        font-size: 13px;
-        line-height: 1.8;
-      }
-      .stick-labels .green {
-        color: #16a34a;
-        font-weight: 600;
-      }
-      .stick-labels .red {
-        color: #dc2626;
-        font-weight: 600;
-      }
       .stick-last-date {
         width: 100%;
         margin-top: 8px;
@@ -211,10 +182,8 @@
         color: var(--blue);
         font-family: "DM Mono", monospace;
       }
-
-      /* 個人資訊：flex:1 自然填滿剩餘空間 */
       .info-card {
-        flex: 6;
+        flex: 4;
         background: #fff;
         border-radius: var(--radius);
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
@@ -230,6 +199,25 @@
       }
       .info-card-body {
         padding: 12px 14px;
+      }
+      .gauge-panel {
+        flex: 3;
+        min-width: 0;
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .gauge-panel-hdr {
+        background: var(--blue);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 8px 14px;
+        letter-spacing: 0.05em;
+        flex-shrink: 0;
       }
       .kv-list {
         display: flex;
@@ -274,319 +262,6 @@
         font-family: "DM Mono", monospace;
         font-size: 18px;
       }
-
-      /* ── 底部列（改善 8 + 鑑定 2）── */
-      .bottom-row {
-        display: flex;
-        gap: var(--gap);
-        align-items: stretch;
-      }
-
-      /* 改善區塊 */
-      .improve-card {
-        flex: 8;
-        background: #fff;
-        border-radius: var(--radius);
-        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-      }
-      .improve-card-hdr {
-        background: var(--blue-dark);
-        color: #fff;
-        padding: 9px 16px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 12.5px;
-        font-weight: 900;
-        letter-spacing: 0.06em;
-      }
-      .improve-card-hdr i {
-        font-size: 11px;
-        opacity: 0.7;
-      }
-      .improve-card-body {
-        padding: 14px 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        flex: 1;
-      }
-      .improve-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 10px 14px;
-        background: var(--gray-50);
-        border-radius: 8px;
-        border-left: 3px solid var(--blue);
-      }
-      .improve-item-body {
-        flex: 1;
-      }
-      .improve-item-title {
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--gray-900);
-        margin-bottom: 2px;
-      }
-      .improve-item-desc {
-        font-size: 11px;
-        color: var(--gray-600);
-        line-height: 1.55;
-      }
-
-      /* 鑑定單位 */
-      .cert-card {
-        flex: 2;
-        background: #fff;
-        border-radius: var(--radius);
-        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-      }
-      .cert-card-hdr {
-        background: var(--blue);
-        color: #fff;
-        font-size: 12px;
-        font-weight: 700;
-        padding: 8px 14px;
-        letter-spacing: 0.05em;
-      }
-      .cert-card-body {
-        padding: 14px 16px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        flex: 1;
-      }
-      .cert-seal-img {
-        width: 64px;
-        height: 64px;
-        object-fit: contain;
-        border: 1.5px solid var(--gray-200);
-        background: var(--gray-50);
-        flex-shrink: 0;
-      }
-      .cert-copyright {
-        font-size: 11px;
-        color: var(--gray-600);
-        line-height: 1.6;
-        text-align: center;
-      }
-
-      /* ── TIMELINE ── */
-      .hist-wrap {
-        background: #fff;
-        border-radius: var(--radius);
-        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
-        overflow: hidden;
-      }
-      .timeline-body {
-        padding: 14px 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-      }
-      .tl-row {
-        display: flex;
-        align-items: stretch;
-        gap: 0;
-        position: relative;
-      }
-      .tl-line-col {
-        width: 70px;
-        flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-      }
-      .tl-row:last-child .tl-line-col {
-        padding-bottom: 0;
-      }
-      .tl-dot {
-        width: 60px;
-        border-radius: 12px;
-        background: var(--blue);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 8px rgba(33, 102, 174, 0.35);
-        flex-shrink: 0;
-        gap: 0;
-        padding: 6px 4px;
-      }
-      .tl-dot-year {
-        font-family: "DM Mono", monospace;
-        font-size: 9px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.65);
-        line-height: 1;
-        letter-spacing: 0.03em;
-      }
-      .tl-dot-month {
-        font-family: "DM Mono", monospace;
-        font-size: 12px;
-        font-weight: 700;
-        color: rgba(255, 255, 255, 0.8);
-        line-height: 1.2;
-        letter-spacing: 0.03em;
-      }
-      .tl-dot-day {
-        font-family: "DM Mono", monospace;
-        font-size: 20px;
-        font-weight: 900;
-        color: #fff;
-        line-height: 1;
-      }
-      .tl-connector {
-        width: 2px;
-        flex: 1;
-        background: #2166ae;
-        margin: 5px auto 0;
-        opacity: 0.4;
-      }
-      .tl-row:last-child .tl-connector {
-        display: none;
-      }
-      .tl-card {
-        flex: 1;
-        margin-left: 12px;
-        margin-bottom: 10px;
-        border-radius: 9px;
-        border: 1.5px solid var(--gray-200);
-        background: #fafbfd;
-        padding: 10px 14px;
-        display: flex;
-        align-items: center;
-        gap: 0;
-      }
-      .tl-row:last-child .tl-card {
-        margin-bottom: 0;
-      }
-      .tl-pct-block {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 90px;
-        flex-shrink: 0;
-        border-right: 1.5px solid var(--gray-200);
-        padding-right: 12px;
-        margin-right: 12px;
-        gap: 3px;
-      }
-      .tl-block-title {
-        font-size: 9px;
-        font-weight: 700;
-        color: var(--gray-400);
-        letter-spacing: 0.07em;
-        text-transform: uppercase;
-        white-space: nowrap;
-      }
-      .tl-pct {
-        font-family: "DM Mono", monospace;
-        font-size: 28px;
-        font-weight: 900;
-        line-height: 1;
-        color: var(--gray-900);
-        letter-spacing: -0.02em;
-      }
-      .tl-lv-block {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 84px;
-        flex-shrink: 0;
-        border-right: 1.5px solid var(--gray-200);
-        padding-right: 12px;
-        margin-right: 12px;
-        gap: 5px;
-      }
-      .tl-lv-pill {
-        display: inline-block;
-        padding: 4px 11px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 700;
-        color: #fff;
-        letter-spacing: 0.03em;
-        white-space: nowrap;
-      }
-      .tl-badges {
-        flex: 1;
-        display: flex;
-        gap: 8px;
-        align-items: stretch;
-      }
-      .tl-badge {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: #fff;
-        border: 1.5px solid var(--gray-200);
-        border-radius: 8px;
-        padding: 7px 6px;
-      }
-      .tl-badge-lbl {
-        font-size: 9.5px;
-        color: var(--gray-400);
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        margin-bottom: 3px;
-      }
-      .tl-badge-val {
-        font-family: "DM Mono", monospace;
-        font-size: 13px;
-        font-weight: 700;
-        color: var(--gray-900);
-      }
-
-      /* ── CHART ── */
-      .chart-card {
-        background: #fff;
-        border-radius: var(--radius);
-        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
-        overflow: hidden;
-      }
-      .chart-card-hdr {
-        background: var(--blue-dark);
-        color: #fff;
-        padding: 9px 16px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 12.5px;
-        font-weight: 900;
-        letter-spacing: 0.06em;
-      }
-      .chart-card-hdr i {
-        font-size: 11px;
-        opacity: 0.7;
-      }
-      .chart-card-body {
-        padding: 14px 16px;
-      }
-      .chart-wrap-lg {
-        height: 180px;
-        position: relative;
-      }
-      .chart-wrap-lg canvas {
-        width: 100% !important;
-        height: 100% !important;
-      }
-
-      /* ── 移動力 ── */
       .mob-row {
         display: flex;
         gap: var(--gap);
@@ -607,6 +282,31 @@
         font-size: 11.5px;
         font-weight: 700;
         letter-spacing: 0.04em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .mob-card-hdr-left {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .mob-card-hint {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 6px;
+        padding: 3px 9px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+      }
+      .mob-card-hint i {
+        font-size: 11px;
       }
       .mob-card-body {
         padding: 12px 14px;
@@ -624,8 +324,6 @@
         width: 100% !important;
         height: 100% !important;
       }
-
-      /* ── 防跌建議 ── */
       .suggest-wrap {
         background: #fff;
         border-radius: var(--radius);
@@ -796,8 +494,37 @@
         text-align: center;
         line-height: 1.4;
       }
-
-      /* FOOTER */
+      .alert-card {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+        border-left: 5px solid #2166ae;
+      }
+      .alert-card-hdr {
+        background: var(--blue-light);
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12.5px;
+        font-weight: 900;
+        color: var(--blue-dark);
+        letter-spacing: 0.04em;
+      }
+      .alert-card-hdr i {
+        font-size: 13px;
+        color: var(--blue);
+      }
+      .alert-card-body {
+        padding: 14px 18px;
+      }
+      .alert-intro {
+        font-size: 12.5px;
+        color: var(--gray-900);
+        font-weight: 500;
+        line-height: 1.6;
+      }
       .pg-footer {
         padding: 12px 22px 14px;
         border-top: 1px solid var(--gray-200);
@@ -842,8 +569,6 @@
         color: var(--blue);
         opacity: 0.8;
       }
-
-      /* 鑑定單位（純文字，無卡片） */
       .pg-footer-cert {
         flex-shrink: 0;
         display: flex;
@@ -876,7 +601,6 @@
   </head>
   <body>
     <div class="page">
-      <!-- HEADER -->
       <div class="pg-header">
         <div class="hdr-logo">
           <div>
@@ -900,10 +624,8 @@
       </div>
 
       <div class="pg-body">
-        <!-- 個人資訊（stick + info，拿掉 cert-card） -->
         <div class="top-row">
           <div class="top-left">
-            <!-- 人物示意圖 -->
             <div class="stick-panel">
               <div class="stick-figure">
                 <svg
@@ -986,21 +708,12 @@
                   />
                 </svg>
               </div>
-              <div class="stick-labels">
-                <div>綠線為行走前身體之平衡重心</div>
-                <div>紅線代表行走過程最大偏移</div>
-                <div>
-                  紅線代表行走過程最大偏移 黃線與紅線之夾角為行走間人倾斜角度
-                </div>
-                <div>夾角越大代表行走間重心越不穩</div>
-              </div>
               <div class="stick-last-date">
                 最近鑑測日期
                 <strong id="lastDateLabel">—</strong>
               </div>
             </div>
 
-            <!-- 個人資訊：自然填滿剩餘空間 -->
             <div class="info-card">
               <div class="info-card-hdr">個人資訊</div>
               <div class="info-card-body">
@@ -1032,36 +745,58 @@
                 </div>
               </div>
             </div>
+
+            <div class="gauge-panel">
+              <div class="gauge-panel-hdr">跌倒風險等級</div>
+              <div style="position: relative; height: 180px; width: 100%">
+                <canvas
+                  id="stickGauge"
+                  style="width: 100%; display: block"
+                ></canvas>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- 歷次鑑測趨勢 -->
-        <div class="hist-wrap">
-          <div class="card-hdr">
-            <i class="fa-solid fa-clock-rotate-left"></i>歷次鑑測趨勢
-          </div>
-          <div class="timeline-body" id="histBody"></div>
-        </div>
-
-        <!-- 跌倒風險機率曲線 -->
-        <div class="chart-card">
-          <div class="chart-card-hdr">
-            <i class="fa-solid fa-chart-line"></i>跌倒風險機率
-          </div>
-          <div class="chart-card-body">
-            <div class="chart-wrap-lg"><canvas id="lineChart"></canvas></div>
-          </div>
-        </div>
-
-        <!-- 移動力 -->
+        <!-- 圖表 2x2 -->
         <div class="mob-row">
           <div class="mob-card">
             <div class="mob-card-hdr">
-              <i
-                class="fa-solid fa-arrows-up-down"
-                style="margin-right: 6px"
-              ></i
-              >垂直移動力
+              <span class="mob-card-hdr-left"
+                ><i class="fa-solid fa-chart-line"></i>跌倒風險機率</span
+              >
+              <span class="mob-card-hint"
+                ><i class="fa-solid fa-circle-half-stroke"></i
+                >顏色代表風險高低</span
+              >
+            </div>
+            <div class="mob-card-body">
+              <div class="mob-chart-wrap"><canvas id="lineChart"></canvas></div>
+            </div>
+          </div>
+          <div class="mob-card">
+            <div class="mob-card-hdr">
+              <span class="mob-card-hdr-left"
+                ><i class="fa-solid fa-person-rays"></i>平衡能力</span
+              >
+              <span class="mob-card-hint"
+                ><i class="fa-solid fa-arrow-up"></i>越高越好</span
+              >
+            </div>
+            <div class="mob-card-body">
+              <div class="mob-chart-wrap">
+                <canvas id="mobBalChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-row">
+          <div class="mob-card">
+            <div class="mob-card-hdr">
+              <span class="mob-card-hdr-left"
+                ><i class="fa-solid fa-arrows-up-down"></i>垂直移動力</span
+              >
+              <span class="mob-card-hint">↓ 越低越好</span>
             </div>
             <div class="mob-card-body">
               <div class="mob-chart-wrap">
@@ -1071,11 +806,10 @@
           </div>
           <div class="mob-card">
             <div class="mob-card-hdr">
-              <i
-                class="fa-solid fa-arrows-left-right"
-                style="margin-right: 6px"
-              ></i
-              >水平移動力
+              <span class="mob-card-hdr-left"
+                ><i class="fa-solid fa-arrows-left-right"></i>水平移動力</span
+              >
+              <span class="mob-card-hint">↓ 越低越好</span>
             </div>
             <div class="mob-card-body">
               <div class="mob-chart-wrap">
@@ -1091,7 +825,6 @@
             <i class="fa-solid fa-shield-heart"></i>防跌建議
           </div>
           <div class="suggest-grid">
-            <!-- 01 規律運動 -->
             <div class="sg s1">
               <div class="sg-with-qr">
                 <div class="sg-content">
@@ -1120,7 +853,7 @@
                   <div class="sg-qr-txt">掃描 QR Code，查看運動建議</div>
                   <a
                     class="sg-link"
-                    href="https://fongai.co/fongai/index.php?page=vivifrail#level-a"
+                    href="https://fongai.co/fongai/page.php?page=vivifrail#level-a"
                     target="_blank"
                   >
                     <i class="fa-solid fa-arrow-up-right-from-square"></i
@@ -1129,8 +862,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- 02 居家安全 -->
             <div class="sg s2">
               <div class="sg-top">
                 <div class="sg-ico"><i class="fa-solid fa-house"></i></div>
@@ -1145,8 +876,6 @@
                 </li>
               </ul>
             </div>
-
-            <!-- 03 鞋具輔具 -->
             <div class="sg s3">
               <div class="sg-with-qr">
                 <div class="sg-content">
@@ -1174,7 +903,7 @@
                   <div class="sg-qr-txt">掃描 QR Code，查看輔具產品</div>
                   <a
                     class="sg-link"
-                    href="https://fongai.co/fongai/index.php?page=product/selected-products"
+                    href="https://fongai.co/fongai/page.php?page=product/selected-products"
                     target="_blank"
                   >
                     <i class="fa-solid fa-arrow-up-right-from-square"></i
@@ -1183,8 +912,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- 04 用藥與追蹤 -->
             <div class="sg s4">
               <div class="sg-top">
                 <div class="sg-ico"><i class="fa-solid fa-pills"></i></div>
@@ -1201,12 +928,23 @@
             </div>
           </div>
         </div>
+
+        <!-- 提示框 -->
+        <div class="alert-card">
+          <div class="alert-card-hdr">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            數據良好，仍需留意外在風險因子
+          </div>
+          <div class="alert-card-body">
+            <div class="alert-intro">
+              本份報告各項評估數據均在正常範圍內，整體體能表現良好。然而跌倒風險並非單由生理數據決定，即使體能指標優異，仍可能因多重用藥交互作用、視力退化、認知功能下降或居家環境不安全等外在因素而提高跌倒機率，建議照護人員與家屬同步關注上述面向，定期進行全面性評估。
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- /pg-body -->
 
       <div class="pg-footer">
         <div class="pg-footer-inner">
-          <!-- 左側：資料來源、報告日期、聯絡資訊 -->
           <div class="pg-footer-left">
             <div class="pg-footer-note">
               資料來源：AI
@@ -1223,7 +961,6 @@
               </div>
             </div>
           </div>
-          <!-- 右側：鑑定單位（純文字，無卡片） -->
           <div class="pg-footer-cert">
             <div class="pg-footer-cert-title">鑑定單位</div>
             <img
@@ -1238,7 +975,6 @@
         </div>
       </div>
     </div>
-    <!-- /page -->
 
     <script>
       document.querySelectorAll("img[data-src]").forEach((img) => {
@@ -1250,6 +986,104 @@
           img.src = path;
         }
       });
+
+      /* ── 指針儀表 ── */
+      (function () {
+        const score = 9;
+        const riskColors = {
+          danger: "#ff5757",
+          high: "#ffa203",
+          medium: "#ffd039",
+          low: "#8cff00",
+          veryLow: "#4ffa00",
+        };
+        function getRiskLevel(val) {
+          if (val <= 2) return { text: "危險", color: riskColors.danger };
+          if (val <= 5) return { text: "高風險", color: riskColors.high };
+          if (val <= 8) return { text: "中度", color: riskColors.medium };
+          if (val <= 11) return { text: "稍低", color: riskColors.low };
+          return { text: "低風險", color: riskColors.veryLow };
+        }
+        const level = getRiskLevel(score);
+        new Chart(document.getElementById("stickGauge"), {
+          type: "doughnut",
+          data: {
+            datasets: [
+              {
+                data: [1, 1, 1, 1, 1],
+                backgroundColor: [
+                  riskColors.danger,
+                  riskColors.high,
+                  riskColors.medium,
+                  riskColors.low,
+                  riskColors.veryLow,
+                ],
+                circumference: 180,
+                rotation: 270,
+                borderWidth: 3,
+                borderColor: "#ffffff",
+                cutout: "80%",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: { top: 30, bottom: 10 } },
+            plugins: {
+              legend: { display: false },
+              tooltip: { enabled: false },
+            },
+          },
+          plugins: [
+            {
+              id: "needleAndText",
+              afterDraw(chart) {
+                const { ctx, chartArea } = chart;
+                const centerX = (chartArea.left + chartArea.right) / 2;
+                const centerY = chartArea.bottom - 10;
+                const innerRadius =
+                  chart.getDatasetMeta(0).controller.innerRadius;
+                ctx.save();
+                ctx.font = "bold 11px sans-serif";
+                ctx.fillStyle = "#1e293b";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText("風險等級：" + level.text, centerX, centerY);
+                const angle = Math.PI + Math.PI * (score / 12);
+                const startDist = 10,
+                  endDist = innerRadius - 2,
+                  arrowSize = 8,
+                  baseAngle = 0.4;
+                const startX = centerX + Math.cos(angle) * startDist;
+                const startY = centerY + Math.sin(angle) * startDist;
+                const tipX = centerX + Math.cos(angle) * endDist;
+                const tipY = centerY + Math.sin(angle) * endDist;
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(tipX, tipY);
+                ctx.strokeStyle = "#334155";
+                ctx.lineWidth = 2.5;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(tipX, tipY);
+                ctx.lineTo(
+                  tipX - arrowSize * Math.cos(angle - baseAngle),
+                  tipY - arrowSize * Math.sin(angle - baseAngle),
+                );
+                ctx.lineTo(
+                  tipX - arrowSize * Math.cos(angle + baseAngle),
+                  tipY - arrowSize * Math.sin(angle + baseAngle),
+                );
+                ctx.closePath();
+                ctx.fillStyle = "#334155";
+                ctx.fill();
+                ctx.restore();
+              },
+            },
+          ],
+        });
+      })();
 
       const HIST = [
         {
@@ -1285,75 +1119,42 @@
           walk: "3/4",
         },
       ];
-
       const lastHist = HIST[HIST.length - 1];
       document.getElementById("lastDateLabel").textContent =
         lastHist.date.replace(/\//g, ".");
 
-      const RC = {
-        danger: "#ff5757",
-        high: "#ffa203",
-        mid: "#e6b800",
-        low: "#5cb800",
-        vlow: "#22a300",
-      };
-      const CHIP = {
-        danger: "高",
-        high: "稍高",
-        mid: "中",
-        low: "稍低",
-        vlow: "低",
-      };
-      const pillBg = {
-        danger: "#ff5757",
-        high: "#ffa203",
-        mid: "#ffd039",
-        low: "#8cff00",
-        vlow: "#4ffa00",
-      };
-
-      function levelByPct(p) {
-        if (p >= 75) return { k: "danger", t: CHIP.danger, c: RC.danger };
-        if (p >= 65) return { k: "high", t: CHIP.high, c: RC.high };
-        if (p >= 50) return { k: "mid", t: CHIP.mid, c: RC.mid };
-        if (p >= 35) return { k: "low", t: CHIP.low, c: RC.low };
-        return { k: "vlow", t: CHIP.vlow, c: RC.vlow };
+      /* 跌倒風險五色對應 */
+      const riskSegColors = [
+        "#ff5757",
+        "#ffa203",
+        "#ffd039",
+        "#8cff00",
+        "#4ffa00",
+      ];
+      function riskPointColor(pct) {
+        if (pct >= 75) return riskSegColors[0];
+        if (pct >= 65) return riskSegColors[1];
+        if (pct >= 50) return riskSegColors[2];
+        if (pct >= 35) return riskSegColors[3];
+        return riskSegColors[4];
       }
 
-      const histBody = document.getElementById("histBody");
-      HIST.forEach((d, i) => {
-        const lv = levelByPct(d.risk);
-        const parts = d.date.split("/");
-        const row = document.createElement("div");
-        row.className = "tl-row";
-        row.innerHTML = `
-          <div class="tl-line-col">
-            <div class="tl-dot">
-              <span class="tl-dot-year">${parts[0]}</span>
-              <span class="tl-dot-month">${parts[1]}月</span>
-              <span class="tl-dot-day">${parts[2]}</span>
-            </div>
-            ${i < HIST.length - 1 ? '<div class="tl-connector"></div>' : ""}
-          </div>
-          <div class="tl-card">
-            <div class="tl-pct-block">
-              <div class="tl-block-title">跌倒風險趴數</div>
-              <div class="tl-pct">${d.risk}%</div>
-            </div>
-            <div class="tl-lv-block">
-              <div class="tl-block-title">跌倒風險等級</div>
-              <div class="tl-lv-pill" style="background:${pillBg[lv.k]}">${lv.t}</div>
-            </div>
-            <div class="tl-badges">
-              <div class="tl-badge"><div class="tl-badge-lbl">SPPB</div><div class="tl-badge-val">${d.sppb}</div></div>
-              <div class="tl-badge"><div class="tl-badge-lbl">平衡</div><div class="tl-badge-val">${d.bal}</div></div>
-              <div class="tl-badge"><div class="tl-badge-lbl">起坐</div><div class="tl-badge-val">${d.ss}</div></div>
-              <div class="tl-badge"><div class="tl-badge-lbl">步行</div><div class="tl-badge-val">${d.walk}</div></div>
-            </div>
-          </div>`;
-        histBody.appendChild(row);
-      });
+      /* 移動力門檻顏色（越低越好：低於門檻綠，超過門檻紅） */
+      const VERT_THRESHOLD = 14.0;
+      const HORIZ_THRESHOLD = 5.2;
+      function mobPointColor(val, threshold) {
+        return val <= threshold ? "#22c55e" : "#ef4444";
+      }
 
+      /* 平衡能力顏色（越高越好：3~4 綠，2 黃，0~1 紅） */
+      function balPointColor(val) {
+        if (val >= 3) return "#22c55e";
+        if (val >= 2) return "#eab308";
+        return "#ef4444";
+      }
+
+      /* 跌倒風險曲線 */
+      const riskPointColors = HIST.map((d) => riskPointColor(d.risk));
       new Chart(document.getElementById("lineChart"), {
         type: "line",
         data: {
@@ -1369,7 +1170,7 @@
               backgroundColor: "rgba(33,102,174,0.07)",
               borderWidth: 2.5,
               pointRadius: 6,
-              pointBackgroundColor: "#2166ae",
+              pointBackgroundColor: riskPointColors,
               pointBorderColor: "#fff",
               pointBorderWidth: 2,
               fill: true,
@@ -1415,7 +1216,7 @@
                   y = ds[i].y;
                 ctx.save();
                 ctx.font = '700 10px "Noto Sans TC",sans-serif';
-                ctx.fillStyle = "#2166ae";
+                ctx.fillStyle = riskPointColors[i];
                 ctx.textAlign = "center";
                 ctx.textBaseline = "bottom";
                 ctx.fillText(d.risk + "%", x, y - 10);
@@ -1426,6 +1227,7 @@
         ],
       });
 
+      /* 移動力 & 平衡 */
       const MOB_VERT = [
         { date: "2025/03/14", val: 14.2 },
         { date: "2025/04/16", val: 13.8 },
@@ -1438,8 +1240,15 @@
         { date: "2025/06/13", val: 5.31 },
         { date: "2025/08/20", val: 4.82 },
       ];
+      const MOB_BAL = [
+        { date: "2025/03/14", val: 3 },
+        { date: "2025/04/16", val: 3 },
+        { date: "2025/06/13", val: 2 },
+        { date: "2025/08/20", val: 3 },
+      ];
 
-      function makeMobChart(id, data, color, unit) {
+      function makeMobChart(id, data, lineColor, unit, pointColorFn) {
+        const ptColors = data.map((d) => pointColorFn(d.val));
         new Chart(document.getElementById(id), {
           type: "line",
           data: {
@@ -1450,11 +1259,11 @@
             datasets: [
               {
                 data: data.map((d) => d.val),
-                borderColor: color,
-                backgroundColor: color + "18",
+                borderColor: lineColor,
+                backgroundColor: lineColor + "18",
                 borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: color,
+                pointRadius: 5,
+                pointBackgroundColor: ptColors,
                 pointBorderColor: "#fff",
                 pointBorderWidth: 1.5,
                 fill: true,
@@ -1493,10 +1302,10 @@
                     y = ds[i].y;
                   ctx.save();
                   ctx.font = '600 8.5px "DM Mono",monospace';
-                  ctx.fillStyle = color;
+                  ctx.fillStyle = ptColors[i];
                   ctx.textAlign = "center";
                   ctx.textBaseline = "bottom";
-                  ctx.fillText(d.val + unit, x, y - 7);
+                  ctx.fillText(d.val + unit, x, y - 8);
                   ctx.restore();
                 });
               },
@@ -1504,8 +1313,16 @@
           ],
         });
       }
-      makeMobChart("mobVertChart", MOB_VERT, "#2166ae", "秒");
-      makeMobChart("mobHorizChart", MOB_HORIZ, "#2166ae", "秒");
+
+      makeMobChart("mobVertChart", MOB_VERT, "#2166ae", "秒", (v) =>
+        mobPointColor(v, VERT_THRESHOLD),
+      );
+      makeMobChart("mobHorizChart", MOB_HORIZ, "#2166ae", "秒", (v) =>
+        mobPointColor(v, HORIZ_THRESHOLD),
+      );
+      makeMobChart("mobBalChart", MOB_BAL, "#2166ae", "分", (v) =>
+        balPointColor(v),
+      );
     </script>
   </body>
 </html>
