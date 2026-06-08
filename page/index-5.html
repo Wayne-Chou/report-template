@@ -68,6 +68,7 @@
           margin: 0;
         }
       }
+
       .pg-header {
         background: linear-gradient(
           135deg,
@@ -113,6 +114,7 @@
         text-transform: uppercase;
         margin-bottom: 4px;
       }
+
       .pg-body {
         flex: 1;
         padding: 18px 22px;
@@ -136,6 +138,7 @@
         font-size: 11px;
         opacity: 0.7;
       }
+
       .top-row {
         display: flex;
         gap: var(--gap);
@@ -262,6 +265,7 @@
         font-family: "DM Mono", monospace;
         font-size: 18px;
       }
+
       .mob-row {
         display: flex;
         gap: var(--gap);
@@ -291,23 +295,7 @@
         align-items: center;
         gap: 6px;
       }
-      .mob-card-hint {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        background: rgba(255, 255, 255, 0.18);
-        border: 1px solid rgba(255, 255, 255, 0.35);
-        border-radius: 6px;
-        padding: 3px 9px;
-        font-size: 11px;
-        font-weight: 700;
-        color: #fff;
-        letter-spacing: 0.03em;
-        white-space: nowrap;
-      }
-      .mob-card-hint i {
-        font-size: 11px;
-      }
+
       .mob-card-body {
         padding: 12px 14px;
         display: flex;
@@ -324,6 +312,7 @@
         width: 100% !important;
         height: 100% !important;
       }
+
       .suggest-wrap {
         background: #fff;
         border-radius: var(--radius);
@@ -494,37 +483,95 @@
         text-align: center;
         line-height: 1.4;
       }
+
+      /* ── 提示框（共用基礎） ── */
       .alert-card {
         background: #fff;
         border-radius: var(--radius);
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
         overflow: hidden;
-        border-left: 5px solid #2166ae;
       }
       .alert-card-hdr {
-        background: var(--blue-light);
         padding: 10px 16px;
         display: flex;
         align-items: center;
         gap: 8px;
         font-size: 12.5px;
         font-weight: 900;
-        color: var(--blue-dark);
         letter-spacing: 0.04em;
       }
       .alert-card-hdr i {
         font-size: 13px;
-        color: var(--blue);
       }
       .alert-card-body {
         padding: 14px 18px;
       }
       .alert-intro {
         font-size: 12.5px;
-        color: var(--gray-900);
         font-weight: 500;
         line-height: 1.6;
       }
+
+      /* 良好：藍色 */
+      .alert-good {
+        border-left: 5px solid #2166ae;
+      }
+      .alert-good .alert-card-hdr {
+        background: var(--blue-light);
+        color: var(--blue-dark);
+      }
+      .alert-good .alert-card-hdr i {
+        color: var(--blue);
+      }
+      .alert-good .alert-intro {
+        color: var(--gray-900);
+      }
+
+      /* 中度：黃色 */
+      .alert-mid {
+        border-left: 5px solid #d97706;
+      }
+      .alert-mid .alert-card-hdr {
+        background: #fffbeb;
+        color: #92400e;
+      }
+      .alert-mid .alert-card-hdr i {
+        color: #d97706;
+      }
+      .alert-mid .alert-intro {
+        color: #78350f;
+      }
+
+      /* 稍高：橘色 */
+      .alert-high {
+        border-left: 5px solid #ea580c;
+      }
+      .alert-high .alert-card-hdr {
+        background: #fff7ed;
+        color: #9a3412;
+      }
+      .alert-high .alert-card-hdr i {
+        color: #ea580c;
+      }
+      .alert-high .alert-intro {
+        color: #7c2d12;
+      }
+
+      /* 危險：紅色 */
+      .alert-danger {
+        border-left: 5px solid #dc2626;
+      }
+      .alert-danger .alert-card-hdr {
+        background: #fef2f2;
+        color: #7f1d1d;
+      }
+      .alert-danger .alert-card-hdr i {
+        color: #dc2626;
+      }
+      .alert-danger .alert-intro {
+        color: #7f1d1d;
+      }
+
       .pg-footer {
         padding: 12px 22px 14px;
         border-top: 1px solid var(--gray-200);
@@ -709,8 +756,7 @@
                 </svg>
               </div>
               <div class="stick-last-date">
-                最近鑑測日期
-                <strong id="lastDateLabel">—</strong>
+                最近鑑測日期<strong id="lastDateLabel">—</strong>
               </div>
             </div>
 
@@ -721,26 +767,22 @@
                   <div class="kv-row">
                     <span class="kv-lbl"
                       ><i class="fa-solid fa-id-badge"></i>長者姓名</span
-                    >
-                    <span class="kv-val">王小明</span>
+                    ><span class="kv-val">王小明</span>
                   </div>
                   <div class="kv-row">
                     <span class="kv-lbl"
                       ><i class="fa-solid fa-user"></i>性別 / 年齡</span
-                    >
-                    <span class="kv-val">女 / 88</span>
+                    ><span class="kv-val">女 / 88</span>
                   </div>
                   <div class="kv-row">
                     <span class="kv-lbl"
                       ><i class="fa-solid fa-calendar-days"></i>回溯期間</span
-                    >
-                    <span class="kv-val mono">2025.03 – 2025.08</span>
+                    ><span class="kv-val mono">2025.03 – 2025.08</span>
                   </div>
                   <div class="kv-row">
                     <span class="kv-lbl"
                       ><i class="fa-solid fa-location-dot"></i>檢測據點</span
-                    >
-                    <span class="kv-val">建豐健康中心</span>
+                    ><span class="kv-val">建豐健康中心</span>
                   </div>
                 </div>
               </div>
@@ -765,10 +807,6 @@
               <span class="mob-card-hdr-left"
                 ><i class="fa-solid fa-chart-line"></i>跌倒風險機率</span
               >
-              <span class="mob-card-hint"
-                ><i class="fa-solid fa-circle-half-stroke"></i
-                >顏色代表風險高低</span
-              >
             </div>
             <div class="mob-card-body">
               <div class="mob-chart-wrap"><canvas id="lineChart"></canvas></div>
@@ -778,9 +816,6 @@
             <div class="mob-card-hdr">
               <span class="mob-card-hdr-left"
                 ><i class="fa-solid fa-person-rays"></i>平衡能力</span
-              >
-              <span class="mob-card-hint"
-                ><i class="fa-solid fa-arrow-up"></i>越高越好</span
               >
             </div>
             <div class="mob-card-body">
@@ -796,7 +831,6 @@
               <span class="mob-card-hdr-left"
                 ><i class="fa-solid fa-arrows-up-down"></i>垂直移動力</span
               >
-              <span class="mob-card-hint">↓ 越低越好</span>
             </div>
             <div class="mob-card-body">
               <div class="mob-chart-wrap">
@@ -809,7 +843,6 @@
               <span class="mob-card-hdr-left"
                 ><i class="fa-solid fa-arrows-left-right"></i>水平移動力</span
               >
-              <span class="mob-card-hint">↓ 越低越好</span>
             </div>
             <div class="mob-card-body">
               <div class="mob-chart-wrap">
@@ -855,10 +888,9 @@
                     class="sg-link"
                     href="https://fongai.co/fongai/page.php?page=vivifrail#level-a"
                     target="_blank"
+                    ><i class="fa-solid fa-arrow-up-right-from-square"></i
+                    >&nbsp;前往連結</a
                   >
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i
-                    >&nbsp;前往連結
-                  </a>
                 </div>
               </div>
             </div>
@@ -905,10 +937,9 @@
                     class="sg-link"
                     href="https://fongai.co/fongai/page.php?page=product/selected-products"
                     target="_blank"
+                    ><i class="fa-solid fa-arrow-up-right-from-square"></i
+                    >&nbsp;前往連結</a
                   >
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i
-                    >&nbsp;前往連結
-                  </a>
                 </div>
               </div>
             </div>
@@ -929,15 +960,55 @@
           </div>
         </div>
 
-        <!-- 提示框 -->
-        <div class="alert-card">
+        <!-- 提示框：數據良好（藍） -->
+        <div class="alert-card alert-good">
           <div class="alert-card-hdr">
-            <i class="fa-solid fa-triangle-exclamation"></i>
+            <i class="fa-solid fa-circle-check"></i>
             數據良好，仍需留意外在風險因子
           </div>
           <div class="alert-card-body">
             <div class="alert-intro">
               本份報告各項評估數據均在正常範圍內，整體體能表現良好。然而跌倒風險並非單由生理數據決定，即使體能指標優異，仍可能因多重用藥交互作用、視力退化、認知功能下降或居家環境不安全等外在因素而提高跌倒機率，建議照護人員與家屬同步關注上述面向，定期進行全面性評估。
+            </div>
+          </div>
+        </div>
+
+        <!-- 提示框：中度風險（黃） -->
+        <div class="alert-card alert-mid">
+          <div class="alert-card-hdr">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            中度風險，建議加強追蹤與介入
+          </div>
+          <div class="alert-card-body">
+            <div class="alert-intro">
+              本次評估顯示部分指標已達中度風險範圍，建議安排進一步的功能性評估，包含步態分析與平衡測試，並由專業治療師擬定個別化訓練計畫。同時應確認用藥情形與居家環境安全，以有效降低跌倒機率。
+            </div>
+          </div>
+        </div>
+
+        <!-- 提示框：稍高風險（橘） -->
+        <div class="alert-card alert-high">
+          <div class="alert-card-hdr">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            風險稍高，請儘速安排專業評估
+          </div>
+          <div class="alert-card-body">
+            <div class="alert-intro">
+              評估結果顯示跌倒風險明顯偏高，建議優先安排物理治療介入，針對下肢肌力、平衡與步態進行強化訓練。請家屬協助完成居家環境安全改善，並請醫師審視目前用藥是否對平衡與認知功能造成影響，以降低短期跌倒風險。
+            </div>
+          </div>
+        </div>
+
+        <!-- 提示框：危險（紅） -->
+        <div class="alert-card alert-danger">
+          <div class="alert-card-hdr">
+            <i class="fa-solid fa-xmark-circle"></i>
+            高度危險，請立即採取防護措施
+          </div>
+          <div class="alert-card-body">
+            <div class="alert-intro">
+              本次評估結果顯示跌倒風險達高度危險等級，需立即啟動多面向防跌措施。建議即刻轉介專業醫療團隊進行全面性評估，包含神經功能、骨骼肌肉系統及認知狀態檢查；居家環境應緊急改善，必要時請考慮輔具使用或
+              24 小時照護安排，以確保當事人安全。
             </div>
           </div>
         </div>
@@ -1055,10 +1126,10 @@
                   endDist = innerRadius - 2,
                   arrowSize = 8,
                   baseAngle = 0.4;
-                const startX = centerX + Math.cos(angle) * startDist;
-                const startY = centerY + Math.sin(angle) * startDist;
-                const tipX = centerX + Math.cos(angle) * endDist;
-                const tipY = centerY + Math.sin(angle) * endDist;
+                const startX = centerX + Math.cos(angle) * startDist,
+                  startY = centerY + Math.sin(angle) * startDist;
+                const tipX = centerX + Math.cos(angle) * endDist,
+                  tipY = centerY + Math.sin(angle) * endDist;
                 ctx.beginPath();
                 ctx.moveTo(startX, startY);
                 ctx.lineTo(tipX, tipY);
@@ -1123,7 +1194,7 @@
       document.getElementById("lastDateLabel").textContent =
         lastHist.date.replace(/\//g, ".");
 
-      /* 跌倒風險五色對應 */
+      /* 跌倒風險圓點顏色 */
       const riskSegColors = [
         "#ff5757",
         "#ffa203",
@@ -1139,22 +1210,20 @@
         return riskSegColors[4];
       }
 
-      /* 移動力門檻顏色（越低越好：低於門檻綠，超過門檻紅） */
+      /* 移動力門檻（越低越好）：超過門檻顯示紅色，否則用藍色 */
       const VERT_THRESHOLD = 14.0;
       const HORIZ_THRESHOLD = 5.2;
       function mobPointColor(val, threshold) {
-        return val <= threshold ? "#22c55e" : "#ef4444";
+        return val > threshold ? "#ef4444" : "#2166ae";
       }
 
-      /* 平衡能力顏色（越高越好：3~4 綠，2 黃，0~1 紅） */
+      /* 平衡能力（越高越好）：低於門檻顯示紅色，否則藍色 */
       function balPointColor(val) {
-        if (val >= 3) return "#22c55e";
-        if (val >= 2) return "#eab308";
-        return "#ef4444";
+        return val < 3 ? "#ef4444" : "#2166ae";
       }
 
       /* 跌倒風險曲線 */
-      const riskPointColors = HIST.map((d) => riskPointColor(d.risk));
+      const riskPtColors = HIST.map((d) => riskPointColor(d.risk));
       new Chart(document.getElementById("lineChart"), {
         type: "line",
         data: {
@@ -1170,7 +1239,7 @@
               backgroundColor: "rgba(33,102,174,0.07)",
               borderWidth: 2.5,
               pointRadius: 6,
-              pointBackgroundColor: riskPointColors,
+              pointBackgroundColor: riskPtColors,
               pointBorderColor: "#fff",
               pointBorderWidth: 2,
               fill: true,
@@ -1216,7 +1285,7 @@
                   y = ds[i].y;
                 ctx.save();
                 ctx.font = '700 10px "Noto Sans TC",sans-serif';
-                ctx.fillStyle = riskPointColors[i];
+                ctx.fillStyle = riskPtColors[i];
                 ctx.textAlign = "center";
                 ctx.textBaseline = "bottom";
                 ctx.fillText(d.risk + "%", x, y - 10);
@@ -1247,7 +1316,14 @@
         { date: "2025/08/20", val: 3 },
       ];
 
-      function makeMobChart(id, data, lineColor, unit, pointColorFn) {
+      function makeMobChart(
+        id,
+        data,
+        unit,
+        pointColorFn,
+        reverseY,
+        extraPadding,
+      ) {
         const ptColors = data.map((d) => pointColorFn(d.val));
         new Chart(document.getElementById(id), {
           type: "line",
@@ -1259,8 +1335,8 @@
             datasets: [
               {
                 data: data.map((d) => d.val),
-                borderColor: lineColor,
-                backgroundColor: lineColor + "18",
+                borderColor: "#2166ae",
+                backgroundColor: "rgba(33,102,174,0.12)",
                 borderWidth: 2,
                 pointRadius: 5,
                 pointBackgroundColor: ptColors,
@@ -1274,8 +1350,10 @@
           options: {
             responsive: true,
             maintainAspectRatio: false,
+            layout: { padding: extraPadding || {} },
             scales: {
               y: {
+                reverse: reverseY || false,
                 ticks: {
                   callback: (v) => v + unit,
                   font: { size: 8 },
@@ -1314,14 +1392,28 @@
         });
       }
 
-      makeMobChart("mobVertChart", MOB_VERT, "#2166ae", "秒", (v) =>
-        mobPointColor(v, VERT_THRESHOLD),
+      /* 垂直移動力：Y 軸反轉，越低（秒數小）顯示在上方 = 越好在上 */
+      makeMobChart(
+        "mobVertChart",
+        MOB_VERT,
+        "秒",
+        (v) => mobPointColor(v, VERT_THRESHOLD),
+        true,
+        { top: 18 },
       );
-      makeMobChart("mobHorizChart", MOB_HORIZ, "#2166ae", "秒", (v) =>
-        mobPointColor(v, HORIZ_THRESHOLD),
+      makeMobChart(
+        "mobHorizChart",
+        MOB_HORIZ,
+        "秒",
+        (v) => mobPointColor(v, HORIZ_THRESHOLD),
+        false,
       );
-      makeMobChart("mobBalChart", MOB_BAL, "#2166ae", "分", (v) =>
-        balPointColor(v),
+      makeMobChart(
+        "mobBalChart",
+        MOB_BAL,
+        "分",
+        (v) => balPointColor(v),
+        false,
       );
     </script>
   </body>
