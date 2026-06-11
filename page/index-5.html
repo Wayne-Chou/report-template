@@ -674,41 +674,6 @@
         line-height: 1.5;
       }
 
-      /* ── PDF 頁面工具列 模擬 ── */
-      .pdf-toolbar {
-        width: 794px;
-        margin: 0 auto 8px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 6px 12px;
-        background: #3a3c3f;
-        border-radius: 6px;
-        color: #ccc;
-        font-size: 12px;
-        font-family: "DM Mono", monospace;
-        user-select: none;
-      }
-      .pdf-toolbar-title {
-        flex: 1;
-        color: #eee;
-        font-weight: 500;
-        font-size: 12px;
-        letter-spacing: 0.02em;
-      }
-      .pdf-toolbar-btn {
-        background: #555;
-        border: none;
-        color: #ddd;
-        padding: 3px 10px;
-        border-radius: 4px;
-        font-size: 11px;
-        cursor: pointer;
-        font-family: inherit;
-      }
-      .pdf-toolbar-btn:hover {
-        background: #666;
-      }
       .pdf-page-info {
         font-size: 11px;
         color: #aaa;
@@ -716,22 +681,6 @@
     </style>
   </head>
   <body>
-    <!-- 模擬 PDF 工具列 -->
-    <div class="pdf-toolbar">
-      <i
-        class="fa-solid fa-file-pdf"
-        style="color: #e05050; font-size: 14px"
-      ></i>
-      <span class="pdf-toolbar-title">長者防跌回溯與復能建議報告.pdf</span>
-      <span class="pdf-page-info">第 1 頁，共 1 頁</span>
-      <button class="pdf-toolbar-btn" onclick="window.print()">
-        <i class="fa-solid fa-print"></i> 列印
-      </button>
-      <button class="pdf-toolbar-btn">
-        <i class="fa-solid fa-download"></i> 下載
-      </button>
-    </div>
-
     <div class="page">
       <div class="pg-header">
         <div class="hdr-logo">
