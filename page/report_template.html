@@ -3,9 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>長者防跌回溯報告</title>
-    <!-- 這裡放入你原本的 CSS 連結 -->
-
-    <!-- 必須引入 Chart.js -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <style>
@@ -769,6 +774,7 @@
         });
         allCharts = [];
       }
+
       function tsToDateStr(ts) {
         const d = new Date(Number(ts));
         const y = d.getFullYear();
@@ -803,7 +809,7 @@
         div.innerHTML = `
           <div class="pg-header">
             <div class="hdr-logo">
-              <div><img style="width:45px;display:block" src="/assets/logo.png" alt="建豐健康科技" onerror="this.style.display='none'"></div>
+              <div><img style="width:45px;display:block"  src="https://raw.githubusercontent.com/Wayne-Chou/report-template/refs/heads/main/assets/logo.png" alt="建豐健康科技" ></div>
               <div>
                 <div class="hdr-logo-text">建豐健康科技</div>
                 <div class="hdr-logo-sub">FongAI Co., Ltd</div>
@@ -962,7 +968,7 @@
               </div>
               <div class="pg-footer-cert">
                 <div class="pg-footer-cert-title">鑑定單位</div>
-                <img class="pg-footer-cert-img" src="/assets/seal.jpg" alt="單位印章" onerror="this.style.display='none'"/>
+                <img class="pg-footer-cert-img" src="https://raw.githubusercontent.com/Wayne-Chou/report-template/refs/heads/main/assets/seal.jpg" alt="單位印章" />
                 <div class="pg-footer-cert-copy">©2025 建豐健康科技<br>FongAI Co., Ltd</div>
               </div>
             </div>
