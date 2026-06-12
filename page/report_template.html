@@ -682,8 +682,8 @@
       function buildBodyHTML(leftRaw, rightRaw, gender, uid) {
         const imgSrc =
           genderLabel(gender) === "男"
-            ? "../assets/figure_male.png"
-            : "../assets/figure_female.png";
+            ? "https://raw.githubusercontent.com/Wayne-Chou/report-template/refs/heads/main/assets/figure_male.png"
+            : "https://raw.githubusercontent.com/Wayne-Chou/report-template/refs/heads/main/assets/figure_female.png";
         const canvasId = uid + "_body_canvas";
         return `
 <div style="position:relative;display:inline-block;width:100%">
@@ -711,8 +711,6 @@
 
         const ctx = canvas.getContext("2d");
 
-        // 起點：髖部（水平中心，高度約 58%）
-        // 終點高度：肩膀（約 28%）
         const hipX = w * 0.5;
         const hipY = h * 0.58;
         const shY = h * 0.28;
