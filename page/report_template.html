@@ -45,115 +45,6 @@
       font-size: 15px;
       line-height: 1.55;
     }
-
-    /* ── Upload screen ── */
-    #upload-screen {
-      width: 520px;
-      margin: 60px auto;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.35);
-      overflow: hidden;
-    }
-    .up-hdr {
-      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-      padding: 22px 28px;
-      color: #fff;
-    }
-    .up-hdr-title {
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-    }
-    .up-hdr-sub {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-top: 3px;
-    }
-    .up-body {
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .drop-zone {
-      border: 2.5px dashed var(--gray-200);
-      border-radius: 12px;
-      padding: 36px 20px;
-      text-align: center;
-      cursor: pointer;
-      transition:
-        border-color 0.2s,
-        background 0.2s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-    .drop-zone:hover,
-    .drop-zone.drag-over {
-      border-color: var(--blue);
-      background: var(--blue-light);
-    }
-    .drop-zone i {
-      font-size: 36px;
-      color: var(--blue);
-      opacity: 0.6;
-    }
-    .drop-zone-text {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--gray-900);
-    }
-    .drop-zone-sub {
-      font-size: 12px;
-      color: var(--gray-600);
-    }
-    #file-input {
-      display: none;
-    }
-    .btn-primary {
-      background: var(--blue);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 12px 24px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      justify-content: center;
-    }
-    .btn-primary:hover {
-      background: var(--blue-dark);
-    }
-    .btn-primary:disabled {
-      background: var(--gray-400);
-      cursor: not-allowed;
-    }
-    .status-msg {
-      font-size: 13px;
-      color: var(--gray-600);
-      text-align: center;
-      min-height: 18px;
-    }
-    .status-msg.ok {
-      color: #16a34a;
-      font-weight: 700;
-    }
-    .status-msg.err {
-      color: #dc2626;
-      font-weight: 700;
-    }
-
-    /* ── Report screen ── */
-    /* #report-screen {
-      display: none;
-    } */
     .page {
       width: 794px;
       background: #fff;
@@ -176,7 +67,6 @@
       background: linear-gradient(90deg, #174f8c, #2166ae, #4a9fd4);
       z-index: 10;
     }
-
     @media print {
       html {
         background: #fff;
@@ -208,7 +98,6 @@
         margin: 0;
       }
     }
-
     .pg-header {
       background: linear-gradient(
         135deg,
@@ -302,10 +191,6 @@
     }
     .stick-figure {
       width: 100%;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     .stick-last-date {
       width: 100%;
@@ -762,10 +647,8 @@
   </style>
   <body>
     <div id="report-screen"></div>
-
     <script>
       let allCharts = [];
-
       function destroyAllCharts() {
         allCharts.forEach((c) => {
           try {
@@ -774,7 +657,6 @@
         });
         allCharts = [];
       }
-
       function tsToDateStr(ts) {
         const d = new Date(Number(ts));
         const y = d.getFullYear();
@@ -795,8 +677,67 @@
         const t = String(text).trim();
         return map[t] !== undefined ? map[t] : 6;
       }
+
+      // ── 人形圖片 + canvas 三條線 overlay ──────────────────────────────────────
+      function buildBodyHTML(leftRaw, rightRaw, gender, uid) {
+        const imgSrc =
+          genderLabel(gender) === "男"
+            ? "../assets/figure_male.png"
+            : "../assets/figure_female.png";
+        const canvasId = uid + "_body_canvas";
+        return `
+<div style="position:relative;display:inline-block;width:100%">
+  <img src="${imgSrc}" alt="人形" id="${uid}_body_img" style="width:100%;display:block;"
+       onload="drawBodyLines('${canvasId}','${uid}_body_img',${Math.abs(parseFloat(leftRaw) || 0)},${Math.abs(parseFloat(rightRaw) || 0)})"/>
+  <canvas id="${canvasId}" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
+</div>
+<div style="display:flex;gap:10px;justify-content:center;margin-top:6px;font-size:11px;color:#374151;">
+  <span style="display:flex;align-items:center;gap:4px;"><span style="width:16px;height:2.5px;background:#22c55e;display:inline-block;border-radius:2px;"></span>重心</span>
+  <span style="display:flex;align-items:center;gap:4px;"><span style="width:16px;height:2.5px;background:#ef4444;display:inline-block;border-radius:2px;"></span>右偏</span>
+  <span style="display:flex;align-items:center;gap:4px;"><span style="width:16px;height:2.5px;background:#f5a623;display:inline-block;border-radius:2px;"></span>左偏</span>
+</div>`;
+      }
+
+      // 圖片載入後呼叫，在 canvas 上畫三條線
+      function drawBodyLines(canvasId, imgId, leftDeg, rightDeg) {
+        const img = document.getElementById(imgId);
+        const canvas = document.getElementById(canvasId);
+        if (!img || !canvas) return;
+
+        const w = img.offsetWidth;
+        const h = img.offsetHeight;
+        canvas.width = w;
+        canvas.height = h;
+
+        const ctx = canvas.getContext("2d");
+
+        // 起點：髖部（水平中心，高度約 58%）
+        // 終點高度：肩膀（約 28%）
+        const hipX = w * 0.5;
+        const hipY = h * 0.58;
+        const shY = h * 0.28;
+        const len = hipY - shY;
+
+        function drawLine(deg, dir, color) {
+          const rad = (deg * Math.PI) / 180;
+          const ex = hipX + dir * len * Math.sin(rad);
+          const ey = hipY - len * Math.cos(rad);
+          ctx.beginPath();
+          ctx.moveTo(hipX, hipY);
+          ctx.lineTo(ex, ey);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 3;
+          ctx.lineCap = "round";
+          ctx.stroke();
+        }
+
+        drawLine(leftDeg, -1, "#f5a623"); // 黃：左偏
+        drawLine(0, 0, "#22c55e"); // 綠：垂直重心
+        drawLine(rightDeg, 1, "#ef4444"); // 紅：右偏
+      }
+
       function buildPageHTML(no, data) {
-        const uid = "p" + no.replace(/\W/g, "_"); // unique prefix per person
+        const uid = "p" + no.replace(/\W/g, "_");
         const first = data[0];
         const last = data[data.length - 1];
         const firstDate = fmtDate(tsToDateStr(first.date));
@@ -804,12 +745,17 @@
         const gaugeScore = levelToScore(last["跌倒風險等級"]);
         const alertHTML = buildAlertHTML(gaugeScore);
 
+        // 取得左右偏移值
+        const leftRaw = last["左偏移"] ?? 0;
+        const rightRaw = last["右偏移"] ?? 0;
+        const bodyHTML = buildBodyHTML(leftRaw, rightRaw, first.gender, uid);
+
         const div = document.createElement("div");
         div.className = "page";
         div.innerHTML = `
           <div class="pg-header">
             <div class="hdr-logo">
-              <div><img style="width:45px;display:block"  src="https://raw.githubusercontent.com/Wayne-Chou/report-template/refs/heads/main/assets/logo.png" alt="建豐健康科技" ></div>
+              <div><img style="width:45px;display:block" src="https://raw.githubusercontent.com/Wayne-Chou/report-template/refs/heads/main/assets/logo.png" alt="建豐健康科技"></div>
               <div>
                 <div class="hdr-logo-text">建豐健康科技</div>
                 <div class="hdr-logo-sub">FongAI Co., Ltd</div>
@@ -825,18 +771,7 @@
             <div class="top-row">
               <div class="top-left">
                 <div class="stick-panel">
-                  <div class="stick-figure">
-                    <svg viewBox="0 0 100 130" width="88" height="115" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="50" cy="18" r="12" fill="none" stroke="#222" stroke-width="2.5"/>
-                      <line x1="50" y1="30" x2="50" y2="75" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
-                      <line x1="22" y1="52" x2="78" y2="52" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-                      <line x1="50" y1="45" x2="22" y2="52" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
-                      <line x1="50" y1="45" x2="78" y2="52" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
-                      <line x1="50" y1="75" x2="28" y2="118" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
-                      <line x1="50" y1="75" x2="68" y2="118" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
-                      <line x1="50" y1="52" x2="64" y2="75" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 2"/>
-                    </svg>
-                  </div>
+                  <div class="stick-figure">${bodyHTML}</div>
                   <div class="stick-last-date">最近鑑測日期<strong>${lastDate}</strong></div>
                 </div>
 
@@ -844,22 +779,10 @@
                   <div class="info-card-hdr">個人資訊</div>
                   <div class="info-card-body">
                     <div class="kv-list">
-                      <div class="kv-row">
-                        <span class="kv-lbl"><i class="fa-solid fa-id-badge"></i>長者姓名</span>
-                        <span class="kv-val">${first.name}</span>
-                      </div>
-                      <div class="kv-row">
-                        <span class="kv-lbl"><i class="fa-solid fa-user"></i>性別 / 年齡</span>
-                        <span class="kv-val">${genderLabel(first.gender)} / ${first.age}</span>
-                      </div>
-                      <div class="kv-row">
-                        <span class="kv-lbl"><i class="fa-solid fa-calendar-days"></i>回溯期間</span>
-                        <span class="kv-val mono">${firstDate} – ${lastDate}</span>
-                      </div>
-                      <div class="kv-row">
-                        <span class="kv-lbl"><i class="fa-solid fa-location-dot"></i>檢測據點</span>
-                        <span class="kv-val">${first.location}</span>
-                      </div>
+                      <div class="kv-row"><span class="kv-lbl"><i class="fa-solid fa-id-badge"></i>長者姓名</span><span class="kv-val">${first.name}</span></div>
+                      <div class="kv-row"><span class="kv-lbl"><i class="fa-solid fa-user"></i>性別 / 年齡</span><span class="kv-val">${genderLabel(first.gender)} / ${first.age}</span></div>
+                      <div class="kv-row"><span class="kv-lbl"><i class="fa-solid fa-calendar-days"></i>回溯期間</span><span class="kv-val mono">${firstDate} – ${lastDate}</span></div>
+                      <div class="kv-row"><span class="kv-lbl"><i class="fa-solid fa-location-dot"></i>檢測據點</span><span class="kv-val">${first.location}</span></div>
                     </div>
                   </div>
                 </div>
@@ -876,9 +799,7 @@
             <div class="mob-row">
               <div class="mob-card">
                 <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-chart-line"></i>跌倒風險機率</span></div>
-                <div class="mob-card-body">
-                  <div class="mob-chart-wrap"><canvas id="${uid}_line"></canvas></div>
-                </div>
+                <div class="mob-card-body"><div class="mob-chart-wrap"><canvas id="${uid}_line"></canvas></div></div>
               </div>
               <div class="mob-card">
                 <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-person-rays"></i>平衡能力（秒）</span></div>
@@ -891,15 +812,11 @@
             <div class="mob-row">
               <div class="mob-card">
                 <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-chair"></i>椅子站立（秒）</span></div>
-                <div class="mob-card-body">
-                  <div class="mob-chart-wrap"><canvas id="${uid}_vert"></canvas></div>
-                </div>
+                <div class="mob-card-body"><div class="mob-chart-wrap"><canvas id="${uid}_vert"></canvas></div></div>
               </div>
               <div class="mob-card">
                 <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-person-walking"></i>步態速度（cm/s）</span></div>
-                <div class="mob-card-body">
-                  <div class="mob-chart-wrap"><canvas id="${uid}_horiz"></canvas></div>
-                </div>
+                <div class="mob-card-body"><div class="mob-chart-wrap"><canvas id="${uid}_horiz"></canvas></div></div>
               </div>
             </div>
 
@@ -911,10 +828,7 @@
                 <div class="sg s1">
                   <div class="sg-with-qr">
                     <div class="sg-content">
-                      <div class="sg-top">
-                        <div class="sg-ico"><i class="fa-solid fa-person-walking"></i></div>
-                        <div><div class="sg-num">01</div><div class="sg-name">規律運動</div></div>
-                      </div>
+                      <div class="sg-top"><div class="sg-ico"><i class="fa-solid fa-person-walking"></i></div><div><div class="sg-num">01</div><div class="sg-name">規律運動</div></div></div>
                       <ul class="sg-bullets"><li>定期練習肌力、柔軟度與平衡動作，從簡單坐姿或扶椅運動開始，幫助維持下肢力量與穩定度。</li></ul>
                     </div>
                     <div class="sg-qr-side">
@@ -924,19 +838,13 @@
                   </div>
                 </div>
                 <div class="sg s2">
-                  <div class="sg-top">
-                    <div class="sg-ico"><i class="fa-solid fa-house"></i></div>
-                    <div><div class="sg-num">02</div><div class="sg-name">居家安全</div></div>
-                  </div>
+                  <div class="sg-top"><div class="sg-ico"><i class="fa-solid fa-house"></i></div><div><div class="sg-num">02</div><div class="sg-name">居家安全</div></div></div>
                   <ul class="sg-bullets"><li>保持照明充足、地面乾燥、走道淨空，特別留意浴廁、走廊、床邊與樓梯等易跌倒區域。</li></ul>
                 </div>
                 <div class="sg s3">
                   <div class="sg-with-qr">
                     <div class="sg-content">
-                      <div class="sg-top">
-                        <div class="sg-ico"><i class="fa-solid fa-shoe-prints"></i></div>
-                        <div><div class="sg-num">03</div><div class="sg-name">鞋具輔具與外出</div></div>
-                      </div>
+                      <div class="sg-top"><div class="sg-ico"><i class="fa-solid fa-shoe-prints"></i></div><div><div class="sg-num">03</div><div class="sg-name">鞋具輔具與外出</div></div></div>
                       <ul class="sg-bullets"><li>穿著合腳、防滑、包覆性佳的鞋子；外出注意路面高低差，必要時使用合適拐杖或助行器。</li></ul>
                     </div>
                     <div class="sg-qr-side">
@@ -946,10 +854,7 @@
                   </div>
                 </div>
                 <div class="sg s4">
-                  <div class="sg-top">
-                    <div class="sg-ico"><i class="fa-solid fa-pills"></i></div>
-                    <div><div class="sg-num">04</div><div class="sg-name">用藥與追蹤</div></div>
-                  </div>
+                  <div class="sg-top"><div class="sg-ico"><i class="fa-solid fa-pills"></i></div><div><div class="sg-num">04</div><div class="sg-name">用藥與追蹤</div></div></div>
                   <ul class="sg-bullets"><li>就醫時可攜帶藥單或藥袋請醫師檢視，並評估頭暈、視力、平衡或用藥造成的跌倒風險。</li></ul>
                 </div>
               </div>
@@ -968,7 +873,7 @@
               </div>
               <div class="pg-footer-cert">
                 <div class="pg-footer-cert-title">鑑定單位</div>
-                <img class="pg-footer-cert-img" src="https://raw.githubusercontent.com/Wayne-Chou/report-template/refs/heads/main/assets/seal.jpg" alt="單位印章" />
+                <img class="pg-footer-cert-img" src="https://raw.githubusercontent.com/Wayne-Chou/report-template/refs/heads/main/assets/seal.jpg" alt="單位印章"/>
                 <div class="pg-footer-cert-copy">©2025 建豐健康科技<br>FongAI Co., Ltd</div>
               </div>
             </div>
@@ -976,18 +881,13 @@
         `;
         return div;
       }
-      // ── Render charts for one page ────────────────────────────────────────────
 
       function renderCharts(pageEl, no, data) {
         const uid = "p" + no.replace(/\W/g, "_");
         const last = data[data.length - 1];
         const labels = data.map((d) => tsToDateStr(d.date));
         const gaugeScore = levelToScore(last["跌倒風險等級"]);
-
-        // Gauge（取最新筆）
         buildGauge(uid + "_gauge", gaugeScore);
-
-        // 跌倒風險機率
         const riskVals = data.map((d) =>
           Math.round(parseFloat(d["跌倒風險機率"]) * 100),
         );
@@ -999,7 +899,6 @@
           return "#4ffa00";
         }
         const riskPtColors = riskVals.map(riskColor);
-
         allCharts.push(
           new Chart(document.getElementById(uid + "_line"), {
             type: "line",
@@ -1072,12 +971,9 @@
             ],
           }),
         );
-
-        // 平衡能力
         const balColors = ["#2166ae", "#f97316", "#8b5cf6"];
         const balKeys = ["balancesecond1", "balancesecond2", "balancesecond3"];
         const balNames = ["雙腳併攏", "雙腳半併攏", "一直線"];
-
         allCharts.push(
           new Chart(document.getElementById(uid + "_bal"), {
             type: "line",
@@ -1126,22 +1022,16 @@
             },
           }),
         );
-
         document.getElementById(uid + "_bal_legend").innerHTML = balNames
           .map(
             (n, i) =>
-              `<span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#374151;">
-            <span style="width:18px;height:3px;background:${balColors[i]};display:inline-block;border-radius:2px;"></span>${n}
-          </span>`,
+              `<span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#374151;"><span style="width:18px;height:3px;background:${balColors[i]};display:inline-block;border-radius:2px;"></span>${n}</span>`,
           )
           .join("");
-
-        // 椅子站立
         const vertVals = data.map((d) =>
           parseFloat(parseFloat(d.chairstandsecond).toFixed(2)),
         );
         const VERT_THR = 12;
-
         allCharts.push(
           new Chart(document.getElementById(uid + "_vert"), {
             type: "line",
@@ -1210,13 +1100,10 @@
             ],
           }),
         );
-
-        // 步態速度
         const horizVals = data.map((d) =>
           parseFloat(parseFloat(d.gaitspeed).toFixed(1)),
         );
         const HORIZ_THR = 100;
-
         allCharts.push(
           new Chart(document.getElementById(uid + "_horiz"), {
             type: "line",
@@ -1286,8 +1173,6 @@
           }),
         );
       }
-
-      // ── Gauge ─────────────────────────────────────────────────────────────────
 
       function buildGauge(canvasId, score) {
         const rc = {
@@ -1385,6 +1270,7 @@
           }),
         );
       }
+
       function buildAlertHTML(score) {
         if (score >= 9)
           return `<div class="alert-card alert-good"><div class="alert-card-hdr"><i class="fa-solid fa-circle-check"></i>數據良好，仍需留意外在風險因子</div><div class="alert-card-body"><div class="alert-intro">本份報告各項評估數據均在正常範圍內，整體體能表現良好。然而跌倒風險並非單由生理數據決定，即使體能指標優異，仍可能因多重用藥交互作用、視力退化、認知功能下降或居家環境不安全等外在因素而提高跌倒機率，建議照護人員與家屬同步關注上述面向，定期進行全面性評估。</div></div></div>`;
@@ -1395,17 +1281,11 @@
         return `<div class="alert-card alert-danger"><div class="alert-card-hdr"><i class="fa-solid fa-xmark-circle"></i>高度危險，建議儘速專業介入</div><div class="alert-card-body"><div class="alert-intro">本次評估顯示跌倒風險達高度危險等級，建議儘速由醫療、復健或照護專業人員進行全面性評估；必要時安排照護協助、輔具使用或復健介入，以降低再次跌倒及受傷風險。</div></div></div>`;
       }
 
-      // --- 2. 接收資料並渲染 ---
       const rawData = sessionStorage.getItem("selectedPersonData");
       if (rawData) {
         const data = JSON.parse(rawData);
-
-        // 修正點：在這裡強制轉成字串，避免傳入數字導致報錯
         const no = String(data[0].No);
-
         const screen = document.getElementById("report-screen");
-
-        // 執行渲染
         const pageEl = buildPageHTML(no, data);
         screen.appendChild(pageEl);
         renderCharts(pageEl, no, data);
