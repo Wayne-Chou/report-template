@@ -31,24 +31,24 @@
       --gray-400: #9ca3af;
       --gray-600: #6b7280;
       --gray-900: #111827;
-      --radius: 10px;
-      --gap: 14px;
+      --radius: 8px;
+      --gap: 8px;
     }
     html {
       background: #525659;
       min-height: 100vh;
-      padding: 32px 0;
+      padding: 20px 0;
     }
     body {
       font-family: "Noto Sans TC", sans-serif;
       color: var(--gray-900);
-      font-size: 15px;
-      line-height: 1.55;
+      font-size: 14px;
+      line-height: 1.45;
     }
     .page {
       width: 794px;
       background: #fff;
-      margin: 0 auto 32px;
+      margin: 0 auto 24px;
       box-shadow:
         0 0 0 1px rgba(0, 0, 0, 0.15),
         0 4px 32px rgba(0, 0, 0, 0.45),
@@ -98,13 +98,15 @@
         margin: 0;
       }
     }
+
+    /* ── Header ── */
     .pg-header {
       background: linear-gradient(
         135deg,
         var(--blue-dark) 0%,
         var(--blue) 100%
       );
-      padding: 22px 28px;
+      padding: 14px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -112,60 +114,65 @@
     .hdr-logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     .hdr-logo-text {
-      font-size: 19px;
+      font-size: 17px;
       font-weight: 700;
       color: #fff;
       line-height: 1.2;
     }
     .hdr-logo-sub {
-      font-size: 12px;
+      font-size: 11px;
       color: rgba(255, 255, 255, 0.7);
       font-weight: 400;
       font-style: italic;
-      margin-top: 2px;
+      margin-top: 1px;
     }
     .hdr-title {
       text-align: right;
     }
     .hdr-title-main {
-      font-size: 22px;
+      font-size: 19px;
       font-weight: 900;
       color: #fff;
       letter-spacing: 0.05em;
     }
     .hdr-title-sub {
-      font-size: 12px;
+      font-size: 11px;
       color: rgba(255, 255, 255, 0.7);
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
+
+    /* ── Body ── */
     .pg-body {
       flex: 1;
-      padding: 16px 20px;
+      padding: 10px 16px;
       display: flex;
       flex-direction: column;
       gap: var(--gap);
     }
+
     .card-hdr {
       background: var(--blue-dark);
       color: #fff;
-      padding: 9px 16px;
+      padding: 7px 14px;
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 900;
       letter-spacing: 0.06em;
       border-radius: var(--radius) var(--radius) 0 0;
     }
     .card-hdr i {
-      font-size: 12px;
+      font-size: 11px;
       opacity: 0.7;
     }
+
+    /* ── Top row ── */
     .top-row {
       display: flex;
       gap: var(--gap);
@@ -173,67 +180,70 @@
     .top-left {
       flex: 1;
       display: flex;
-      gap: 11px;
+      gap: 9px;
     }
+
     .stick-panel {
       flex: 3;
       min-width: 0;
       flex-shrink: 0;
       background: #fff;
       border-radius: var(--radius);
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.09);
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
       border: 1px solid var(--gray-200);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 10px 10px;
+      padding: 8px 8px 8px;
     }
     .stick-figure {
       width: 100%;
     }
     .stick-last-date {
       width: 100%;
-      margin-top: 8px;
-      padding-top: 8px;
+      margin-top: 6px;
+      padding-top: 6px;
       border-top: 1px solid var(--gray-200);
-      font-size: 13px;
+      font-size: 12px;
       color: var(--gray-600);
       text-align: center;
-      line-height: 1.5;
+      line-height: 1.4;
     }
     .stick-last-date strong {
       display: block;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--blue);
       font-family: "DM Mono", monospace;
     }
+
     .info-card {
       flex: 4;
       background: #fff;
       border-radius: var(--radius);
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.09);
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
       border: 1px solid var(--gray-200);
       overflow: hidden;
     }
     .info-card-hdr {
       background: var(--blue);
       color: #fff;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
-      padding: 8px 14px;
+      padding: 6px 12px;
       letter-spacing: 0.05em;
     }
     .info-card-body {
-      padding: 10px 14px;
+      padding: 8px 12px;
     }
+
     .gauge-panel {
       flex: 3;
       min-width: 0;
       background: #fff;
       border-radius: var(--radius);
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.09);
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
       border: 1px solid var(--gray-200);
       display: flex;
       flex-direction: column;
@@ -242,12 +252,13 @@
     .gauge-panel-hdr {
       background: var(--blue);
       color: #fff;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
-      padding: 8px 14px;
+      padding: 6px 12px;
       letter-spacing: 0.05em;
       flex-shrink: 0;
     }
+
     .kv-list {
       display: flex;
       flex-direction: column;
@@ -257,9 +268,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 7px 2px;
+      padding: 5px 2px;
       border-bottom: 1px solid var(--gray-100);
-      gap: 8px;
+      gap: 6px;
     }
     .kv-row:last-child {
       border-bottom: none;
@@ -267,30 +278,32 @@
     .kv-lbl {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 14px;
+      gap: 5px;
+      font-size: 13px;
       color: var(--gray-600);
       font-weight: 500;
       white-space: nowrap;
       flex-shrink: 0;
     }
     .kv-lbl i {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--blue);
       opacity: 0.7;
-      width: 14px;
+      width: 13px;
       text-align: center;
     }
     .kv-val {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--gray-900);
       text-align: right;
     }
     .kv-val.mono {
       font-family: "DM Mono", monospace;
-      font-size: 13px;
+      font-size: 12px;
     }
+
+    /* ── Chart rows ── */
     .mob-row {
       display: flex;
       gap: var(--gap);
@@ -299,7 +312,7 @@
       flex: 1;
       background: #fff;
       border-radius: var(--radius);
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.09);
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
       border: 1px solid var(--gray-200);
       overflow: hidden;
       display: flex;
@@ -308,8 +321,8 @@
     .mob-card-hdr {
       background: var(--blue);
       color: #fff;
-      padding: 8px 14px;
-      font-size: 13px;
+      padding: 6px 12px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.04em;
       display: flex;
@@ -319,28 +332,108 @@
     .mob-card-hdr-left {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
     .mob-card-body {
-      padding: 10px 12px;
+      padding: 7px 10px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
       flex: 1;
     }
     .mob-chart-wrap {
-      height: 82px;
+      height: 72px;
       position: relative;
-      margin-top: 6px;
+      margin-top: 4px;
     }
     .mob-chart-wrap canvas {
       width: 100% !important;
       height: 100% !important;
     }
+
+    /* ── Alert ── */
+    .alert-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+    }
+    .alert-card-hdr {
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+    .alert-card-hdr i {
+      font-size: 13px;
+    }
+    .alert-card-body {
+      padding: 8px 16px;
+    }
+    .alert-intro {
+      font-size: 12.5px;
+      font-weight: 500;
+      line-height: 1.65;
+    }
+    .alert-good {
+      border-left: 4px solid #2166ae;
+    }
+    .alert-good .alert-card-hdr {
+      background: var(--blue-light);
+      color: var(--blue-dark);
+    }
+    .alert-good .alert-card-hdr i {
+      color: var(--blue);
+    }
+    .alert-mid {
+      border-left: 4px solid #d97706;
+    }
+    .alert-mid .alert-card-hdr {
+      background: #fffbeb;
+      color: #92400e;
+    }
+    .alert-mid .alert-card-hdr i {
+      color: #d97706;
+    }
+    .alert-mid .alert-intro {
+      color: #78350f;
+    }
+    .alert-high {
+      border-left: 4px solid #ea580c;
+    }
+    .alert-high .alert-card-hdr {
+      background: #fff7ed;
+      color: #9a3412;
+    }
+    .alert-high .alert-card-hdr i {
+      color: #ea580c;
+    }
+    .alert-high .alert-intro {
+      color: #7c2d12;
+    }
+    .alert-danger {
+      border-left: 4px solid #dc2626;
+    }
+    .alert-danger .alert-card-hdr {
+      background: #fef2f2;
+      color: #7f1d1d;
+    }
+    .alert-danger .alert-card-hdr i {
+      color: #dc2626;
+    }
+    .alert-danger .alert-intro {
+      color: #7f1d1d;
+    }
+
+    /* ── Suggest ── */
     .suggest-wrap {
       background: #fff;
       border-radius: var(--radius);
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.09);
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
       border: 1px solid var(--gray-200);
       overflow: hidden;
     }
@@ -349,10 +442,10 @@
       grid-template-columns: 1fr 1fr;
     }
     .sg {
-      padding: 13px 14px;
+      padding: 10px 12px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       position: relative;
       background: #fff;
     }
@@ -387,19 +480,19 @@
     .sg-top {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
     }
     .sg-ico {
-      width: 36px;
-      height: 36px;
-      border-radius: 9px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
     .sg-ico i {
-      font-size: 18px;
+      font-size: 16px;
       color: #fff;
     }
     .s1 .sg-ico {
@@ -415,13 +508,13 @@
       background: #8b5cf6;
     }
     .sg-num {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       color: var(--gray-600);
       letter-spacing: 0.06em;
     }
     .sg-name {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 900;
       line-height: 1.15;
     }
@@ -441,13 +534,13 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
     }
     .sg-bullets li {
-      font-size: 13.5px;
+      font-size: 12.5px;
       color: #374151;
-      line-height: 1.6;
-      padding-left: 14px;
+      line-height: 1.55;
+      padding-left: 13px;
       position: relative;
     }
     .sg-bullets li::before {
@@ -455,20 +548,20 @@
       position: absolute;
       left: 2px;
       color: var(--gray-400);
-      font-size: 10px;
+      font-size: 9px;
       top: 1px;
     }
     .sg-with-qr {
       flex: 1;
       display: flex;
       flex-direction: row;
-      gap: 10px;
+      gap: 8px;
     }
     .sg-content {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
     .sg-qr-side {
       flex-shrink: 0;
@@ -476,103 +569,26 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
-      gap: 6px;
+      gap: 5px;
     }
     .sg-qr-img {
-      width: 80px;
-      height: 80px;
-      border-radius: 7px;
+      width: 70px;
+      height: 70px;
+      border-radius: 6px;
       border: 1.5px solid var(--gray-200);
       object-fit: cover;
       background: var(--gray-100);
     }
     .sg-qr-txt {
-      font-size: 10px;
+      font-size: 9px;
       color: var(--gray-600);
       text-align: center;
       line-height: 1.4;
     }
-    .alert-card {
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.09);
-      border: 1px solid var(--gray-200);
-      overflow: hidden;
-    }
-    .alert-card-hdr {
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-    }
-    .alert-card-hdr i {
-      font-size: 14px;
-    }
-    .alert-card-body {
-      padding: 12px 18px;
-    }
-    .alert-intro {
-      font-size: 13.5px;
-      font-weight: 500;
-      line-height: 1.7;
-    }
-    .alert-good {
-      border-left: 5px solid #2166ae;
-    }
-    .alert-good .alert-card-hdr {
-      background: var(--blue-light);
-      color: var(--blue-dark);
-    }
-    .alert-good .alert-card-hdr i {
-      color: var(--blue);
-    }
-    .alert-good .alert-intro {
-      color: var(--gray-900);
-    }
-    .alert-mid {
-      border-left: 5px solid #d97706;
-    }
-    .alert-mid .alert-card-hdr {
-      background: #fffbeb;
-      color: #92400e;
-    }
-    .alert-mid .alert-card-hdr i {
-      color: #d97706;
-    }
-    .alert-mid .alert-intro {
-      color: #78350f;
-    }
-    .alert-high {
-      border-left: 5px solid #ea580c;
-    }
-    .alert-high .alert-card-hdr {
-      background: #fff7ed;
-      color: #9a3412;
-    }
-    .alert-high .alert-card-hdr i {
-      color: #ea580c;
-    }
-    .alert-high .alert-intro {
-      color: #7c2d12;
-    }
-    .alert-danger {
-      border-left: 5px solid #dc2626;
-    }
-    .alert-danger .alert-card-hdr {
-      background: #fef2f2;
-      color: #7f1d1d;
-    }
-    .alert-danger .alert-card-hdr i {
-      color: #dc2626;
-    }
-    .alert-danger .alert-intro {
-      color: #7f1d1d;
-    }
+
+    /* ── Footer ── */
     .pg-footer {
-      padding: 12px 20px 14px;
+      padding: 9px 16px 11px;
       border-top: 1px solid var(--gray-200);
       background: #fafbfc;
     }
@@ -580,39 +596,39 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      gap: 20px;
     }
     .pg-footer-left {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
     .pg-footer-note {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--gray-600);
-      line-height: 1.55;
+      line-height: 1.5;
     }
     .pg-footer-date {
       font-family: "DM Mono", monospace;
-      font-size: 11.5px;
+      font-size: 10.5px;
       color: var(--gray-600);
       font-weight: 500;
     }
     .pg-footer-contact {
       display: flex;
-      gap: 20px;
+      gap: 16px;
       margin-top: 2px;
     }
     .pg-footer-contact-item {
       display: flex;
       align-items: center;
-      gap: 5px;
-      font-size: 12px;
+      gap: 4px;
+      font-size: 11px;
       color: var(--gray-600);
     }
     .pg-footer-contact-item i {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--blue);
       opacity: 0.8;
     }
@@ -621,25 +637,25 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 5px;
-      padding-left: 20px;
+      gap: 4px;
+      padding-left: 16px;
       border-left: 1px solid var(--gray-200);
     }
     .pg-footer-cert-title {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       color: var(--gray-600);
       letter-spacing: 0.06em;
     }
     .pg-footer-cert-img {
-      width: 50px;
-      height: 50px;
+      width: 44px;
+      height: 44px;
       object-fit: contain;
       border: 1px solid var(--gray-200);
       background: var(--gray-50);
     }
     .pg-footer-cert-copy {
-      font-size: 10px;
+      font-size: 9px;
       color: var(--gray-400);
       text-align: center;
       line-height: 1.5;
@@ -678,7 +694,6 @@
         return map[t] !== undefined ? map[t] : 6;
       }
 
-      // ── 人形圖片 + canvas 三條線 overlay ──────────────────────────────────────
       function buildBodyHTML(leftRaw, rightRaw, gender, uid) {
         const imgSrc =
           genderLabel(gender) === "男"
@@ -691,35 +706,30 @@
        onload="drawBodyLines('${canvasId}','${uid}_body_img',${Math.abs(parseFloat(leftRaw) || 0)},${Math.abs(parseFloat(rightRaw) || 0)})"/>
   <canvas id="${canvasId}" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
 </div>
-<div style="display:flex;gap:10px;justify-content:center;margin-top:6px;font-size:11px;color:#374151;">
-  <span style="display:flex;align-items:center;gap:4px;"><span style="width:16px;height:2.5px;background:#22c55e;display:inline-block;border-radius:2px;"></span>重心</span>
-  <span style="display:flex;align-items:center;gap:4px;"><span style="width:16px;height:2.5px;background:#ef4444;display:inline-block;border-radius:2px;"></span>右偏</span>
-  <span style="display:flex;align-items:center;gap:4px;"><span style="width:16px;height:2.5px;background:#f5a623;display:inline-block;border-radius:2px;"></span>左偏</span>
+<div style="display:flex;gap:8px;justify-content:center;margin-top:5px;font-size:10px;color:#374151;">
+  <span style="display:flex;align-items:center;gap:3px;"><span style="width:14px;height:2px;background:#22c55e;display:inline-block;border-radius:2px;"></span>重心</span>
+  <span style="display:flex;align-items:center;gap:3px;"><span style="width:14px;height:2px;background:#ef4444;display:inline-block;border-radius:2px;"></span>右偏</span>
+  <span style="display:flex;align-items:center;gap:3px;"><span style="width:14px;height:2px;background:#f5a623;display:inline-block;border-radius:2px;"></span>左偏</span>
 </div>`;
       }
 
-      // 圖片載入後呼叫，在 canvas 上畫三條線
       function drawBodyLines(canvasId, imgId, leftDeg, rightDeg) {
         const img = document.getElementById(imgId);
         const canvas = document.getElementById(canvasId);
         if (!img || !canvas) return;
-
-        const w = img.offsetWidth;
-        const h = img.offsetHeight;
+        const w = img.offsetWidth,
+          h = img.offsetHeight;
         canvas.width = w;
         canvas.height = h;
-
         const ctx = canvas.getContext("2d");
-
-        const hipX = w * 0.5;
-        const hipY = h * 0.58;
-        const shY = h * 0.28;
-        const len = hipY - shY;
-
+        const hipX = w * 0.5,
+          hipY = h * 0.58,
+          shY = h * 0.28,
+          len = hipY - shY;
         function drawLine(deg, dir, color) {
           const rad = (deg * Math.PI) / 180;
-          const ex = hipX + dir * len * Math.sin(rad);
-          const ey = hipY - len * Math.cos(rad);
+          const ex = hipX + dir * len * Math.sin(rad),
+            ey = hipY - len * Math.cos(rad);
           ctx.beginPath();
           ctx.moveTo(hipX, hipY);
           ctx.lineTo(ex, ey);
@@ -728,10 +738,9 @@
           ctx.lineCap = "round";
           ctx.stroke();
         }
-
-        drawLine(leftDeg, -1, "#f5a623"); // 黃：左偏
-        drawLine(0, 0, "#22c55e"); // 綠：垂直重心
-        drawLine(rightDeg, 1, "#ef4444"); // 紅：右偏
+        drawLine(leftDeg, -1, "#f5a623");
+        drawLine(0, 0, "#22c55e");
+        drawLine(rightDeg, 1, "#ef4444");
       }
 
       function buildPageHTML(no, data) {
@@ -742,8 +751,6 @@
         const lastDate = fmtDate(tsToDateStr(last.date));
         const gaugeScore = levelToScore(last["跌倒風險等級"]);
         const alertHTML = buildAlertHTML(gaugeScore);
-
-        // 取得左右偏移值
         const leftRaw = last["左偏移"] ?? 0;
         const rightRaw = last["右偏移"] ?? 0;
         const bodyHTML = buildBodyHTML(leftRaw, rightRaw, first.gender, uid);
@@ -753,7 +760,7 @@
         div.innerHTML = `
           <div class="pg-header">
             <div class="hdr-logo">
-              <div><img style="width:45px;display:block" src="https://raw.githubusercontent.com/Wayne-Chou/report-template/refs/heads/main/assets/logo.png" alt="建豐健康科技"></div>
+              <div><img style="width:40px;display:block" src="https://raw.githubusercontent.com/Wayne-Chou/report-template/refs/heads/main/assets/logo.png" alt="建豐健康科技"></div>
               <div>
                 <div class="hdr-logo-text">建豐健康科技</div>
                 <div class="hdr-logo-sub">FongAI Co., Ltd</div>
@@ -772,7 +779,6 @@
                   <div class="stick-figure">${bodyHTML}</div>
                   <div class="stick-last-date">最近鑑測日期<strong>${lastDate}</strong></div>
                 </div>
-
                 <div class="info-card">
                   <div class="info-card-hdr">個人資訊</div>
                   <div class="info-card-body">
@@ -784,11 +790,13 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="gauge-panel">
                   <div class="gauge-panel-hdr">跌倒風險等級</div>
-                  <div style="position:relative;height:175px;width:100%">
+                  <div style="position:relative;height:140px;width:100%">
                     <canvas id="${uid}_gauge" style="width:100%;display:block"></canvas>
+                  </div>
+                  <div class="stick-last-date" style="margin:0 8px 8px;padding-top:6px;border-top:1px solid var(--gray-200);">
+                    最近鑑測日期<strong>${lastDate}</strong>
                   </div>
                 </div>
               </div>
@@ -800,20 +808,20 @@
                 <div class="mob-card-body"><div class="mob-chart-wrap"><canvas id="${uid}_line"></canvas></div></div>
               </div>
               <div class="mob-card">
-                <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-person-rays"></i>平衡能力（秒）</span></div>
+                <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-person-rays"></i>平衡穩定力（秒）</span></div>
                 <div class="mob-card-body">
-                  <div class="mob-chart-wrap" style="height:95px"><canvas id="${uid}_bal"></canvas></div>
-                  <div id="${uid}_bal_legend" style="display:flex;gap:10px;justify-content:center;margin-top:5px;flex-wrap:wrap"></div>
+                  <div class="mob-chart-wrap" style="height:72px"><canvas id="${uid}_bal"></canvas></div>
+                  <div id="${uid}_bal_legend" style="display:flex;gap:8px;justify-content:center;margin-top:4px;flex-wrap:wrap"></div>
                 </div>
               </div>
             </div>
             <div class="mob-row">
               <div class="mob-card">
-                <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-chair"></i>椅子站立（秒）</span></div>
+                <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-chair"></i>垂直移動力（秒）</span></div>
                 <div class="mob-card-body"><div class="mob-chart-wrap"><canvas id="${uid}_vert"></canvas></div></div>
               </div>
               <div class="mob-card">
-                <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-person-walking"></i>步態速度（cm/s）</span></div>
+                <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-person-walking"></i>水平移動力</span></div>
                 <div class="mob-card-body"><div class="mob-chart-wrap"><canvas id="${uid}_horiz"></canvas></div></div>
               </div>
             </div>
@@ -886,17 +894,11 @@
         const labels = data.map((d) => tsToDateStr(d.date));
         const gaugeScore = levelToScore(last["跌倒風險等級"]);
         buildGauge(uid + "_gauge", gaugeScore);
+
+        // ── 1. 跌倒風險機率：全藍色，Y軸 0~100% ──
         const riskVals = data.map((d) =>
           Math.round(parseFloat(d["跌倒風險機率"]) * 100),
         );
-        function riskColor(pct) {
-          if (pct >= 75) return "#ff5757";
-          if (pct >= 65) return "#ffa203";
-          if (pct >= 50) return "#ffd039";
-          if (pct >= 35) return "#8cff00";
-          return "#4ffa00";
-        }
-        const riskPtColors = riskVals.map(riskColor);
         allCharts.push(
           new Chart(document.getElementById(uid + "_line"), {
             type: "line",
@@ -907,10 +909,10 @@
                   label: "跌倒風險 %",
                   data: riskVals,
                   borderColor: "#2166ae",
-                  backgroundColor: "rgba(33,102,174,0.07)",
+                  backgroundColor: "rgba(33,102,174,0.08)",
                   borderWidth: 2.5,
-                  pointRadius: 6,
-                  pointBackgroundColor: riskPtColors,
+                  pointRadius: 5,
+                  pointBackgroundColor: "#2166ae",
                   pointBorderColor: "#fff",
                   pointBorderWidth: 2,
                   fill: true,
@@ -925,10 +927,12 @@
                 y: {
                   min: 0,
                   max: 100,
+
                   ticks: {
                     callback: (v) => v + "%",
                     font: { size: 9 },
-                    stepSize: 20,
+                    stepSize: 50,
+                    autoSkip: false,
                   },
                   grid: { color: "#f0f4f8" },
                   title: {
@@ -958,7 +962,7 @@
                       y = ds[i].y;
                     ctx.save();
                     ctx.font = '700 10px "Noto Sans TC",sans-serif';
-                    ctx.fillStyle = riskPtColors[i];
+                    ctx.fillStyle = "#2166ae";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "bottom";
                     ctx.fillText(v + "%", x, y - 10);
@@ -969,35 +973,44 @@
             ],
           }),
         );
-        const balColors = ["#2166ae", "#f97316", "#8b5cf6"];
+
+        // ── 2. 平衡穩定力：三欄加總，單一線，圖例改「三項平衡秒數加總」──
         const balKeys = ["balancesecond1", "balancesecond2", "balancesecond3"];
-        const balNames = ["雙腳併攏", "雙腳半併攏", "一直線"];
+        const balTotalVals = data.map((d) =>
+          parseFloat(
+            (
+              parseFloat(d[balKeys[0]] || 0) +
+              parseFloat(d[balKeys[1]] || 0) +
+              parseFloat(d[balKeys[2]] || 0)
+            ).toFixed(2),
+          ),
+        );
         allCharts.push(
           new Chart(document.getElementById(uid + "_bal"), {
             type: "line",
             data: {
               labels,
-              datasets: balKeys.map((k, i) => ({
-                label: balNames[i],
-                data: data.map((d) => parseFloat(d[k])),
-                borderColor: balColors[i],
-                backgroundColor: "transparent",
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: balColors[i],
-                pointBorderColor: "#fff",
-                pointBorderWidth: 1.5,
-                fill: false,
-                tension: 0.38,
-              })),
+              datasets: [
+                {
+                  label: "三項平衡秒數加總",
+                  data: balTotalVals,
+                  borderColor: "#2166ae",
+                  backgroundColor: "rgba(33,102,174,0.08)",
+                  borderWidth: 2,
+                  pointRadius: 4,
+                  pointBackgroundColor: "#2166ae",
+                  pointBorderColor: "#fff",
+                  pointBorderWidth: 1.5,
+                  fill: false,
+                  tension: 0.38,
+                },
+              ],
             },
             options: {
               responsive: true,
               maintainAspectRatio: false,
               scales: {
                 y: {
-                  min: 0,
-                  max: 12,
                   ticks: {
                     callback: (v) => v + "秒",
                     font: { size: 8 },
@@ -1011,21 +1024,19 @@
               plugins: {
                 legend: { display: false },
                 tooltip: {
-                  callbacks: {
-                    label: (c) =>
-                      " " + c.dataset.label + ": " + c.parsed.y + "秒",
-                  },
+                  callbacks: { label: (c) => " " + c.parsed.y + "秒" },
                 },
               },
             },
           }),
         );
-        document.getElementById(uid + "_bal_legend").innerHTML = balNames
-          .map(
-            (n, i) =>
-              `<span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#374151;"><span style="width:18px;height:3px;background:${balColors[i]};display:inline-block;border-radius:2px;"></span>${n}</span>`,
-          )
-          .join("");
+        // 圖例只留「三項平衡秒數加總」
+        document.getElementById(uid + "_bal_legend").innerHTML =
+          `<span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#374151;">
+            <span style="width:18px;height:3px;background:#2166ae;display:inline-block;border-radius:2px;"></span>三項平衡秒數加總
+          </span>`;
+
+        // ── 3. 垂直移動力：反轉 Y 軸（秒數越小→線越高＝越好）──
         const vertVals = data.map((d) =>
           parseFloat(parseFloat(d.chairstandsecond).toFixed(2)),
         );
@@ -1058,6 +1069,7 @@
               layout: { padding: { top: 18 } },
               scales: {
                 y: {
+                  reverse: true, // ← 反轉 Y 軸：數值越小在越上方
                   ticks: {
                     callback: (v) => v + "秒",
                     font: { size: 8 },
@@ -1098,6 +1110,8 @@
             ],
           }),
         );
+
+        // ── 4. 水平移動力：改名稱，其餘不變 ──
         const horizVals = data.map((d) =>
           parseFloat(parseFloat(d.gaitspeed).toFixed(1)),
         );
@@ -1213,7 +1227,7 @@
             options: {
               responsive: true,
               maintainAspectRatio: false,
-              layout: { padding: { top: 30, bottom: 10 } },
+              layout: { padding: { top: 28, bottom: 8 } },
               plugins: {
                 legend: { display: false },
                 tooltip: { enabled: false },
