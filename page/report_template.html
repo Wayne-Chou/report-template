@@ -342,7 +342,7 @@
       flex: 1;
     }
     .mob-chart-wrap {
-      height: 90px;
+      height: 90px !important;
       position: relative;
       margin-top: 4px;
     }
@@ -937,7 +937,7 @@
                   grid: { color: "#f0f4f8" },
                   title: {
                     display: true,
-                    text: "%",
+
                     font: { size: 9 },
                     color: "#9ca3af",
                   },
@@ -1011,10 +1011,12 @@
               maintainAspectRatio: false,
               scales: {
                 y: {
+                  min: 0,
+                  max: 40,
                   ticks: {
                     callback: (v) => v + "秒",
                     font: { size: 8 },
-                    maxTicksLimit: 4,
+                    stepSize: 10,
                   },
                   grid: { color: "rgba(0,0,0,0.05)" },
                   border: { display: false },
@@ -1028,6 +1030,26 @@
                 },
               },
             },
+            plugins: [
+              {
+                id: "balLabels",
+                afterDatasetsDraw(chart) {
+                  const { ctx } = chart,
+                    ds = chart.getDatasetMeta(0).data;
+                  balTotalVals.forEach((v, i) => {
+                    const x = ds[i].x,
+                      y = ds[i].y;
+                    ctx.save();
+                    ctx.font = '600 8.5px "DM Mono",monospace';
+                    ctx.fillStyle = "#2166ae";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "bottom";
+                    ctx.fillText(v + "秒", x, y - 8);
+                    ctx.restore();
+                  });
+                },
+              },
+            ],
           }),
         );
         // 圖例只留「三項平衡秒數加總」
@@ -1145,7 +1167,7 @@
               scales: {
                 y: {
                   ticks: {
-                    callback: (v) => v,
+                    callback: (v) => v + " cm/s",
                     font: { size: 8 },
                     maxTicksLimit: 3,
                   },
@@ -1176,7 +1198,7 @@
                     ctx.fillStyle = col;
                     ctx.textAlign = "center";
                     ctx.textBaseline = "bottom";
-                    ctx.fillText(v, x, y - 8);
+                    ctx.fillText(v + " cm/s", x, y - 8);
                     ctx.restore();
                   });
                 },
