@@ -1189,6 +1189,7 @@
                 afterDatasetsDraw(chart) {
                   const { ctx } = chart,
                     ds = chart.getDatasetMeta(0).data;
+                  const lastIdx = horizVals.length - 1;
                   horizVals.forEach((v, i) => {
                     const x = ds[i].x,
                       y = ds[i].y,
@@ -1196,9 +1197,17 @@
                     ctx.save();
                     ctx.font = '600 8.5px "DM Mono",monospace';
                     ctx.fillStyle = col;
-                    ctx.textAlign = "center";
                     ctx.textBaseline = "bottom";
-                    ctx.fillText(v + " cm/s", x, y - 8);
+                    if (i === lastIdx) {
+                      ctx.textAlign = "right";
+                      ctx.fillText(v + " cm/s", x + 16, y - 8);
+                    } else if (i === 0) {
+                      ctx.textAlign = "left";
+                      ctx.fillText(v + " cm/s", x - 16, y - 8);
+                    } else {
+                      ctx.textAlign = "center";
+                      ctx.fillText(v + " cm/s", x, y - 8);
+                    }
                     ctx.restore();
                   });
                 },
