@@ -694,6 +694,37 @@
         return map[t] !== undefined ? map[t] : 6;
       }
 
+      /* ── 圓點置中 / 黃金分割輔助 ──
+         單筆：補成 3 格，點落在正中 50%
+         兩筆：補成 14 格，兩點落在第 5、8 格＝5/13≈38.5%、8/13≈61.5%（最接近黃金分割且對稱）
+         三筆以上：完全照原本，不補白 */
+      function padForCentering(labels, values) {
+        const n = values.length;
+        if (n === 1) {
+          return {
+            labels: ["", labels[0], ""],
+            data: [null, values[0], null],
+            spanGaps: false,
+          };
+        }
+        if (n === 2) {
+          const blank = (k) => Array(k).fill("");
+          const nul = (k) => Array(k).fill(null);
+          return {
+            labels: [
+              ...blank(5),
+              labels[0],
+              ...blank(2),
+              labels[1],
+              ...blank(5),
+            ],
+            data: [...nul(5), values[0], ...nul(2), values[1], ...nul(5)],
+            spanGaps: true,
+          };
+        }
+        return { labels, data: values, spanGaps: true };
+      }
+
       function buildBodyHTML(leftRaw, rightRaw, gender, uid) {
         const imgSrc =
           genderLabel(gender) === "男"
@@ -749,6 +780,10 @@
         const last = data[data.length - 1];
         const firstDate = fmtDate(tsToDateStr(first.date));
         const lastDate = fmtDate(tsToDateStr(last.date));
+        const isSingle = data.length === 1;
+        const periodHTML = isSingle
+          ? `${lastDate}(僅單次鑑測)`
+          : `${firstDate} – ${lastDate}`;
         const gaugeScore = levelToScore(last["跌倒風險等級"]);
         const alertHTML = buildAlertHTML(gaugeScore);
         const leftRaw = last["左偏移"] ?? 0;
@@ -785,7 +820,7 @@
                     <div class="kv-list">
                       <div class="kv-row"><span class="kv-lbl"><i class="fa-solid fa-id-badge"></i>長者姓名</span><span class="kv-val">${first.name}</span></div>
                       <div class="kv-row"><span class="kv-lbl"><i class="fa-solid fa-user"></i>性別 / 年齡</span><span class="kv-val">${genderLabel(first.gender)} / ${first.age}</span></div>
-                      <div class="kv-row"><span class="kv-lbl"><i class="fa-solid fa-calendar-days"></i>回溯期間</span><span class="kv-val mono">${firstDate} – ${lastDate}</span></div>
+                      <div class="kv-row"><span class="kv-lbl"><i class="fa-solid fa-calendar-days"></i>回溯期間</span><span class="kv-val mono">${periodHTML}</span></div>
                       <div class="kv-row"><span class="kv-lbl"><i class="fa-solid fa-location-dot"></i>檢測據點</span><span class="kv-val">${first.location}</span></div>
                     </div>
                   </div>
@@ -808,7 +843,7 @@
                 <div class="mob-card-body"><div class="mob-chart-wrap"><canvas id="${uid}_line"></canvas></div></div>
               </div>
               <div class="mob-card">
-                <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-person-rays"></i>平衡穩定力（秒）</span></div>
+                <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-person-rays"></i>平衡穩定力</span></div>
                 <div class="mob-card-body">
                   <div class="mob-chart-wrap" style="height:72px"><canvas id="${uid}_bal"></canvas></div>
                   <div id="${uid}_bal_legend" style="display:flex;gap:8px;justify-content:center;margin-top:4px;flex-wrap:wrap"></div>
@@ -817,7 +852,7 @@
             </div>
             <div class="mob-row">
               <div class="mob-card">
-                <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-chair"></i>垂直移動力（秒）</span></div>
+                <div class="mob-card-hdr"><span class="mob-card-hdr-left"><i class="fa-solid fa-chair"></i>垂直移動力</span></div>
                 <div class="mob-card-body"><div class="mob-chart-wrap"><canvas id="${uid}_vert"></canvas></div></div>
               </div>
               <div class="mob-card">
@@ -891,7 +926,7 @@
       function renderCharts(pageEl, no, data) {
         const uid = "p" + no.replace(/\W/g, "_");
         const last = data[data.length - 1];
-        const labels = data.map((d) => tsToDateStr(d.date));
+        const rawLabels = data.map((d) => tsToDateStr(d.date));
         const gaugeScore = levelToScore(last["跌倒風險等級"]);
         buildGauge(uid + "_gauge", gaugeScore);
 
@@ -899,15 +934,17 @@
         const riskVals = data.map((d) =>
           Math.round(parseFloat(d["跌倒風險機率"]) * 100),
         );
+        const risk = padForCentering(rawLabels, riskVals);
         allCharts.push(
           new Chart(document.getElementById(uid + "_line"), {
             type: "line",
             data: {
-              labels,
+              labels: risk.labels,
               datasets: [
                 {
                   label: "跌倒風險 %",
-                  data: riskVals,
+                  data: risk.data,
+                  spanGaps: risk.spanGaps,
                   borderColor: "#2166ae",
                   backgroundColor: "rgba(33,102,174,0.08)",
                   borderWidth: 2.5,
@@ -942,7 +979,15 @@
                     color: "#9ca3af",
                   },
                 },
-                x: { grid: { display: false }, ticks: { font: { size: 9 } } },
+                x: {
+                  grid: { display: false },
+                  ticks: {
+                    font: { size: 9 },
+                    autoSkip: false,
+                    maxRotation: 0,
+                    minRotation: 0,
+                  },
+                },
               },
               plugins: {
                 legend: { display: false },
@@ -957,7 +1002,8 @@
                 afterDatasetsDraw(chart) {
                   const { ctx } = chart,
                     ds = chart.getDatasetMeta(0).data;
-                  riskVals.forEach((v, i) => {
+                  risk.data.forEach((v, i) => {
+                    if (v == null) return;
                     const x = ds[i].x,
                       y = ds[i].y;
                     ctx.save();
@@ -965,7 +1011,7 @@
                     ctx.fillStyle = "#2166ae";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "bottom";
-                    ctx.fillText(v + "%", x, y - 10);
+                    ctx.fillText(String(v), x, y - 10);
                     ctx.restore();
                   });
                 },
@@ -985,15 +1031,17 @@
             ).toFixed(2),
           ),
         );
+        const bal = padForCentering(rawLabels, balTotalVals);
         allCharts.push(
           new Chart(document.getElementById(uid + "_bal"), {
             type: "line",
             data: {
-              labels,
+              labels: bal.labels,
               datasets: [
                 {
                   label: "三項平衡秒數加總",
-                  data: balTotalVals,
+                  data: bal.data,
+                  spanGaps: bal.spanGaps,
                   borderColor: "#2166ae",
                   backgroundColor: "rgba(33,102,174,0.08)",
                   borderWidth: 2,
@@ -1021,7 +1069,15 @@
                   grid: { color: "rgba(0,0,0,0.05)" },
                   border: { display: false },
                 },
-                x: { grid: { display: false }, ticks: { font: { size: 7.5 } } },
+                x: {
+                  grid: { display: false },
+                  ticks: {
+                    font: { size: 7.5 },
+                    autoSkip: false,
+                    maxRotation: 0,
+                    minRotation: 0,
+                  },
+                },
               },
               plugins: {
                 legend: { display: false },
@@ -1036,7 +1092,8 @@
                 afterDatasetsDraw(chart) {
                   const { ctx } = chart,
                     ds = chart.getDatasetMeta(0).data;
-                  balTotalVals.forEach((v, i) => {
+                  bal.data.forEach((v, i) => {
+                    if (v == null) return;
                     const x = ds[i].x,
                       y = ds[i].y;
                     ctx.save();
@@ -1044,7 +1101,7 @@
                     ctx.fillStyle = "#2166ae";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "bottom";
-                    ctx.fillText(v + "秒", x, y - 8);
+                    ctx.fillText(String(v), x, y - 8);
                     ctx.restore();
                   });
                 },
@@ -1063,20 +1120,22 @@
           parseFloat(parseFloat(d.chairstandsecond).toFixed(2)),
         );
         const VERT_THR = 12;
+        const vert = padForCentering(rawLabels, vertVals);
         allCharts.push(
           new Chart(document.getElementById(uid + "_vert"), {
             type: "line",
             data: {
-              labels,
+              labels: vert.labels,
               datasets: [
                 {
-                  data: vertVals,
+                  data: vert.data,
+                  spanGaps: vert.spanGaps,
                   borderColor: "#2166ae",
                   backgroundColor: "rgba(33,102,174,0.12)",
                   borderWidth: 2,
                   pointRadius: 5,
-                  pointBackgroundColor: vertVals.map((v) =>
-                    v > VERT_THR ? "#ef4444" : "#2166ae",
+                  pointBackgroundColor: vert.data.map((v) =>
+                    v != null && v > VERT_THR ? "#ef4444" : "#2166ae",
                   ),
                   pointBorderColor: "#fff",
                   pointBorderWidth: 1.5,
@@ -1100,7 +1159,15 @@
                   grid: { color: "rgba(0,0,0,0.05)" },
                   border: { display: false },
                 },
-                x: { grid: { display: false }, ticks: { font: { size: 7.5 } } },
+                x: {
+                  grid: { display: false },
+                  ticks: {
+                    font: { size: 7.5 },
+                    autoSkip: false,
+                    maxRotation: 0,
+                    minRotation: 0,
+                  },
+                },
               },
               plugins: {
                 legend: { display: false },
@@ -1115,7 +1182,8 @@
                 afterDatasetsDraw(chart) {
                   const { ctx } = chart,
                     ds = chart.getDatasetMeta(0).data;
-                  vertVals.forEach((v, i) => {
+                  vert.data.forEach((v, i) => {
+                    if (v == null) return;
                     const x = ds[i].x,
                       y = ds[i].y,
                       col = v > VERT_THR ? "#ef4444" : "#2166ae";
@@ -1124,7 +1192,7 @@
                     ctx.fillStyle = col;
                     ctx.textAlign = "center";
                     ctx.textBaseline = "bottom";
-                    ctx.fillText(v + "秒", x, y - 8);
+                    ctx.fillText(String(v), x, y - 8);
                     ctx.restore();
                   });
                 },
@@ -1138,20 +1206,22 @@
           parseFloat(parseFloat(d.gaitspeed).toFixed(1)),
         );
         const HORIZ_THR = 100;
+        const horiz = padForCentering(rawLabels, horizVals);
         allCharts.push(
           new Chart(document.getElementById(uid + "_horiz"), {
             type: "line",
             data: {
-              labels,
+              labels: horiz.labels,
               datasets: [
                 {
-                  data: horizVals,
+                  data: horiz.data,
+                  spanGaps: horiz.spanGaps,
                   borderColor: "#2166ae",
                   backgroundColor: "rgba(33,102,174,0.12)",
                   borderWidth: 2,
                   pointRadius: 5,
-                  pointBackgroundColor: horizVals.map((v) =>
-                    v < HORIZ_THR ? "#ef4444" : "#2166ae",
+                  pointBackgroundColor: horiz.data.map((v) =>
+                    v != null && v < HORIZ_THR ? "#ef4444" : "#2166ae",
                   ),
                   pointBorderColor: "#fff",
                   pointBorderWidth: 1.5,
@@ -1174,7 +1244,15 @@
                   grid: { color: "rgba(0,0,0,0.05)" },
                   border: { display: false },
                 },
-                x: { grid: { display: false }, ticks: { font: { size: 7.5 } } },
+                x: {
+                  grid: { display: false },
+                  ticks: {
+                    font: { size: 7.5 },
+                    autoSkip: false,
+                    maxRotation: 0,
+                    minRotation: 0,
+                  },
+                },
               },
               plugins: {
                 legend: { display: false },
@@ -1189,8 +1267,9 @@
                 afterDatasetsDraw(chart) {
                   const { ctx } = chart,
                     ds = chart.getDatasetMeta(0).data;
-                  const lastIdx = horizVals.length - 1;
-                  horizVals.forEach((v, i) => {
+                  const lastIdx = horiz.data.length - 1;
+                  horiz.data.forEach((v, i) => {
+                    if (v == null) return;
                     const x = ds[i].x,
                       y = ds[i].y,
                       col = v < HORIZ_THR ? "#ef4444" : "#2166ae";
@@ -1200,13 +1279,13 @@
                     ctx.textBaseline = "bottom";
                     if (i === lastIdx) {
                       ctx.textAlign = "right";
-                      ctx.fillText(v + " cm/s", x + 16, y - 8);
+                      ctx.fillText(String(v), x + 16, y - 8);
                     } else if (i === 0) {
                       ctx.textAlign = "left";
-                      ctx.fillText(v + " cm/s", x - 16, y - 8);
+                      ctx.fillText(String(v), x - 16, y - 8);
                     } else {
                       ctx.textAlign = "center";
-                      ctx.fillText(v + " cm/s", x, y - 8);
+                      ctx.fillText(String(v), x, y - 8);
                     }
                     ctx.restore();
                   });
@@ -1316,12 +1395,12 @@
 
       function buildAlertHTML(score) {
         if (score >= 9)
-          return `<div class="alert-card alert-good"><div class="alert-card-hdr"><i class="fa-solid fa-circle-check"></i>數據良好，仍需留意外在風險因子</div><div class="alert-card-body"><div class="alert-intro">本份報告各項評估數據均在正常範圍內，整體體能表現良好。然而跌倒風險並非單由生理數據決定，即使體能指標優異，仍可能因多重用藥交互作用、視力退化、認知功能下降或居家環境不安全等外在因素而提高跌倒機率，建議照護人員與家屬同步關注上述面向，定期進行全面性評估。</div></div></div>`;
+          return `<div class="alert-card alert-good"><div class="alert-card-hdr"><i class="fa-solid fa-circle-check"></i>數據良好，仍需留意情境性與外在風險因子</div><div class="alert-card-body"><div class="alert-intro">本次評估結果顯示，受測者多數體能指標仍維持於正常或可接受範圍，整體行動能力表現尚屬穩定。然而，近半年內曾發生跌倒事件，顯示跌倒可能並非單由肌力、平衡或步行能力下降所造成，而可能與環境安全、視力變化、用藥情形、認知功能、疾病狀態或活動情境等因素有關。建議家屬進一步回溯跌倒發生情境，並持續進行定期追蹤，以降低再次跌倒風險。</div></div></div>`;
         if (score >= 6)
-          return `<div class="alert-card alert-mid"><div class="alert-card-hdr"><i class="fa-solid fa-triangle-exclamation"></i>中度風險，建議定期追蹤</div><div class="alert-card-body"><div class="alert-intro">本次評估顯示部分指標已達中度風險範圍，建議定期追蹤步態、平衡與下肢肌力變化，並留意用藥、視力及居家環境等外在風險因素；必要時尋求專業人員協助。</div></div></div>`;
+          return `<div class="alert-card alert-mid"><div class="alert-card-hdr"><i class="fa-solid fa-triangle-exclamation"></i>中度風險，建議定期追蹤與功能維持</div><div class="alert-card-body"><div class="alert-intro">本次評估結果顯示，受測者部分體能指標已呈現中度風險，可能反映其在步態穩定、平衡控制或下肢肌力表現上已有需關注之變化。建議後續定期追蹤功能狀態，並同步檢視用藥、視力、慢性疾病控制及居家環境安全。若近期有再次跌倒、步態明顯不穩或日常活動能力下降等情形，建議安排醫療、復健或相關專業人員進一步評估。</div></div></div>`;
         if (score >= 3)
-          return `<div class="alert-card alert-high"><div class="alert-card-hdr"><i class="fa-solid fa-circle-exclamation"></i>風險稍高，建議安排專業評估</div><div class="alert-card-body"><div class="alert-intro">本次評估顯示跌倒風險偏高，建議安排醫療專業人員進一步評估步態、平衡與下肢肌力狀況，並同步檢視用藥、視力及居家環境安全，以降低再次跌倒風險。</div></div></div>`;
-        return `<div class="alert-card alert-danger"><div class="alert-card-hdr"><i class="fa-solid fa-xmark-circle"></i>高度危險，建議儘速專業介入</div><div class="alert-card-body"><div class="alert-intro">本次評估顯示跌倒風險達高度危險等級，建議儘速由醫療、復健或照護專業人員進行全面性評估；必要時安排照護協助、輔具使用或復健介入，以降低再次跌倒及受傷風險。</div></div></div>`;
+          return `<div class="alert-card alert-high"><div class="alert-card-hdr"><i class="fa-solid fa-circle-exclamation"></i>風險偏高，建議安排專業評估與復能介入</div><div class="alert-card-body"><div class="alert-intro">本次評估結果顯示，受測者跌倒風險偏高，可能與步態穩定度下降、平衡控制不足或下肢肌力衰退有關。建議安排醫療、復健或相關專業人員進一步評估，並依受測者狀況規劃平衡訓練、下肢肌力訓練、步態訓練及日常活動安全指導。同時，應同步檢視用藥、視力與居家環境，以降低再次跌倒及跌倒後傷害風險。</div></div></div>`;
+        return `<div class="alert-card alert-danger"><div class="alert-card-hdr"><i class="fa-solid fa-xmark-circle"></i>高度風險，建議儘速進行專業介入與照護調整</div><div class="alert-card-body"><div class="alert-intro">本次評估結果顯示，受測者跌倒風險已達高度風險等級，建議儘速由醫療、復健或相關專業人員進行全面性評估，包含步態、平衡、下肢肌力、輔具使用、居家環境及日常活動安全。後續應依評估結果安排個別化復能介入、家屬支持與環境改善措施，並提高短期追蹤頻率，以降低再次跌倒、跌倒受傷及功能退化風險。</div></div></div>`;
       }
 
       const rawData = sessionStorage.getItem("selectedPersonData");
